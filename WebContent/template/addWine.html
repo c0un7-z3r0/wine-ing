@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Wine'ing adding Wine</title>
-</head>
-<body>
-Add some wine here ...
 
+Add some wine here ...
+<form method="get" action="routing.jsp">
 <table>
 	<tr>
 		<td>Name</td>
-		<td><input type="text" name="wineName"></td>
+		<td><input type="text" name="name"></td>
 	</tr>
 	<tr>
 		<td>Type</td>
 		<td>
-			<select>
-				<option>type1</option>
-				<option>type2</option>
-				<option>type3</option>
+			<select name="type">
+				<option name="type" value="type1">type1</option>
+				<option name="type" value="type2">type2</option>
+				<option name="type" value="type3">type3</option>
 			</select>
 		</td>
 	</tr>
 </table>
+<input type="hidden" value="add" name="action"/>
+<input type="submit" value="submit"/>
+</form>
 
 
-
-
-</body>
 </html>
