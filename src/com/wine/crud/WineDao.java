@@ -1,6 +1,10 @@
 package com.wine.crud;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.xml.parsers.DocumentBuilder;
@@ -12,11 +16,16 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 /**
@@ -31,11 +40,20 @@ public class WineDao {
 //	private String path = app.getRealPath("/");
 	private String path = "/Users/david/Projects/berufsschule/wine-ing/";
 	private File file = new File(path + "wine.xml");
-
+	/**
+	 * pass the application from the jsp
+	 * @param app
+	 */
 	public WineDao(ServletContext app){
 		this.app = app;
 	}
 	
+	
+	/**
+	 * Adds a new node to the xml
+	 * @param wineName
+	 * @param wineType
+	 */
 	public void addWine(String wineName, String wineType ){
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -87,16 +105,48 @@ public class WineDao {
 			e.printStackTrace();
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
+			System.out.print("Add Wine faild");
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			System.out.print("Add Wine faild");
 			e.printStackTrace();
 		}
 		
 	}
+	public List<Map<String, String>> searchWine(String search, String value) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException{
+		List<Map<String, String>> wineList = new ArrayList<Map<String,String>>();
+ 	   Map<String, String> tempMap = new HashMap<String,String>();
+
+		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
+        
+        DocumentBuilder builder =  builderFactory.newDocumentBuilder();
+         
+        Document xmlDocument = builder.parse(file);
+
+        XPath xPath =  XPathFactory.newInstance().newXPath();
+
+        System.out.println("*************************");
+        String expression = "/wine-ing/wine["+search+"='"+value+"']/*";
+        System.out.println(expression);
+        NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(xmlDocument, XPathConstants.NODESET);
+        for (int i = 0; i < nodeList.getLength(); i++) {
+           String key = nodeList.item(i).getNodeName();
+           String nodeValue = nodeList.item(i).getFirstChild().getNodeValue();
+           if(key.equals("name")){
+        	   wineList.add(tempMap);
+        	   tempMap.clear();
+           }
+	           tempMap.put(key , nodeValue);
+	           System.out.println(nodeList.item(i).getNodeName()); 
 	
-	public void getWine(){
+	            System.out.println(nodeList.item(i).getFirstChild().getNodeValue()); 
+        }
+        System.out.println("*************************");
+
 		
+		return wineList;
+	
 	}
 	
 	public void getAllWine(){
