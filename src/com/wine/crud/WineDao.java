@@ -32,22 +32,18 @@ import org.xml.sax.SAXException;
 /**
  * WineDao = Wine Data Access Object C R U D
  * 
- * Methods: 
- * addWine(wineName, wineType)	=	adds a wine to the xml file to add
- * 									more nodes to a wine add them here
- * 									if return is true everything worked
- * 	
- * searchWine(search, value)	=	find in wine where search == value
- * 									returns a List or if something
- * 									went wrong null
+ * Methods: addWine(wineName, wineType) = adds a wine to the xml file to add
+ * more nodes to a wine add them here if return is true everything worked
+ * 
+ * searchWine(search, value) = find in wine where search == value returns a List
+ * or if something went wrong null
  * 
  * @author David
  * 
  */
 public class WineDao {
 
-	private ServletContext app;
-	// private String path = app.getRealPath("/");
+	// TODO: private String path = app.getRealPath("/");
 	private String path = "/Users/david/Projects/berufsschule/wine-ing/";
 	private File file = new File(path + "wine.xml");
 
@@ -56,19 +52,19 @@ public class WineDao {
 	 * 
 	 * @param app
 	 */
-	public WineDao(ServletContext app) {
-		this.app = app;
+	public WineDao() {
 	}
 
 	/**
 	 * Adds a new node to the xml file more parameters can be added her if
 	 * needed
+	 * 
 	 * @param wineName
 	 * @param wineType
-	 * @return if true everything worked 
+	 * @return if true everything worked
 	 */
 	public boolean addWine(String wineName, String wineType) {
-		if(wineName == null || wineName.isEmpty() )
+		if (wineName == null || wineName.isEmpty())
 			return false;
 		try {
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -108,7 +104,6 @@ public class WineDao {
 
 			System.out.println("File saved!");
 			return true;
-
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			System.out.print("Add Wine faild");
@@ -143,28 +138,19 @@ public class WineDao {
 	}
 
 	/**
-	 * searches the xml for where the "search" == "value" returns a list with a
-	 * hashMap of the found elements
-	 * 
+	 * Searches for the matching wines in xml and returns
+	 * a list with wine objects
 	 * @param search
-	 *            = the element we are looking for
 	 * @param value
-	 *            = the value of the search element
-	 * @return List<Map<String, String>>
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
-	 * @throws XPathExpressionException
+	 * @return List containing Wine Objects
 	 */
-	public List<Map<String, String>> searchWine(String search, String value) {
-		if(value.isEmpty() || search == null || value == null || search.isEmpty())
+	public List<Wine> searchWine(String search, String value) {
+		if (value.isEmpty() || search == null || value == null
+				|| search.isEmpty())
 			return null;
 		try {
 			// the list of all found wines
-			List<Map<String, String>> wineList = new ArrayList<Map<String, String>>();
-			// the hashMap of a single found wine is getting copied into to the
-			// List
-			Map<String, String> tempMap = new HashMap<String, String>();
+			List<Wine> wineList = new ArrayList<Wine>();
 
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
 					.newInstance();
@@ -176,37 +162,47 @@ public class WineDao {
 
 			XPath xPath = XPathFactory.newInstance().newXPath();
 
-			// search term
-			String expression = "/wine-ing/wine[" + search + "='" + value + "']/*";
-			// uncomment for debug purpose
-			// System.out.println(expression);
+			/**
+			 * search expression
+			 */
+			String expression = "/wine-ing/wine[" + search + "='" + value
+					+ "']";
 
-			// compiles the search term expression and find the values searched
-			// for and return a NodeList
+			/**
+			 * compiles the search term expression and find the nodes matching the expression 
+			 */
 			NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(
 					xmlDocument, XPathConstants.NODESET);
-			if(nodeList == null)
-				return null;
-			if(nodeList.getLength() <= 0)
-				return null;
-			
-			// add this values of the nodelist to the hashmap and then to the
-			// list
-			for (int i = 0; i < nodeList.getLength(); i++) {
-				String key = nodeList.item(i).getNodeName();
-				String nodeValue = nodeList.item(i).getFirstChild()
-						.getNodeValue();
 
-				// if key is name add hashMap to list and start a new HashMap
-				if (key.equals("name")) {
-					wineList.add(tempMap);
-					tempMap.clear();
+			List<Map<String, String>> nodes = new ArrayList<Map<String, String>>();
+
+			/**
+			 * Create a List of Nodes 'nodes' and there children 
+			 */
+			int len = (nodeList != null) ? nodeList.getLength() : 0;
+			for (int i1 = 0; i1 < len; i1++) {
+				NodeList children = nodeList.item(i1).getChildNodes();
+
+				Map<String, String> childMap = new HashMap<String, String>();
+
+				for (int j = 0; j < children.getLength(); j++) {
+					Node child = children.item(j);
+					if (child.getNodeType() == Node.ELEMENT_NODE)
+						childMap.put(child.getNodeName(),
+								child.getTextContent());
 				}
-
-				tempMap.put(key, nodeValue);
-				// for debug
-				// System.out.println(nodeList.item(i).getNodeName() + " - " +
-				// nodeList.item(i).getFirstChild().getNodeValue());
+				nodes.add(childMap);
+			}
+			
+			/**
+			 * Create from the List nodes the wine objects and add them to the List wine
+			 */
+			int nodeLen = (nodes != null) ? nodes.size() : 0;
+			for (int j = 0; j < nodeLen; j++) {
+				Wine wine = new Wine();
+				wine.setName(nodes.get(j).get("name"));
+				wine.setType(nodes.get(j).get("type"));
+				wineList.add(wine);
 			}
 
 			return wineList;
