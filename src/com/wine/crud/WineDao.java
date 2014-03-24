@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,6 +16,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
@@ -23,6 +25,7 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Attr;
+import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -43,16 +46,14 @@ import org.xml.sax.SAXException;
  */
 public class WineDao {
 
-	// TODO: private String path = app.getRealPath("/");
-	private String path = "/Users/david/Projects/berufsschule/wine-ing/";
-	private File file = new File(path + "wine.xml");
+	private ServletContext context;
+	private String path;
+	private File file;
 
-	/**
-	 * pass the application from the jsp
-	 * 
-	 * @param app
-	 */
-	public WineDao() {
+	public WineDao(HttpServletRequest request) {
+		context = request.getServletContext();
+		path = context.getRealPath("xml");
+		file = new File(path + "/wine.xml"); 
 	}
 
 	/**
@@ -66,11 +67,8 @@ public class WineDao {
 	public boolean addWine(String wineName, String wineType) {
 		if (wineName == null || wineName.isEmpty())
 			return false;
-		try {
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(file);
 
+		Document doc = parseXml();
 			// get root element
 			Element elem = doc.getDocumentElement();
 
@@ -92,92 +90,150 @@ public class WineDao {
 			newWineNode.appendChild(name);
 			newWineNode.appendChild(type);
 
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory
-					.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-
-			StreamResult results = new StreamResult(file);
-
-			transformer.transform(source, results);
+			writeInXml(doc);
 
 			System.out.println("File saved!");
 			return true;
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.print("Add Wine faild");
-			e.printStackTrace();
-			return false;
-		} catch (TransformerConfigurationException e) {
-			// TODO Auto-generated catch block
-			System.out.print("Add Wine faild");
-			e.printStackTrace();
-			return false;
-
-		} catch (TransformerException e) {
-			// TODO Auto-generated catch block
-			System.out.print("Add Wine faild");
-			e.printStackTrace();
-			return false;
-
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			System.out.print("Add Wine faild");
-			e.printStackTrace();
-			return false;
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			System.out.print("Add Wine faild");
-			e.printStackTrace();
-			return false;
-
-		}
 
 	}
 
+	
+
 	/**
-	 * Searches for the matching wines in xml and returns
-	 * a list with wine objects
+	 * Searches for the matching wines in xml and returns a list with wine
+	 * objects
+	 * 
 	 * @param search
 	 * @param value
 	 * @return List containing Wine Objects
 	 */
 	public List<Wine> searchWine(String search, String value) {
+		List<Wine> wineList = new ArrayList<Wine>();
 		if (value.isEmpty() || search == null || value == null
 				|| search.isEmpty())
 			return null;
-		try {
-			// the list of all found wines
-			List<Wine> wineList = new ArrayList<Wine>();
+		/**
+		 * search expression
+		 */
+		String expression = "/wine-ing/wine[" + search + "='" + value
+				+ "']";
 
+		wineList = getWineList(expression);
+
+		return wineList;
+	}
+
+
+	public List<Wine> getAllWine()  {
+		
+		List<Wine> wineList = new ArrayList<Wine>();
+		/**
+		 * search expression
+		 */
+		String expression = "/wine-ing/wine";
+
+		wineList = getWineList(expression);
+
+		return wineList;
+
+	}
+
+
+	public void updateWine() {
+
+	}
+
+	public void deleteWine() {
+
+	}
+	
+	/**
+	 * Writes in the doc
+	 * @param doc
+	 * @throws TransformerFactoryConfigurationError
+	 * @throws TransformerConfigurationException
+	 * @throws TransformerException
+	 */
+	private void writeInXml(Document doc) {
+		try {
+		// write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory
+				.newInstance();
+		Transformer transformer;
+
+			transformer = transformerFactory.newTransformer();
+		
+		DOMSource source = new DOMSource(doc);
+
+		StreamResult results = new StreamResult(file);
+
+		transformer.transform(source, results);
+		} catch (TransformerConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Parses the xml to type Document
+	 * 
+	 * @return
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
+	private Document parseXml() {
+		try {
 			DocumentBuilderFactory builderFactory = DocumentBuilderFactory
 					.newInstance();
 
 			DocumentBuilder builder;
+
 			builder = builderFactory.newDocumentBuilder();
-
 			Document xmlDocument = builder.parse(file);
+			return xmlDocument;
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
+	 * generates a list of wine objects from the XPath search expression
+	 * @param expression
+	 * @return
+	 */
+	private List<Wine> getWineList(String expression) {
+		List<Wine> wineList = new ArrayList<Wine>();
+		Document doc = parseXml();
+		if(doc == null)
+			return wineList;
+		try {
 			XPath xPath = XPathFactory.newInstance().newXPath();
+			NodeList nodeList;
 
-			/**
-			 * search expression
-			 */
-			String expression = "/wine-ing/wine[" + search + "='" + value
-					+ "']";
+			nodeList = (NodeList) xPath.compile(expression).evaluate(doc,
+					XPathConstants.NODESET);
 
-			/**
-			 * compiles the search term expression and find the nodes matching the expression 
-			 */
-			NodeList nodeList = (NodeList) xPath.compile(expression).evaluate(
-					xmlDocument, XPathConstants.NODESET);
-
+			// the list of all found wines
 			List<Map<String, String>> nodes = new ArrayList<Map<String, String>>();
 
 			/**
-			 * Create a List of Nodes 'nodes' and there children 
+			 * Create a List of Nodes 'nodes' and there children
 			 */
 			int len = (nodeList != null) ? nodeList.getLength() : 0;
 			for (int i1 = 0; i1 < len; i1++) {
@@ -193,9 +249,10 @@ public class WineDao {
 				}
 				nodes.add(childMap);
 			}
-			
+
 			/**
-			 * Create from the List nodes the wine objects and add them to the List wine
+			 * Create from the List nodes the wine objects and add them to the
+			 * List wine
 			 */
 			int nodeLen = (nodes != null) ? nodes.size() : 0;
 			for (int j = 0; j < nodeLen; j++) {
@@ -204,41 +261,12 @@ public class WineDao {
 				wine.setType(nodes.get(j).get("type"));
 				wineList.add(wine);
 			}
-
 			return wineList;
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
 
 		} catch (XPathExpressionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
-
+			return wineList;
 		}
 	}
-
-	public void getAllWine() {
-
-	}
-
-	public void updateWine() {
-
-	}
-
-	public void deleteWine() {
-
-	}
-
 }

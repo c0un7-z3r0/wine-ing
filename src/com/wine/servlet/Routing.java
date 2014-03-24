@@ -19,7 +19,7 @@ public class Routing extends HttpServlet {
 	@Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,
         IOException {
-		WineDao wd = new WineDao();
+		WineDao wd = new WineDao(request);
 		
 		if(request.getParameter("action").equals("add")){
 			wd.addWine(request.getParameter("name"), request.getParameter("type"));
@@ -27,7 +27,7 @@ public class Routing extends HttpServlet {
 		if(request.getParameter("action").equals("search")){
 			List<Wine> result = wd.searchWine(request.getParameter("search"), request.getParameter("value"));
 			request.getSession().setAttribute("wineList", result);
-			request.getRequestDispatcher("/searchResult.jsp").forward(request, response);
+			request.getRequestDispatcher("/displayResults.jsp").forward(request, response);
 		}	
     }
  
