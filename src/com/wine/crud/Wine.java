@@ -3,7 +3,12 @@ package com.wine.crud;
 public class Wine {
 
 	private String name;
+	private String kind;
+	private String region;
+	private String winemaker;
 	private String type;
+	private double price;
+	
 	
 	public Wine(){
 
@@ -23,6 +28,38 @@ public class Wine {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getKind() {
+		return kind;
+	}
+
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getWinemaker() {
+		return winemaker;
+	}
+
+	public void setWinemaker(String winemaker) {
+		this.winemaker = winemaker;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 	
 	

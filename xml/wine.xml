@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wine-ing>
+	<wine>
+		<name>test</name>
+		<kind>kind1</kind>
+		<region>region1</region>
+		<winemaker>winemaker1</winemaker>
+		<type>type1</type>
+		<price>102.00</price>
+		<action>add</action>
+	</wine>
+		<wine>
+		<name>test</name>
+		<kind>kind1</kind>
+		<region>region1</region>
+		<winemaker>winemaker3</winemaker>
+		<type>type1</type>
+		<price>150.00</price>
+		<action>add</action>
+	</wine>	<wine>
+		<name>test</name>
+		<kind>kind2</kind>
+		<region>region1</region>
+		<winemaker>winemaker1</winemaker>
+		<type>type2</type>
+		<price>200.506</price>
+		<action>add</action>
+	</wine>
+
+	<wine>
+		<name>test</name>
+		<kind>kind1</kind>
+		<region>region1</region>
+		<winemaker>winemaker1</winemaker>
+		<type>type1</type>
+		<price>1000.00</price>
+		<action>add</action>
+	</wine>
+</wine-ing>

@@ -2,6 +2,8 @@ package com.wine.crud;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,13 +48,12 @@ import org.xml.sax.SAXException;
  */
 public class WineDao {
 
-	private ServletContext context;
 	private String path;
 	private File file;
 
-	public WineDao(HttpServletRequest request) {
-		context = request.getServletContext();
-		path = context.getRealPath("xml");
+	public WineDao(HttpServletRequest request) throws MalformedURLException {
+				path = "/Users/david/Projects/berufsschule/wine-ing/xml";
+
 		file = new File(path + "/wine.xml"); 
 	}
 
@@ -64,32 +65,26 @@ public class WineDao {
 	 * @param wineType
 	 * @return if true everything worked
 	 */
-	public boolean addWine(String wineName, String wineType) {
-		if (wineName == null || wineName.isEmpty())
-			return false;
-
+	public boolean addWine(Map<String, String[]> resultMap) {
+		
 		Document doc = parseXml();
-			// get root element
-			Element elem = doc.getDocumentElement();
+		if(doc == null){
+			System.out.println("rror");
+				return false;
+		}
+		// get root element
+		Element elem = doc.getDocumentElement();
 
-			// create new node
-			Node newWineNode = doc.createElement("wine");
-			elem.appendChild(newWineNode);
-
-			// create elements for new node
-			// e.g. Element nameOfElement =
-			// doc.createElement("nameOfElementInXML");
-			Element name = doc.createElement("name");
-			Element type = doc.createElement("type");
-
-			// fill those elements with a value from the parameter passed over
-			name.appendChild(doc.createTextNode(wineName));
-			type.appendChild(doc.createTextNode(wineType));
-
-			// add the elements to parent (wine)
-			newWineNode.appendChild(name);
-			newWineNode.appendChild(type);
-
+		// create new node
+		Node newWineNode = doc.createElement("wine");
+		elem.appendChild(newWineNode);
+		
+		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
+			System.out.println(entry.getKey() + " - " + entry.getValue()[0]);
+			Element childElem = doc.createElement(entry.getKey());
+			childElem.appendChild(doc.createTextNode(entry.getValue()[0]));
+			newWineNode.appendChild(childElem);
+		}
 			writeInXml(doc);
 
 			System.out.println("File saved!");
@@ -161,12 +156,12 @@ public class WineDao {
 				.newInstance();
 		Transformer transformer;
 
-			transformer = transformerFactory.newTransformer();
+		transformer = transformerFactory.newTransformer();
 		
 		DOMSource source = new DOMSource(doc);
 
 		StreamResult results = new StreamResult(file);
-
+		System.out.println(source.toString());
 		transformer.transform(source, results);
 		} catch (TransformerConfigurationException e) {
 			// TODO Auto-generated catch block
@@ -191,25 +186,24 @@ public class WineDao {
 					.newInstance();
 
 			DocumentBuilder builder;
-
+			
 			builder = builderFactory.newDocumentBuilder();
 			Document xmlDocument = builder.parse(file);
+			
 			return xmlDocument;
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+		return null;
 	}
 	
 	/**
@@ -258,7 +252,11 @@ public class WineDao {
 			for (int j = 0; j < nodeLen; j++) {
 				Wine wine = new Wine();
 				wine.setName(nodes.get(j).get("name"));
+				wine.setKind(nodes.get(j).get("kind"));
+				wine.setRegion(nodes.get(j).get("region"));
+				wine.setWinemaker(nodes.get(j).get("winemaker"));
 				wine.setType(nodes.get(j).get("type"));
+				wine.setPrice(Double.parseDouble(nodes.get(j).get("price")));
 				wineList.add(wine);
 			}
 			return wineList;
