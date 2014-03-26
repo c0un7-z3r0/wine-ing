@@ -1,39 +1,100 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wine-ing>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wine-ing>
 	<wine>
-		<name>test</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type1</type>
-		<price>102.00</price>
-		<action>add</action>
-	</wine>
 		<wine>
-		<name>test</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker3</winemaker>
-		<type>type1</type>
-		<price>150.00</price>
-		<action>add</action>
-	</wine>	<wine>
-		<name>test</name>
-		<kind>kind2</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type2</type>
-		<price>200.506</price>
-		<action>add</action>
-	</wine>
+			<name>test</name>
+			<kind>kind1</kind>
+			<region>region1</region>
+			<winemaker>winemaker1</winemaker>
+			<type>type1</type>
+			<price>102.00</price>
+			<action>add</action>
+		</wine>
+		<wine>
+			<name>test</name>
+			<kind>kind1</kind>
+			<region>region1</region>
+			<winemaker>winemaker3</winemaker>
+			<type>type1</type>
+			<price>150.00</price>
+			<action>add</action>
+		</wine>
+		<wine>
+			<name>test</name>
+			<kind>kind2</kind>
+			<region>region1</region>
+			<winemaker>winemaker1</winemaker>
+			<type>type2</type>
+			<price>200.50</price>
+			<action>add</action>
+		</wine>
 
-	<wine>
-		<name>test</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type1</type>
-		<price>1000.00</price>
-		<action>add</action>
+		<wine>
+			<name>test</name>
+			<kind>kind1</kind>
+			<region>region1</region>
+			<winemaker>winemaker1</winemaker>
+			<type>type1</type>
+			<price>1000.00</price>
+			<action>add</action>
+		</wine>
 	</wine>
+		<wineKind>
+			<kind>
+				<value>trocken</value>
+			</kind>
+			<kind>
+				<value>halbtrocken</value>
+			</kind>
+			<kind>
+				<value>lieblich</value>
+			</kind>
+			<kind>
+				<value>süß</value>
+			</kind>
+		</wineKind>
+		<wineRegion>
+			<region>
+				<value>
+					Frankreich
+				</value>
+			</region>
+			<region>
+				<value>
+					Deutschland
+				</value>
+			</region>
+			<region>
+				<value>
+					Italien
+				</value>
+			</region>
+		</wineRegion>
+		<wineMaker>
+			<maker>
+				<value>
+					Bob der Baumeister
+				</value>
+			</maker>
+			<maker>
+				<value>
+					Paul Schmidt
+				</value>
+			</maker>
+			<maker>
+				<value>
+					Hans Meier Inc.
+				</value>
+			</maker>
+		</wineMaker>
+		<wineType>
+			<type>
+				<value>Rotwein</value>
+			</type>
+			<type>
+				<value>Gelbwein</value>
+			</type>
+			<type>
+				<value>Weißwein</value>
+			</type>
+		</wineType>
 </wine-ing>

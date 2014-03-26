@@ -22,15 +22,31 @@ public class Routing extends HttpServlet {
         IOException {
 		WineDao wd = new WineDao(request);
 		
-		if(request.getParameter("action").equals("add")){
+		if(request.getParameter("addWineToXML") != null){
 			wd.addWine(request.getParameterMap());
 		}
-		if(request.getParameter("action").equals("search")){
-			List<Wine> result = wd.searchWine(request.getParameter("search"), request.getParameter("value"));
+		if(request.getParameter("searchWineForm") != null){
+			List<Wine> result = wd.searchWine(request.getParameter("search"));
 			request.getSession().setAttribute("wineList", result);
 			request.getRequestDispatcher("/displayResults.jsp").forward(request, response);
 		}	
-		if(request.getParameter("action").equals("getAllWine")){
+		if(request.getParameter("addWineForm") != null){
+			
+			List<String> kind = wd.getWineSpecificList("/wine-ing/wineKind/kind");
+			request.getSession().setAttribute("kind", kind);
+			
+			List<String> region = wd.getWineSpecificList("/wine-ing/wineRegion/region");
+			request.getSession().setAttribute("region", region);
+			
+			List<String> wineMaker = wd.getWineSpecificList("/wine-ing/wineMaker/maker");
+			request.getSession().setAttribute("wineMaker", wineMaker);
+			
+			List<String> wineType = wd.getWineSpecificList("/wine-ing/wineType/type");
+			request.getSession().setAttribute("wineType", wineType);
+			
+			request.getRequestDispatcher("/addWine.jsp").forward(request, response);
+		}
+		if(request.getParameter("getAllWine") != null){
 			List<Wine> result = wd.getAllWine();
 			request.getSession().setAttribute("wineList", result);
 			request.getRequestDispatcher("/displayResults.jsp").forward(request, response);
