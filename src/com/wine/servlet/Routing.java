@@ -14,6 +14,11 @@ import javax.servlet.http.HttpSession;
 import com.wine.crud.Wine;
 import com.wine.crud.WineDao;
 
+import org.json.JSONArray;              
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.w3c.dom.DOMException;
+
 public class Routing extends HttpServlet {
 	
 	
@@ -23,12 +28,51 @@ public class Routing extends HttpServlet {
 		WineDao wd = new WineDao(request);
 		
 		if(request.getParameter("addWineToXML") != null){
-			wd.addWine(request.getParameterMap());
+			boolean returnValue = wd.addWine(request.getParameterMap());
+			
 		}
 		if(request.getParameter("searchWineForm") != null){
-			List<Wine> result = wd.searchWine(request.getParameter("search"));
-			request.getSession().setAttribute("wineList", result);
-			request.getRequestDispatcher("/displayResults.jsp").forward(request, response);
+			List<Wine> result;
+			try {
+				result = wd.searchWine(request.getParameter("search"));
+				request.getSession().setAttribute("wineList", result);
+				request.getRequestDispatcher("/displayResults.jsp").forward(request, response);
+				
+			} catch (DOMException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+//			JSONObject json      = new JSONObject();
+//			JSONArray  wines = new JSONArray();
+//			JSONObject wine;
+//			try
+//			{
+////			   int count = result.size();
+////		       System.out.println(result.size());
+//		       for(Wine wineObj: result){
+//		    	   wine = new JSONObject();
+//			       wine.put("Name"     , wineObj.getName());
+//			       wine.put("Type"     , wineObj.getType());
+//			       System.out.println(wineObj.getKind());
+//			       wines.put(wine); 
+//		       }
+//			
+//			   json.put("WineList", wines);
+//			}
+//			catch (JSONException jse)
+//			{ 
+//				jse.getStackTrace();
+//			}
+//			response.setContentType("application/json");
+//			response.getWriter().write(json.toString());
+//			
+			
+			
 		}	
 		if(request.getParameter("addWineForm") != null){
 			

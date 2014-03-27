@@ -1,6 +1,8 @@
 package com.wine.crud;
 
-public class Wine {
+import java.io.Serializable;
+
+public class Wine implements Serializable {
 
 	private String name;
 	private String kind;

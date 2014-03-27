@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><wine-ing>
-	<wine>
 		<wine>
 			<name>test</name>
 			<kind>kind1</kind>
@@ -37,7 +36,6 @@
 			<price>1000.00</price>
 			<action>add</action>
 		</wine>
-	</wine>
 		<wineKind>
 			<kind>
 				<value>trocken</value>

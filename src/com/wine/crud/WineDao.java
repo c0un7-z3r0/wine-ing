@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -103,17 +106,20 @@ public class WineDao {
 	 * @param search
 	 * @param value
 	 * @return List containing Wine Objects
+	 * @throws JSONException 
+	 * @throws DOMException 
 	 */
-	public List<Wine> searchWine(String search) {
+	public List<Wine> searchWine(String search) throws DOMException, JSONException {
 		List<Wine> wineList = new ArrayList<Wine>();
+		System.out.println("----------->-------------------<---------------- " + search);
 		if (search == null || search.isEmpty())
 			return wineList;
 		/**
 		 * search expression
 		 */
-		String expression = "/wine-ing/wine[contains(., '" + search + "')]";
+		String expression = "//wine-ing/wine[contains(., '" + search + "')]";
 		List<Map<String, String>> nodeList = getNodeList(expression);
-
+		List<JSONObject> json = getNodeListJSON(expression);
 		wineList = getWineList(nodeList);
 
 		return wineList;
@@ -221,7 +227,6 @@ public class WineDao {
 		}
 		return null;
 	}
-
 	private List<Map<String, String>> getNodeList(String expression) {
 
 		Document doc = parseXml();
@@ -240,6 +245,8 @@ public class WineDao {
 			 * Create a List of Nodes 'nodes' and there children
 			 */
 			int len = (nodeList != null) ? nodeList.getLength() : 0;
+			System.out.println("!!!!!!!!!!!!!!!!!!!!! ----- " + len);
+
 			for (int i1 = 0; i1 < len; i1++) {
 				NodeList children = nodeList.item(i1).getChildNodes();
 
@@ -258,6 +265,60 @@ public class WineDao {
 				}
 				System.out.println("childMap " + childMap);
 				nodes.add(childMap);
+			}
+			return nodes;
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	private List<JSONObject> getNodeListJSON(String expression) throws DOMException, JSONException {
+
+		Document doc = parseXml();
+//		List<Map<String, String>> nodes = new ArrayList<Map<String, String>>();
+
+		if (doc == null)
+			return null;
+		try {
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			NodeList nodeList;
+			nodeList = (NodeList) xPath.compile(expression).evaluate(doc,
+					XPathConstants.NODESET);
+			// the list of all found wines
+			List<JSONObject> nodes = new ArrayList<JSONObject>();
+
+			/**
+			 * Create a List of Nodes 'nodes' and there children
+			 */
+			int len = (nodeList != null) ? nodeList.getLength() : 0;
+			System.out.println("!!!!!!!!!!!!!!!!!!!!! ----- " + len);
+			for (int i1 = 0; i1 < len; i1++) {
+				JSONObject wineJson = new JSONObject();
+				
+				NodeList children = nodeList.item(i1).getChildNodes();
+
+				Map<String, String> childMap = new HashMap<String, String>();
+
+				for (int j = 0; j < children.getLength(); j++) {
+					System.out.println(">>>>>>>>>>>>>>>>> " + children.getLength() + ">>>>>>>>>>>>>>>>>");
+					Node child = children.item(j);
+					if (child.getNodeType() == Node.ELEMENT_NODE){
+						System.out.println(j + ". child " + child.getNodeName() + " - " + child.getTextContent());
+						wineJson.put(child.getNodeName(),
+								child.getTextContent());
+
+					}
+						
+				}
+				System.out.println(">>>>>>>>>>>>>>>>> " + children.getLength() + ">>>>>>>>>>>>>>>>>");
+
+				System.out.println("wineJson " + wineJson);
+
+				nodes.add(wineJson);
+				System.out.println("nodes " + nodes);
+
 			}
 			return nodes;
 		} catch (XPathExpressionException e) {
