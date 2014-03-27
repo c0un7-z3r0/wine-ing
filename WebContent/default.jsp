@@ -13,7 +13,8 @@
 <div class="menu">
 	<input type="button" name="add" value="Add Wine" onclick="includePage('addWine.jsp')"/>
 	<input type="text" class="searchTerm" name="searchTerm" />
-	<input type="button" name="add" value="Search" onclick="searchWine()"/>
+	<input type="button" name="search" value="Search" onclick="searchWine()"/>
+	<input type="button" name="getAll" value="Get All" onclick="getAllWine()"/>
 	
 </div>
 <div class="content"></div>
