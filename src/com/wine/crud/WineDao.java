@@ -69,12 +69,11 @@ public class WineDao {
 	 * @param wineType
 	 * @return if true everything worked
 	 */
-	public boolean addWine(Map<String, String[]> resultMap) {
-
+	public String addWine(Map<String, String[]> resultMap) {
+		String returnMsg = "Adding Wine to XML"+ "</br>";
 		Document doc = parseXml();
 		if (doc == null) {
-			System.out.println("rror");
-			return false;
+			return returnMsg = "Error: No document found please try again!";
 		}
 		// get root element
 		Element elem = doc.getDocumentElement();
@@ -82,21 +81,19 @@ public class WineDao {
 		// create new node
 		Node newWineNode = doc.createElement("wine");
 		elem.appendChild(newWineNode);
+		returnMsg += "create new wine in XML"+ "</br>";
 
 		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
 			System.out.println(entry.getKey() + " - " + entry.getValue()[0]);
 			if (!entry.getKey().equals("addWineToXML")) {
-
-			
 				Element childElem = doc.createElement(entry.getKey());
 				childElem.appendChild(doc.createTextNode(entry.getValue()[0].trim()));
 				newWineNode.appendChild(childElem);
+				returnMsg += entry.getKey() + ": " + entry.getValue()[0].trim() + "</br>";
 			}
 		}
 		writeInXml(doc);
-
-		System.out.println("File saved!");
-		return true;
+		return returnMsg += "Wine has been saved in XML";
 
 	}
 

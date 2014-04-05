@@ -21,6 +21,10 @@ function addWine() {
 	};
 	console.log(jsonObj);
 	$.getJSON('routing', jsonObj).done(function(json) {
+		$.each(json.messages, function(index, item) {
+				$('.content').html(item['message']);
+		});
+
 
 	}).fail(function(jqxhr, textStatus, error) {
 		var err = textStatus + ", " + error;
@@ -114,6 +118,9 @@ function getAllWine() {
 }
 function searchWine() {
 	var searchTerm = $('.searchTerm').val();
+	if(searchTerm == ""){
+		return;
+	}
 	$.getJSON('routing', {
 		searchWineForm : true,
 		search : searchTerm

@@ -31,7 +31,15 @@ public class Routing extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		WineDao wd = new WineDao(request);
 		if (request.getParameter("addWineToXML") != null) {
-			wd.addWine(request.getParameterMap());
+			String returnString = wd.addWine(request.getParameterMap());
+			List<String> returnMessagesList = new ArrayList<String>();
+			returnMessagesList.add(returnString);
+			try {
+				returnJson(response, returnMessagesList);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		if (request.getParameter("searchWineForm") != null) {
 			List<Wine> result;
@@ -113,6 +121,10 @@ public class Routing extends HttpServlet {
 		for (Object object : result) {
 			int id = 0;
 			jsonObj = new JSONObject();
+			if(object instanceof String){
+				jsonName = "messages";
+				jsonObj.put("message", object.toString());
+			}
 			if(object instanceof List<?>){
 				jsonName="formElements";
 				for (Object obj : (List<?>)object){
