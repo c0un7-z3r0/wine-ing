@@ -86,6 +86,15 @@ public class WineDao {
 		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
 			System.out.println(entry.getKey() + " - " + entry.getValue()[0]);
 			if (!entry.getKey().equals("addWineToXML")) {
+				if(entry.getKey().equals("price")){
+					try{
+						Double testPriceForRightValue = Double.parseDouble(entry.getValue()[0]);
+					} catch (NullPointerException e) {
+						return returnMsg += "Error: Price is empty!";
+					} catch(NumberFormatException e){
+						return returnMsg += "Error: Price is in wrong format!";
+					}
+				}
 				Element childElem = doc.createElement(entry.getKey());
 				childElem.appendChild(doc.createTextNode(entry.getValue()[0].trim()));
 				newWineNode.appendChild(childElem);
@@ -367,6 +376,8 @@ public class WineDao {
 			try {
 				wine.setPrice(Double.parseDouble(nodes.get(j).get("price")));
 			} catch (NullPointerException e) {
+				wine.setPrice(0.00d);
+			} catch(NumberFormatException e){
 				wine.setPrice(0.00d);
 			}
 			wineList.add(wine);

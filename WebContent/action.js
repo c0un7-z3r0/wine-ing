@@ -31,7 +31,6 @@ function addWine() {
 		console.log("Request Failed: " + err);
 	});
 
-	// TODO: send to Routing
 
 }
 

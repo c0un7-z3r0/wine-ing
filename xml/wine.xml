@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<wine-ing>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wine-ing>
 	<wine>
 		<name>test</name>
 		<kind>kind1</kind>
@@ -123,4 +122,4 @@
 		<type>Rotwein</type>
 		<price>345</price>
 	</wine>
-</wine-ing>
+<wine><name>123</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>12</price></wine><wine><name>1243</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>deef</price></wine><wine><name>wer</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>23</price></wine><wine><name>vfea</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>23</price></wine></wine-ing>
