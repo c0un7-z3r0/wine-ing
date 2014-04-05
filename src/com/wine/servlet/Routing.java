@@ -2,7 +2,9 @@ package com.wine.servlet;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -14,9 +16,12 @@ import javax.servlet.http.HttpSession;
 import com.wine.crud.Wine;
 import com.wine.crud.WineDao;
 
-import org.json.JSONArray;
+import org.json.simple.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.w3c.dom.DOMException;
 
 public class Routing extends HttpServlet {
@@ -25,10 +30,8 @@ public class Routing extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		WineDao wd = new WineDao(request);
-
 		if (request.getParameter("addWineToXML") != null) {
-			boolean returnValue = wd.addWine(request.getParameterMap());
-
+			wd.addWine(request.getParameterMap());
 		}
 		if (request.getParameter("searchWineForm") != null) {
 			List<Wine> result;
@@ -44,26 +47,41 @@ public class Routing extends HttpServlet {
 
 		}
 		if (request.getParameter("addWineForm") != null) {
+			List<List<String>> formElements = new ArrayList<List<String>>();
 
 			List<String> kind = wd
-					.getWineSpecificList("/wine-ing/wineKind/kind");
-			request.getSession().setAttribute("kind", kind);
+					.getWineSpecificList("kind","/wine-ing/wineKind/kind");
+//			request.getSession().setAttribute("kind", kind);
 
 			List<String> region = wd
-					.getWineSpecificList("/wine-ing/wineRegion/region");
-			request.getSession().setAttribute("region", region);
+					.getWineSpecificList("region","/wine-ing/wineRegion/region");
+//			request.getSession().setAttribute("region", region);
 
 			List<String> wineMaker = wd
-					.getWineSpecificList("/wine-ing/wineMaker/maker");
-			request.getSession().setAttribute("wineMaker", wineMaker);
+					.getWineSpecificList("wineMaker","/wine-ing/wineMaker/maker");
+//			request.getSession().setAttribute("wineMaker", wineMaker);
 
 			List<String> wineType = wd
-					.getWineSpecificList("/wine-ing/wineType/type");
-			request.getSession().setAttribute("wineType", wineType);
+					.getWineSpecificList("wineType","/wine-ing/wineType/type");
+//			request.getSession().setAttribute("wineType", wineType);
 
-			request.getRequestDispatcher("/addWine.jsp").forward(request,
-					response);
+//			request.getRequestDispatcher("/addWine.jsp").forward(request,
+//					response);
+			formElements.add(kind);
+			formElements.add(region);
+			formElements.add(wineMaker);
+			formElements.add(wineType);
+			
+			try {
+				returnJson(response, formElements);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+		
+		
+		
 		if (request.getParameter("getAllWine") != null) {
 			List<Wine> result = wd.getAllWine();
 			try {
@@ -76,23 +94,34 @@ public class Routing extends HttpServlet {
 		}
 	}
 
+
+
 	/**
 	 * @param response
 	 * @param result
 	 * @throws JSONException
 	 * @throws IOException
 	 */
-	private void returnJson(HttpServletResponse response, List<Wine> result)
+	private void returnJson(HttpServletResponse response, List<?> result)
 			throws JSONException, IOException {
 
 		JSONObject json = new JSONObject();
-		JSONArray jsonArray = new JSONArray();
+		org.json.JSONArray jsonArray = new org.json.JSONArray();
 		JSONObject jsonObj;
 		String jsonName = "error";
-		
+
 		for (Object object : result) {
+			int id = 0;
 			jsonObj = new JSONObject();
-			
+			if(object instanceof List<?>){
+				jsonName="formElements";
+				for (Object obj : (List<?>)object){
+					if(obj instanceof String){
+						jsonObj.put( Integer.toString(id), obj.toString().replaceAll("[\r\n]", "") );
+						id++;
+					}
+				}
+			}
 			if (object instanceof Wine) {
 				jsonName = "wineList";
 				jsonObj.put("name", ((Wine) object).getName());

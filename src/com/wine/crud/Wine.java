@@ -16,6 +16,7 @@ public class Wine implements Serializable {
 
 	}
 
+	
 	public String getName() {
 		return name;
 	}
@@ -63,6 +64,8 @@ public class Wine implements Serializable {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+	public void setPrice(String str) {
+		this.price = Double.parseDouble(str);
+	}
 	
 }
