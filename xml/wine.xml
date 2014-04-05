@@ -9,7 +9,7 @@
 		<price>102.00</price>
 		<action>add</action>
 	</wine>
-		<wine>
+	<wine>
 		<name>test</name>
 		<kind>kind1</kind>
 		<region>region1</region>
@@ -17,13 +17,14 @@
 		<type>type1</type>
 		<price>150.00</price>
 		<action>add</action>
-	</wine>	<wine>
+	</wine>
+	<wine>
 		<name>test</name>
 		<kind>kind2</kind>
 		<region>region1</region>
 		<winemaker>winemaker1</winemaker>
 		<type>type2</type>
-		<price>200.506</price>
+		<price>200.50</price>
 		<action>add</action>
 	</wine>
 
@@ -35,5 +36,91 @@
 		<type>type1</type>
 		<price>1000.00</price>
 		<action>add</action>
+	</wine>
+	<wine>
+		<name>bot of wine</name>
+		<kind>kind1</kind>
+		<region>region1</region>
+		<winemaker>winemaker1</winemaker>
+		<type>type1</type>
+		<price>1000.00</price>
+		<action>add</action>
+	</wine>
+	<wineKind>
+		<kind>
+			<value>trocken</value>
+		</kind>
+		<kind>
+			<value>halbtrocken</value>
+		</kind>
+		<kind>
+			<value>lieblich</value>
+		</kind>
+		<kind>
+			<value>süß</value>
+		</kind>
+	</wineKind>
+	<wineRegion>
+		<region>
+			<value>
+				Frankreich
+			</value>
+		</region>
+		<region>
+			<value>
+				Deutschland
+			</value>
+		</region>
+		<region>
+			<value>
+				Italien
+			</value>
+		</region>
+	</wineRegion>
+	<wineMaker>
+		<maker>
+			<value>
+				Bob der Baumeister
+			</value>
+		</maker>
+		<maker>
+			<value>
+				Paul Schmidt
+			</value>
+		</maker>
+		<maker>
+			<value>
+				Hans Meier Inc.
+			</value>
+		</maker>
+	</wineMaker>
+	<wineType>
+		<type>
+			<value>Rotwein</value>
+		</type>
+		<type>
+			<value>Gelbwein</value>
+		</type>
+		<type>
+			<value>Weißwein</value>
+		</type>
+	</wineType>
+
+
+	<wine>
+		<name>eklgnr</name>
+		<kind>trocken</kind>
+		<region> Frankreich			</region>
+		<winemaker> Bob der Baumeister			</winemaker>
+		<type>Rotwein</type>
+		<price>21</price>
+	</wine>
+	<wine>
+		<name>fxnnfs</name>
+		<kind>trocken</kind>
+		<region>Frankreich</region>
+		<winemaker>Bob der Baumeister</winemaker>
+		<type>Rotwein</type>
+		<price>345</price>
 	</wine>
 </wine-ing>

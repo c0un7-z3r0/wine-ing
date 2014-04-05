@@ -1,6 +1,8 @@
 package com.wine.crud;
 
-public class Wine {
+import java.io.Serializable;
+
+public class Wine implements Serializable {
 
 	private String name;
 	private String kind;
@@ -14,6 +16,7 @@ public class Wine {
 
 	}
 
+	
 	public String getName() {
 		return name;
 	}
@@ -61,6 +64,8 @@ public class Wine {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+	public void setPrice(String str) {
+		this.price = Double.parseDouble(str);
+	}
 	
 }
