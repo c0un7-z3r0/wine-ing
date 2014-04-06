@@ -30,6 +30,13 @@ public class Routing extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		WineDao wd = new WineDao(request);
+		
+		if(request.getParameter("updateWineInXML") != null){
+			String returnString = wd.updateWine(request.getParameterMap(),request.getParameter("wineId") );
+			List<String> returnMessagesList = new ArrayList<String>();
+			returnMessagesList.add(returnString);
+		}
+		
 		if (request.getParameter("addWineToXML") != null) {
 			String returnString = wd.addWine(request.getParameterMap());
 			List<String> returnMessagesList = new ArrayList<String>();
@@ -66,11 +73,11 @@ public class Routing extends HttpServlet {
 //			request.getSession().setAttribute("region", region);
 
 			List<String> wineMaker = wd
-					.getWineSpecificList("wineMaker","/wine-ing/wineMaker/maker");
+					.getWineSpecificList("winemaker","/wine-ing/wineMaker/maker");
 //			request.getSession().setAttribute("wineMaker", wineMaker);
 
 			List<String> wineType = wd
-					.getWineSpecificList("wineType","/wine-ing/wineType/type");
+					.getWineSpecificList("winetype","/wine-ing/wineType/type");
 //			request.getSession().setAttribute("wineType", wineType);
 
 //			request.getRequestDispatcher("/addWine.jsp").forward(request,
@@ -87,7 +94,6 @@ public class Routing extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 		
 		
 		if (request.getParameter("getAllWine") != null) {
@@ -136,11 +142,12 @@ public class Routing extends HttpServlet {
 			}
 			if (object instanceof Wine) {
 				jsonName = "wineList";
+				jsonObj.put("id", ((Wine) object).getId());
 				jsonObj.put("name", ((Wine) object).getName());
 				jsonObj.put("kind", ((Wine) object).getKind());
 				jsonObj.put("region", ((Wine) object).getRegion());
 				jsonObj.put("winemaker", ((Wine) object).getWinemaker());
-				jsonObj.put("type", ((Wine) object).getType());
+				jsonObj.put("winetype", ((Wine) object).getType());
 				jsonObj.put("price", ((Wine) object).getPrice());
 			}
 			jsonArray.put(jsonObj);

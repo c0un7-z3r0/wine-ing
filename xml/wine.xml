@@ -1,50 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><wine-ing>
-	<wine>
-		<name>test</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type1</type>
-		<price>102.00</price>
-		<action>add</action>
-	</wine>
-	<wine>
-		<name>test</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker3</winemaker>
-		<type>type1</type>
-		<price>150.00</price>
-		<action>add</action>
-	</wine>
-	<wine>
-		<name>test</name>
-		<kind>kind2</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type2</type>
-		<price>200.50</price>
-		<action>add</action>
-	</wine>
-
-	<wine>
-		<name>test</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type1</type>
-		<price>1000.00</price>
-		<action>add</action>
-	</wine>
-	<wine>
-		<name>bot of wine</name>
-		<kind>kind1</kind>
-		<region>region1</region>
-		<winemaker>winemaker1</winemaker>
-		<type>type1</type>
-		<price>1000.00</price>
-		<action>add</action>
-	</wine>
 	<wineKind>
 		<kind>
 			<value>trocken</value>
@@ -103,23 +57,4 @@
 		<type>
 			<value>Weißwein</value>
 		</type>
-	</wineType>
-
-
-	<wine>
-		<name>eklgnr</name>
-		<kind>trocken</kind>
-		<region> Frankreich			</region>
-		<winemaker> Bob der Baumeister			</winemaker>
-		<type>Rotwein</type>
-		<price>21</price>
-	</wine>
-	<wine>
-		<name>fxnnfs</name>
-		<kind>trocken</kind>
-		<region>Frankreich</region>
-		<winemaker>Bob der Baumeister</winemaker>
-		<type>Rotwein</type>
-		<price>345</price>
-	</wine>
-<wine><name>123</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>12</price></wine><wine><name>1243</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>deef</price></wine><wine><name>wer</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>23</price></wine><wine><name>vfea</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>23</price></wine></wine-ing>
+	</wineType><wine><id>ID_1396809323519-36398</id><name>dsdsag</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob%20der%20Baumeister</winemaker><type>Rotwein</type><price>324</price></wine><wine><id>ID_1396809728602-42808</id><name>hkghgu</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob%20der%20Baumeister</winemaker><type>Rotwein</type><price>2435</price></wine><wine><id>ID_1396809814300-22496</id><name>sadfasdf</name><kind>s%C3%BC%C3%9F</kind><region>Italien</region><winemaker>Hans%20Meier%20Inc.</winemaker><type>Rotwein</type><price>23423</price></wine><wine><id>ID_1396810049402-67898</id><name>%C3%BC%C3%9Fsdf</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob der Baumeister</winemaker><type>Rotwein</type><price>4</price></wine><wine><id>ID_1396810119710-35542</id><name>sag%C3%BCdsaf%C3%9F</name><kind>s%C3%BC%C3%9F</kind><region>Frankreich</region><winemaker>Hans%20Meier%20Inc.</winemaker><type>Gelbwein</type><price>34</price></wine><wine><id>ID_1396810244873-90718</id><name>sdf%C3%BC</name><kind>s%C3%BC%C3%9F</kind><region>Italien</region><winemaker>Hans%20Meier%20Inc.</winemaker><type>Wei%C3%9Fwein</type><price>345</price></wine><wine><id>ID_1396810349378-52401</id><name>afsd%C3%BC</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob%20der%20Baumeister</winemaker><type>Rotwein</type><price>23.54</price></wine><wine><id>ID_1396810355363-37310</id><name>afsd%C3%BC</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob%20der%20Baumeister</winemaker><type>Rotwein</type><price>23.54</price></wine></wine-ing>

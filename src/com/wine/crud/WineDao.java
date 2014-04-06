@@ -1,9 +1,13 @@
 package com.wine.crud;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -62,15 +66,94 @@ public class WineDao {
 	}
 
 	/**
+	 * Return a string with the current milliseconds and a random number
+	 * 
+	 * @return String
+	 */
+	public static String generateId() {
+		long now = System.currentTimeMillis();
+		long randomLong = Math.round(Math.random() * 89999) + 10000;
+		return ("ID_" + now + "-" + randomLong);
+	}
+
+	/**
 	 * Adds a new node to the xml file more parameters can be added her if
 	 * needed
 	 * 
 	 * @param wineName
 	 * @param wineType
 	 * @return if true everything worked
+	 * @throws UnsupportedEncodingException
+	 * @throws DOMException
 	 */
-	public String addWine(Map<String, String[]> resultMap) {
-		String returnMsg = "Adding Wine to XML"+ "</br>";
+
+	public String updateWine(Map<String, String[]> resultMap, String wineId) {
+		String returnMsg = "Adding Wine to XML" + "</br>";
+
+		Document doc = parseXml();
+
+		if (doc == null) {
+			return returnMsg = "Error: No document found please try again!";
+		}
+		NodeList elemList = doc.getElementsByTagName("id");
+		String name = "";
+		String kind = "";
+		String region = "";
+		String winemaker = "";
+		String winetype = "";
+		String price = "";
+
+
+		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
+			if(entry.getKey().equals("name")){name = entry.getValue()[0];}
+			if(entry.getKey().equals("kind")){ kind = entry.getValue()[0];}
+			if(entry.getKey().equals("region")){ region = entry.getValue()[0];}
+			if(entry.getKey().equals("winemaker")){ winemaker = entry.getValue()[0];}
+			if(entry.getKey().equals("winetype")){ winetype = entry.getValue()[0];}
+			if(entry.getKey().equals("price")){ price = entry.getValue()[0];}
+			
+		}
+
+			
+		
+		for (int i = 0; i < elemList.getLength(); i++){
+			String nodeVal = elemList.item(i).getFirstChild().getNodeValue();
+			if(elemList.item(i).getFirstChild().getNodeValue().equals(wineId)){
+				System.out.println(elemList.item(i).getFirstChild().getNodeValue());
+				NodeList children = elemList.item(i).getParentNode().getChildNodes();
+				for(int j = 0; j < children.getLength(); j++){
+					 Node child = children.item(j);
+
+
+				    if (child.getNodeName().equals("name"))
+				        child.getFirstChild().setNodeValue(name) ;
+				    else if (child.getNodeName().equals("kind"))
+				        child.getFirstChild().setNodeValue(kind) ;
+				    else if (child.getNodeName().equals("region"))
+				        child.getFirstChild().setNodeValue(region) ;
+				    else if (child.getNodeName().equals("winemaker"))
+					        child.getFirstChild().setNodeValue(winemaker) ;
+				    else if (child.getNodeName().equals("winetype"))
+				        child.getFirstChild().setNodeValue(winetype) ;
+				    else if (child.getNodeName().equals("price"))
+				        child.getFirstChild().setNodeValue(price) ;
+				    
+				}
+			}
+		}
+		writeInXml(doc);
+
+//		System.out.println(elem.item(0).getParentNode().getNodeName());
+		
+		returnMsg = "done";
+		
+		
+		return returnMsg;
+	}
+
+	public String addWine(Map<String, String[]> resultMap) throws DOMException,
+			UnsupportedEncodingException {
+		String returnMsg = "Adding Wine to XML" + "</br>";
 		Document doc = parseXml();
 		if (doc == null) {
 			return returnMsg = "Error: No document found please try again!";
@@ -81,24 +164,35 @@ public class WineDao {
 		// create new node
 		Node newWineNode = doc.createElement("wine");
 		elem.appendChild(newWineNode);
-		returnMsg += "create new wine in XML"+ "</br>";
+		returnMsg += "create new wine in XML" + "</br>";
+
+		// add random id
+		Element idElem = doc.createElement("id");
+		idElem.appendChild(doc.createTextNode(generateId()));
+		newWineNode.appendChild(idElem);
 
 		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
 			System.out.println(entry.getKey() + " - " + entry.getValue()[0]);
 			if (!entry.getKey().equals("addWineToXML")) {
-				if(entry.getKey().equals("price")){
-					try{
-						Double testPriceForRightValue = Double.parseDouble(entry.getValue()[0]);
+				if (entry.getKey().equals("price")) {
+					try {
+						Double testPriceForRightValue = Double
+								.parseDouble(entry.getValue()[0]);
 					} catch (NullPointerException e) {
 						return returnMsg += "Error: Price is empty!";
-					} catch(NumberFormatException e){
+					} catch (NumberFormatException e) {
 						return returnMsg += "Error: Price is in wrong format!";
 					}
 				}
 				Element childElem = doc.createElement(entry.getKey());
-				childElem.appendChild(doc.createTextNode(entry.getValue()[0].trim()));
+				System.out.println("Decoded "
+						+ URLDecoder.decode(entry.getValue()[0].trim(),
+								"ISO-8859-1"));
+				childElem.appendChild(doc.createTextNode(entry.getValue()[0]
+						.trim()));
 				newWineNode.appendChild(childElem);
-				returnMsg += entry.getKey() + ": " + entry.getValue()[0].trim() + "</br>";
+				returnMsg += entry.getKey() + ": " + entry.getValue()[0].trim()
+						+ "</br>";
 			}
 		}
 		writeInXml(doc);
@@ -165,14 +259,6 @@ public class WineDao {
 
 	}
 
-	public void updateWine() {
-
-	}
-
-	public void deleteWine() {
-
-	}
-
 	/**
 	 * Writes in the doc
 	 * 
@@ -220,7 +306,7 @@ public class WineDao {
 			DocumentBuilder builder;
 
 			builder = builderFactory.newDocumentBuilder();
-			Document xmlDocument = builder.parse(file);
+			Document xmlDocument = builder.parse(new FileInputStream(file));
 
 			return xmlDocument;
 		} catch (ParserConfigurationException e) {
@@ -367,6 +453,7 @@ public class WineDao {
 		int nodeLen = (nodes != null) ? nodes.size() : 0;
 		for (int j = 0; j < nodeLen; j++) {
 			Wine wine = new Wine();
+			wine.setId(nodes.get(j).get("id"));
 			wine.setName(nodes.get(j).get("name"));
 			wine.setKind(nodes.get(j).get("kind"));
 			wine.setRegion(nodes.get(j).get("region"));
@@ -377,7 +464,7 @@ public class WineDao {
 				wine.setPrice(Double.parseDouble(nodes.get(j).get("price")));
 			} catch (NullPointerException e) {
 				wine.setPrice(0.00d);
-			} catch(NumberFormatException e){
+			} catch (NumberFormatException e) {
 				wine.setPrice(0.00d);
 			}
 			wineList.add(wine);
@@ -386,4 +473,5 @@ public class WineDao {
 		return wineList;
 
 	}
+
 }
