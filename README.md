@@ -1,1 +1,3 @@
-Schukprojekt Weinverwaltung mit JSP von David und Markus
+Experimental branch 
+
+trying out new stuff here
