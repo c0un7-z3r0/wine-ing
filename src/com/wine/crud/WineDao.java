@@ -28,6 +28,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -103,51 +104,60 @@ public class WineDao {
 		String winetype = "";
 		String price = "";
 
-
 		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
-			if(entry.getKey().equals("name")){name = entry.getValue()[0];}
-			if(entry.getKey().equals("kind")){ kind = entry.getValue()[0];}
-			if(entry.getKey().equals("region")){ region = entry.getValue()[0];}
-			if(entry.getKey().equals("winemaker")){ winemaker = entry.getValue()[0];}
-			if(entry.getKey().equals("winetype")){ winetype = entry.getValue()[0];}
-			if(entry.getKey().equals("price")){ price = entry.getValue()[0];}
-			
+			if (entry.getKey().equals("name")) {
+				name = entry.getValue()[0];
+			}
+			if (entry.getKey().equals("kind")) {
+				kind = entry.getValue()[0];
+			}
+			if (entry.getKey().equals("region")) {
+				region = entry.getValue()[0];
+			}
+			if (entry.getKey().equals("winemaker")) {
+				winemaker = entry.getValue()[0];
+			}
+			if (entry.getKey().equals("winetype")) {
+				winetype = entry.getValue()[0];
+			}
+			if (entry.getKey().equals("price")) {
+				price = entry.getValue()[0];
+			}
+
 		}
 
-			
-		
-		for (int i = 0; i < elemList.getLength(); i++){
+		for (int i = 0; i < elemList.getLength(); i++) {
 			String nodeVal = elemList.item(i).getFirstChild().getNodeValue();
-			if(elemList.item(i).getFirstChild().getNodeValue().equals(wineId)){
-				System.out.println(elemList.item(i).getFirstChild().getNodeValue());
-				NodeList children = elemList.item(i).getParentNode().getChildNodes();
-				for(int j = 0; j < children.getLength(); j++){
-					 Node child = children.item(j);
+			if (elemList.item(i).getFirstChild().getNodeValue().equals(wineId)) {
+				System.out.println(elemList.item(i).getFirstChild()
+						.getNodeValue());
+				NodeList children = elemList.item(i).getParentNode()
+						.getChildNodes();
+				for (int j = 0; j < children.getLength(); j++) {
+					Node child = children.item(j);
 
+					if (child.getNodeName().equals("name"))
+						child.getFirstChild().setNodeValue(name);
+					else if (child.getNodeName().equals("kind"))
+						child.getFirstChild().setNodeValue(kind);
+					else if (child.getNodeName().equals("region"))
+						child.getFirstChild().setNodeValue(region);
+					else if (child.getNodeName().equals("winemaker"))
+						child.getFirstChild().setNodeValue(winemaker);
+					else if (child.getNodeName().equals("winetype"))
+						child.getFirstChild().setNodeValue(winetype);
+					else if (child.getNodeName().equals("price"))
+						child.getFirstChild().setNodeValue(price);
 
-				    if (child.getNodeName().equals("name"))
-				        child.getFirstChild().setNodeValue(name) ;
-				    else if (child.getNodeName().equals("kind"))
-				        child.getFirstChild().setNodeValue(kind) ;
-				    else if (child.getNodeName().equals("region"))
-				        child.getFirstChild().setNodeValue(region) ;
-				    else if (child.getNodeName().equals("winemaker"))
-					        child.getFirstChild().setNodeValue(winemaker) ;
-				    else if (child.getNodeName().equals("winetype"))
-				        child.getFirstChild().setNodeValue(winetype) ;
-				    else if (child.getNodeName().equals("price"))
-				        child.getFirstChild().setNodeValue(price) ;
-				    
 				}
 			}
 		}
 		writeInXml(doc);
 
-//		System.out.println(elem.item(0).getParentNode().getNodeName());
-		
+		// System.out.println(elem.item(0).getParentNode().getNodeName());
+
 		returnMsg = "done";
-		
-		
+
 		return returnMsg;
 	}
 
@@ -472,6 +482,28 @@ public class WineDao {
 		}
 		return wineList;
 
+	}
+
+	public String deleteWine(String wineId) {
+		try {
+
+			Document doc = parseXml();
+
+			XPathFactory xpf = XPathFactory.newInstance();
+			XPath xpath = xpf.newXPath();
+			XPathExpression expression = xpath
+					.compile("//wine-ing/wine[contains(., '"+wineId+"')]");
+
+			Node node = (Node) expression.evaluate(doc, XPathConstants.NODE);
+			node.getParentNode().removeChild(node);
+
+			writeInXml(doc);
+			
+		} catch (XPathExpressionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "deleted";
 	}
 
 }

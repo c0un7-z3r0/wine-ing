@@ -2,7 +2,23 @@
  * 
  */
 
-function updateWine(wineId){
+function deleteWine(wineId) {
+
+	var jsonObj = {
+		'deleteWine' : true,
+		'wineId' : wineId
+	};
+
+	$.getJSON('routing', jsonObj).done(function(json) {
+		getAllWine();
+	}).fail(function(jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+		console.log("Request Failed: " + err);
+	});
+
+}
+
+function updateWine(wineId) {
 	var name = encodeURIComponent($('.name').val());
 	var kind = encodeURIComponent($('.kind').val());
 	var region = encodeURIComponent($('.region').val());
@@ -10,37 +26,46 @@ function updateWine(wineId){
 	var wineType = encodeURIComponent($('.winetype').val());
 	var price = encodeURIComponent($('.price').val());
 	var jsonObj = {
-			'updateWineInXML' : true,
-			'wineId': wineId,
-			'name' : name,
-			'kind' : kind,
-			'region' : region,
-			'winemaker' : wineMaker,
-			'type' : wineType,
-			'price' : price
+		'updateWineInXML' : true,
+		'wineId' : wineId,
+		'name' : name,
+		'kind' : kind,
+		'region' : region,
+		'winemaker' : wineMaker,
+		'type' : wineType,
+		'price' : price
 
-		};
-		$.getJSON('routing', jsonObj).done(function(json) {
-			$.each(json.messages, function(index, item) {
-				$('.content').html(item['message']);
-			});
-
-		}).fail(function(jqxhr, textStatus, error) {
-			var err = textStatus + ", " + error;
-			console.log("Request Failed: " + err);
+	};
+	$.getJSON('routing', jsonObj).done(function(json) {
+		$.each(json.messages, function(index, item) {
+			$('.content').html(item['message']);
+			
 		});
+		getAllWine();
+	}).fail(function(jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+		console.log("Request Failed: " + err);
+	});
 
-	
 }
 
 function addWine() {
+	
 	var name = encodeURIComponent($('.name').val());
+
 	var kind = encodeURIComponent($('.kind').val());
 	var region = encodeURIComponent($('.region').val());
 	var wineMaker = encodeURIComponent($('.winemaker').val());
 	var wineType = encodeURIComponent($('.winetype').val());
 	var price = encodeURIComponent($('.price').val());
-
+	
+	if(name === ""){
+		$('.content').html("Name is empty!");
+		return;
+	}
+	if(price === ""){
+		price = 0;
+	}
 	// var name = escape($('.name').val());
 	// var kind = escape($('.kind').val());
 	// var region = escape($('.region').val());
@@ -82,7 +107,6 @@ function generateWineTable(json) {
 			.each(
 					json.wineList,
 					function(index, item) {
-						console.log(index + item['kind']);
 						row = '<tr>';
 						// row += '<td>' + item['id'] + '</td>';
 						row += '<td>' + decodeURIComponent(item['name'])
@@ -99,6 +123,8 @@ function generateWineTable(json) {
 								+ '</td>';
 						row += '<td><input type="button" value="edit wine" name="edit" onclick="editWine(\''
 								+ item['id'] + '\')" /></td> ';
+						row += '<td><input type="button" value="delete wine" name="delete" onclick="deleteWine(\''
+								+ item['id'] + '\')" /></td> ';
 						row += '</tr>';
 
 						table += row;
@@ -108,7 +134,6 @@ function generateWineTable(json) {
 }
 
 function editWine(wineId) {
-	console.log("Wine ID: " + wineId.toString());
 	searchWineInternal(wineId.toString());
 
 }
@@ -223,7 +248,13 @@ function generateWineForm(json, content) {
 
 	submitBtn.attr('name', 'save');
 	submitBtn.attr('type', 'button');
-	submitBtn.attr('onclick', 'updateWine(\''+content['wineList'][0]['id']+'\')');
+	if (typeof content !== 'undefined') {
+		submitBtn.attr('onclick', 'updateWine(\''
+				+ content['wineList'][0]['id'] + '\')');
+	} else {
+		submitBtn.attr('onclick', 'addWine()');
+
+	}
 	submitBtn.addClass('saveBtn');
 	submitBtn.val('Save');
 
@@ -240,20 +271,24 @@ function generateWineForm(json, content) {
 	return $form;
 }
 
-
-
 function getAllWine() {
 	$.getJSON('routing', {
 		getAllWine : true
 	}).done(function(json) {
-		$('.content').html(generateWineTable(json));
+		console.log(json);
+		if (json.hasOwnProperty("messages")) {
+			$.each(json.messages, function(index, item) {
+				$('.content').html(item['message']);
+			});
+		} else {
+			$('.content').html(generateWineTable(json));
+		}
 	}).fail(function(jqxhr, textStatus, error) {
 		var err = textStatus + ", " + error;
 		console.log("Request Failed: " + err);
 	});
 }
 function searchWineInternal(searchTerm) {
-	console.log(searchTerm);
 	$.getJSON('routing', {
 		searchWineForm : true,
 		search : searchTerm
@@ -283,8 +318,14 @@ function searchWine() {
 		searchWineForm : true,
 		search : searchTerm
 	}).done(function(json) {
-		// TODO: add table sorting
-		$('.content').html(generateWineTable(json));
+		console.log(json);
+		if (json.hasOwnProperty("messages")) {
+			$.each(json.messages, function(index, item) {
+				$('.content').html(item['message']);
+			});
+		} else {
+			$('.content').html(generateWineTable(json));
+		}
 
 	}).fail(function(jqxhr, textStatus, error) {
 		var err = textStatus + ", " + error;

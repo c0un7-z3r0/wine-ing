@@ -31,14 +31,33 @@ public class Routing extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		WineDao wd = new WineDao(request);
 		
+		if(request.getParameter("deleteWine") != null){
+			String returnMessage = wd.deleteWine(request.getParameter("wineId"));
+			List<String> returnMessagesList = new ArrayList<String>();
+			returnMessagesList.add(returnMessage);
+			try {
+				returnJson(response, returnMessagesList);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		if(request.getParameter("updateWineInXML") != null){
 			String returnString = wd.updateWine(request.getParameterMap(),request.getParameter("wineId") );
 			List<String> returnMessagesList = new ArrayList<String>();
 			returnMessagesList.add(returnString);
+			try {
+				returnJson(response, returnMessagesList);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		if (request.getParameter("addWineToXML") != null) {
-			String returnString = wd.addWine(request.getParameterMap());
+			String returnString = "";
+			returnString = wd.addWine(request.getParameterMap());
 			List<String> returnMessagesList = new ArrayList<String>();
 			returnMessagesList.add(returnString);
 			try {
@@ -52,7 +71,17 @@ public class Routing extends HttpServlet {
 			List<Wine> result;
 			try {
 				result = wd.searchWine(request.getParameter("search"));
-				returnJson(response, result);
+				
+				if(result.isEmpty()){
+					String returnMessage = "Could not find "+request.getParameter("search")+" in XML!";
+					List<String> returnMessagesList = new ArrayList<String>();
+					returnMessagesList.add(returnMessage);
+					returnJson(response, returnMessagesList);
+
+				}else{
+					returnJson(response, result);
+				}
+				
 
 			} catch (JSONException jse) {
 				jse.getStackTrace();
@@ -99,9 +128,15 @@ public class Routing extends HttpServlet {
 		if (request.getParameter("getAllWine") != null) {
 			List<Wine> result = wd.getAllWine();
 			try {
-				result = wd.getAllWine();
-				returnJson(response, result);
+				if(result.isEmpty()){
+					String returnMessage = "Empty Wine List!";
+					List<String> returnMessagesList = new ArrayList<String>();
+					returnMessagesList.add(returnMessage);
+					returnJson(response, returnMessagesList);
 
+				}else{
+					returnJson(response, result);
+				}
 			} catch (JSONException jse) {
 				jse.getStackTrace();
 			}
