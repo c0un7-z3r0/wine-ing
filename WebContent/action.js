@@ -1,6 +1,46 @@
+
 /**
- * 
+ * Sorting the table on click
  */
+function tableSort(sorter) {
+    $('tbody tr').sort(sorter).appendTo('tbody');
+    invert = !invert;
+
+}
+var invert = false;
+
+function sortIt(elem, type) {
+    var search = 0;
+    var tableHeads = $('th');
+    /**
+     * find the column which needs sorting
+     */
+    $.each(tableHeads, function (k, v) {
+        if ($.trim($(v).text()).toLowerCase() == $(elem).text().toLowerCase().toLowerCase()) {
+            search = k + 1;
+        }
+    });
+
+    tableSort(function (a, b) {
+        if (type == "string") {
+            var a = $(a).find('td:nth-child(' + search + ')').text();
+            var b = $(b).find('td:nth-child(' + search + ')').text();
+        }
+        if (type == "number") {
+            var a = parseFloat($(a).find('td:nth-child(' + search + ')').text(), 10);
+            var b = parseFloat($(b).find('td:nth-child(' + search + ')').text(), 10);
+        }
+
+        if (a == b) return 0;
+        if (invert) {
+            return a > b ? -1 : 1;
+
+        } else {
+            return a > b ? 1 : -1;
+        }
+
+    });
+};
 
 function deleteWine(wineId) {
 
@@ -39,7 +79,7 @@ function updateWine(wineId) {
 	$.getJSON('routing', jsonObj).done(function(json) {
 		$.each(json.messages, function(index, item) {
 			$('.content').html(item['message']);
-			
+
 		});
 		getAllWine();
 	}).fail(function(jqxhr, textStatus, error) {
@@ -50,7 +90,7 @@ function updateWine(wineId) {
 }
 
 function addWine() {
-	
+
 	var name = encodeURIComponent($('.name').val());
 
 	var kind = encodeURIComponent($('.kind').val());
@@ -58,12 +98,12 @@ function addWine() {
 	var wineMaker = encodeURIComponent($('.winemaker').val());
 	var wineType = encodeURIComponent($('.winetype').val());
 	var price = encodeURIComponent($('.price').val());
-	
-	if(name === ""){
+
+	if (name === "") {
 		$('.content').html("Name is empty!");
 		return;
 	}
-	if(price === ""){
+	if (price === "") {
 		price = 0;
 	}
 	// var name = escape($('.name').val());
@@ -99,9 +139,15 @@ function includePage(pageName) {
 }
 function generateWineTable(json) {
 	var table = '<table class="wineTable">';
-	var headRow = '<thead><tr>' + '<th>Name</th>' + '<th>Kind</th>'
-			+ '<th>Region</th>' + '<th>Winemaker</th>' + '<th>Type</th>'
-			+ '<th>Price</th>' + '</tr>' + '</thead>' + '<tbody>';
+	var headRow = '<thead><tr>'
+			+ '<th onclick="sortIt(this,\'string\')" >Name</th>'
+			+ '<th onclick="sortIt(this,\'string\')" >Kind</th>' 
+			+ '<th onclick="sortIt(this,\'string\')" >Region</th>'
+			+ '<th onclick="sortIt(this,\'string\')" >Winemaker</th>'
+			+ '<th onclick="sortIt(this,\'string\')">Type</th>'
+			+ '<th onclick="sortIt(this,\'number\')">Price</th>' 
+			+ '</tr>' + '</thead>'
+			+ '<tbody>';
 	table += headRow;
 	$
 			.each(
