@@ -39,6 +39,8 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Entity;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -84,11 +86,12 @@ public class WineDao {
 	 * @param wineName
 	 * @param wineType
 	 * @return if true everything worked
+	 * @throws XPathExpressionException 
 	 * @throws UnsupportedEncodingException
 	 * @throws DOMException
 	 */
 
-	public String updateWine(Map<String, String[]> resultMap, String wineId) {
+	public String updateWine(Map<String, String[]> resultMap, String wineId) throws XPathExpressionException {
 		String returnMsg = "Adding Wine to XML" + "</br>";
 
 		Document doc = parseXml();
@@ -96,13 +99,20 @@ public class WineDao {
 		if (doc == null) {
 			return returnMsg = "Error: No document found please try again!";
 		}
-		NodeList elemList = doc.getElementsByTagName("id");
+
 		String name = "";
 		String kind = "";
 		String region = "";
 		String winemaker = "";
 		String winetype = "";
 		String price = "";
+
+
+		XPath xPath = XPathFactory.newInstance().newXPath();
+		NodeList elemList;
+		elemList = (NodeList) xPath.compile(
+				"//wine-ing/wineList/wine[@id='" + wineId + "']").evaluate(doc,
+				XPathConstants.NODESET);
 
 		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
 			if (entry.getKey().equals("name")) {
@@ -125,13 +135,10 @@ public class WineDao {
 			}
 
 		}
-
 		for (int i = 0; i < elemList.getLength(); i++) {
 			String nodeVal = elemList.item(i).getFirstChild().getNodeValue();
-			if (elemList.item(i).getFirstChild().getNodeValue().equals(wineId)) {
-				System.out.println(elemList.item(i).getFirstChild()
-						.getNodeValue());
-				NodeList children = elemList.item(i).getParentNode()
+
+				NodeList children = elemList.item(i)
 						.getChildNodes();
 				for (int j = 0; j < children.getLength(); j++) {
 					Node child = children.item(j);
@@ -150,7 +157,7 @@ public class WineDao {
 						child.getFirstChild().setNodeValue(price);
 
 				}
-			}
+
 		}
 		writeInXml(doc);
 
@@ -170,19 +177,30 @@ public class WineDao {
 		}
 		// get root element
 		Element elem = doc.getDocumentElement();
+		System.out.print("----");
+
+		// get wineList element
+		NodeList nodes = elem.getElementsByTagName("wineList");
+		Node node = nodes.item(0);
+
+		Element wineListNode = (Element) node;
 
 		// create new node
 		Node newWineNode = doc.createElement("wine");
-		elem.appendChild(newWineNode);
+		wineListNode.appendChild(newWineNode);
+		Attr id = doc.createAttribute("id");
+		id.setValue(generateId());
+		((Element) newWineNode).setAttributeNode(id);
+
 		returnMsg += "create new wine in XML" + "</br>";
 
-		// add random id
-		Element idElem = doc.createElement("id");
-		idElem.appendChild(doc.createTextNode(generateId()));
-		newWineNode.appendChild(idElem);
+		// // add random id
+		// Element idElem = doc.createElement("id");
+		// idElem.appendChild(doc.createTextNode(generateId()));
+		// newWineNode.appendChild(idElem);
 
 		for (Map.Entry<String, String[]> entry : resultMap.entrySet()) {
-			System.out.println(entry.getKey() + " - " + entry.getValue()[0]);
+			// System.out.println(entry.getKey() + " - " + entry.getValue()[0]);
 			if (!entry.getKey().equals("addWineToXML")) {
 				if (entry.getKey().equals("price")) {
 					try {
@@ -195,9 +213,7 @@ public class WineDao {
 					}
 				}
 				Element childElem = doc.createElement(entry.getKey());
-				System.out.println("Decoded "
-						+ URLDecoder.decode(entry.getValue()[0].trim(),
-								"ISO-8859-1"));
+
 				childElem.appendChild(doc.createTextNode(entry.getValue()[0]
 						.trim()));
 				newWineNode.appendChild(childElem);
@@ -230,7 +246,13 @@ public class WineDao {
 		/**
 		 * search expression
 		 */
-		String expression = "//wine-ing/wine[contains(., '" + search + "')]";
+		String expression = "";
+		if (search.contains("ID")) {
+			expression = "//wine-ing/wineList/wine[@id='" + search + "']";
+		} else {
+			expression = "//wine-ing/wineList/wine[contains(., '" + search
+					+ "')]";
+		}
 		List<Map<String, String>> nodeList = getNodeList(expression);
 		List<JSONObject> json = getNodeListJSON(expression);
 		wineList = getWineList(nodeList);
@@ -261,7 +283,7 @@ public class WineDao {
 		/**
 		 * search expression
 		 */
-		String expression = "/wine-ing/wine";
+		String expression = "/wine-ing/wineList/wine";
 		List<Map<String, String>> nodeList = getNodeList(expression);
 		wineList = getWineList(nodeList);
 
@@ -353,9 +375,9 @@ public class WineDao {
 			 */
 			int len = (nodeList != null) ? nodeList.getLength() : 0;
 			// System.out.println("!!!!!!!!!!!!!!!!!!!!! ----- " + len);
-
 			for (int i1 = 0; i1 < len; i1++) {
 				NodeList children = nodeList.item(i1).getChildNodes();
+				String id = "";
 
 				Map<String, String> childMap = new HashMap<String, String>();
 
@@ -363,9 +385,23 @@ public class WineDao {
 					// System.out.println(">>>>>>>>>>>>>>>>> " +
 					// children.getLength() + ">>>>>>>>>>>>>>>>>");
 					Node child = children.item(j);
+					if (id == "") {
+						NamedNodeMap attributes = (NamedNodeMap) child
+								.getParentNode().getAttributes();
+						for (int g = 0; g < attributes.getLength(); g++) {
+							Attr attribute = (Attr) attributes.item(g);
+							System.out.println(" Attribute: "
+									+ attribute.getName() + " with value "
+									+ attribute.getValue());
+							id = attribute.getValue();
+							childMap.put("id", id);
+						}
+					}
+
 					if (child.getNodeType() == Node.ELEMENT_NODE) {
 						// System.out.println("child " + child.getNodeName() +
 						// " - " + child.getTextContent());
+
 						childMap.put(child.getNodeName(),
 								child.getTextContent());
 					}
@@ -492,13 +528,14 @@ public class WineDao {
 			XPathFactory xpf = XPathFactory.newInstance();
 			XPath xpath = xpf.newXPath();
 			XPathExpression expression = xpath
-					.compile("//wine-ing/wine[contains(., '"+wineId+"')]");
+					.compile("//wine-ing/wineList/wine[contains(., '" + wineId
+							+ "')]");
 
 			Node node = (Node) expression.evaluate(doc, XPathConstants.NODE);
 			node.getParentNode().removeChild(node);
 
 			writeInXml(doc);
-			
+
 		} catch (XPathExpressionException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

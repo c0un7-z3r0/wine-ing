@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.xpath.XPathExpressionException;
 
 import com.wine.crud.Wine;
 import com.wine.crud.WineDao;
@@ -44,7 +45,13 @@ public class Routing extends HttpServlet {
 		}
 		
 		if(request.getParameter("updateWineInXML") != null){
-			String returnString = wd.updateWine(request.getParameterMap(),request.getParameter("wineId") );
+			String returnString = "";
+			try {
+				returnString = wd.updateWine(request.getParameterMap(),request.getParameter("wineId") );
+			} catch (XPathExpressionException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			List<String> returnMessagesList = new ArrayList<String>();
 			returnMessagesList.add(returnString);
 			try {
@@ -94,19 +101,19 @@ public class Routing extends HttpServlet {
 			List<List<String>> formElements = new ArrayList<List<String>>();
 
 			List<String> kind = wd
-					.getWineSpecificList("kind","/wine-ing/wineKind/kind");
+					.getWineSpecificList("kind","/wine-ing/wineSpecifics/wineKind/kind");
 //			request.getSession().setAttribute("kind", kind);
 
 			List<String> region = wd
-					.getWineSpecificList("region","/wine-ing/wineRegion/region");
+					.getWineSpecificList("region","/wine-ing/wineSpecifics/wineRegion/region");
 //			request.getSession().setAttribute("region", region);
 
 			List<String> wineMaker = wd
-					.getWineSpecificList("winemaker","/wine-ing/wineMaker/maker");
+					.getWineSpecificList("winemaker","/wine-ing/wineSpecifics/wineMaker/maker");
 //			request.getSession().setAttribute("wineMaker", wineMaker);
 
 			List<String> wineType = wd
-					.getWineSpecificList("winetype","/wine-ing/wineType/type");
+					.getWineSpecificList("winetype","/wine-ing/wineSpecifics/wineType/type");
 //			request.getSession().setAttribute("wineType", wineType);
 
 //			request.getRequestDispatcher("/addWine.jsp").forward(request,
