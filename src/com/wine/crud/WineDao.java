@@ -528,8 +528,7 @@ public class WineDao {
 			XPathFactory xpf = XPathFactory.newInstance();
 			XPath xpath = xpf.newXPath();
 			XPathExpression expression = xpath
-					.compile("//wine-ing/wineList/wine[contains(., '" + wineId
-							+ "')]");
+					.compile("//wine-ing/wineList/wine[@id='" + search + "']");
 
 			Node node = (Node) expression.evaluate(doc, XPathConstants.NODE);
 			node.getParentNode().removeChild(node);
