@@ -9,13 +9,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
-        <servlet-name>Routing</servlet-name>
-        <servlet-class>com.wine.servlet.Routing</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Routing</servlet-name>
-        <url-pattern>/routing</url-pattern>
-    </servlet-mapping>
+    <servlet-name>WineController</servlet-name>
+    <servlet-class>com.wine.incoming.WineController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>WineController</servlet-name>
+    <url-pattern>/routing/*</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,71 +1,43 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><wine-ing>
-	
-	
-	
-	
-	<wineList>
-
-		<wine id="ID_1396809323519-36398">
-			<name>wineList</name>
-			<kind>halbtrocken</kind>
-			<region>Frankreich</region>
-			<winemaker>Bob%20der%20Baumeister</winemaker>
-			<type>Rotwein</type>
-			<price>324</price>
-		</wine><wine id="ID_1398194426765-47897"><name>wert</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob%20der%20Baumeister</winemaker><type>Rotwein</type><price>35722</price></wine><wine id="ID_1398198394539-87426"><name>wine</name><kind>trocken</kind><region>Frankreich</region><winemaker>Bob%20der%20Baumeister</winemaker><type>Rotwein</type><price>3</price></wine></wineList>
-	<wineSpecifics><wineKind>
-		<kind>
-			<value>trocken</value>
-		</kind>
-		<kind>
-			<value>halbtrocken</value>
-		</kind>
-		<kind>
-			<value>lieblich</value>
-		</kind>
-		<kind>
-			<value>süß</value>
-		</kind>
-	</wineKind><wineRegion>
-		<region>
-			<value>
-				Frankreich
-			</value>
-		</region>
-		<region>
-			<value>
-				Deutschland
-			</value>
-		</region>
-		<region>
-			<value>
-				Italien
-			</value>
-		</region>
-	</wineRegion><wineMaker>
-		<maker>
-			<value>
-				Bob der Baumeister
-			</value>
-		</maker>
-		<maker>
-			<value>
-				Paul Schmidt
-			</value>
-		</maker>
-		<maker>
-			<value>
-				Hans Meier Inc.
-			</value>
-		</maker>
-	</wineMaker><wineType>
-		<type>
-			<value>Rotwein</value>
-		</type>
-		<type>
-			<value>Gelbwein</value>
-		</type>
-		<type>
-			<value>Weißwein</value>
-		</type>
-	</wineType></wineSpecifics></wine-ing>
+<wineIng>
+  <wineList>
+    <wine id="ID_1400711276376-73646">
+      <name>wine</name>
+      <kind>trocken</kind>
+      <region>Frankreich</region>
+      <winemaker>Bob%20der%20Baumeister</winemaker>
+      <type>Rotwein</type>
+      <price>30.0</price>
+    </wine>
+    <wine id="ID_1400711310011-59141">
+      <name>wine</name>
+      <kind>trocken</kind>
+      <region>Frankreich</region>
+      <winemaker>Bob%20der%20Baumeister</winemaker>
+      <type>Rotwein</type>
+      <price>30.0</price>
+    </wine>
+    <wine id="ID_1400736515774-26216">
+      <name>wine</name>
+      <kind>trocken</kind>
+      <region>Frankreich</region>
+      <winemaker>Bob%20der%20Baumeister</winemaker>
+      <type>Rotwein</type>
+      <price>30.0</price>
+    </wine>
+    <wine id="ID_1400736544090-88624">
+      <name>wine</name>
+      <kind>trocken</kind>
+      <region>Frankreich</region>
+      <winemaker>Bob%20der%20Baumeister</winemaker>
+      <type>Rotwein</type>
+      <price>30.0</price>
+    </wine>
+  </wineList>
+  <wineSpecifics>
+    <wineSpecific>
+      <name>Test</name>
+      <string>bob</string>
+      <string>asdtestd</string>
+    </wineSpecific>
+  </wineSpecifics>
+</wineIng>

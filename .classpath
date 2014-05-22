@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/Users/david/Downloads/xstream-1.4.7 2/lib/xstream-1.4.7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

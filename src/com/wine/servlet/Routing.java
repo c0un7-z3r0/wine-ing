@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.xpath.XPathExpressionException;
 
-import com.wine.crud.Wine;
+import com.wine.Wine;
 import com.wine.crud.WineDao;
 
 import org.json.simple.JSONArray;
