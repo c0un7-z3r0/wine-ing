@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import com.wine.Actions;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;

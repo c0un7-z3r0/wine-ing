@@ -7,9 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.wine.Actions;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;

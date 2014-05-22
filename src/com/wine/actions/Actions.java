@@ -1,4 +1,4 @@
-package com.wine;
+package com.wine.actions;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
