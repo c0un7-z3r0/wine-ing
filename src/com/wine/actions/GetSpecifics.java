@@ -9,11 +9,11 @@ import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;
 
-public class GetWine implements Actions<ArrayList<Wine>> {
+public class GetSpecifics implements Actions<ArrayList<WineSpecific>> {
 
 	@Override
-	public ArrayList<Wine> execute(Object paramIn)  throws Exception {
-
+	public ArrayList<WineSpecific> execute(Object param) throws Exception {
+		
 		XStreamTranslator xStreamTranslatorInst; 
 		xStreamTranslatorInst = XStreamTranslator.getInstance(); 
 		File xml = new File(
@@ -30,7 +30,8 @@ public class GetWine implements Actions<ArrayList<Wine>> {
 		
 		
 
-		return wineIng.getWineList();
+		return wineIng.getWineSpecifics();
+
 	}
 
 }

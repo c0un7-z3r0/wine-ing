@@ -1,13 +1,8 @@
 package com.wine.xml;
 
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
-import com.wine.helper.WineHelpers;
 
 @XStreamAlias("wine")
 public class Wine  {
@@ -23,7 +18,7 @@ public class Wine  {
 	@XStreamAlias("type")
 	private String type;
 	@XStreamAlias("price")
-	private double price;
+	private String price;
 	@XStreamAlias("id")
    	@XStreamAsAttribute
 	private String id;
@@ -74,17 +69,13 @@ public class Wine  {
 		this.winemaker = winemaker;
 	}
 
-	public double getPrice() {
+	public String getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
-	public void setPrice(String str) {
-		this.price = Double.parseDouble(str);
-	}
-
 
 	public String getId() {
 		return id;
@@ -95,40 +86,11 @@ public class Wine  {
 		this.id = id;
 	}
 	
-	public Wine jsonToWine(String json){
-		try {
-			JSONObject jsonObj = (JSONObject) new JSONParser().parse(json);
-			this.id = WineHelpers.generateId();
-			this.name = (String) jsonObj.get("name");
-			this.kind = (String) jsonObj.get("kind");
-			this.region = (String) jsonObj.get("region");
-			this.winemaker = (String) jsonObj.get("winemaker");
-			this.type = (String) jsonObj.get("type");
-//			this.price =  jsonObj.get("price");
-			this.price = Double.parseDouble((String) jsonObj.get("price"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
 
 		
 		
 		
-		return null;
-	}
-	
-	public String wineToJson(){
-		String json =	"{"+
-						"\"id\":\""+this.id+"\","+
-						"\"name\":\""+this.name+"\","+
-						"\"kind\":\""+this.kind+"\","+
-						"\"region\":\""+this.region+"\","+
-						"\"winemaker\":\""+this.winemaker+"\","+
-						"\"type\":\""+this.type+"\","+
-						"\"price\":\""+this.price+"\"" +
-						"}";
-		return json;
-	}
 	
 	
 	

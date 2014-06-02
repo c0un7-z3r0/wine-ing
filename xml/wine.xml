@@ -1,43 +1,86 @@
 <wineIng>
   <wineList>
-    <wine id="ID_1400711276376-73646">
-      <name>wine</name>
-      <kind>trocken</kind>
-      <region>Frankreich</region>
-      <winemaker>Bob%20der%20Baumeister</winemaker>
-      <type>Rotwein</type>
-      <price>30.0</price>
+    <wine id="ID_1400964439892-15518">
+      <name>asd</name>
+      <kind>wineKind</kind>
+      <region>Italy</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
     </wine>
-    <wine id="ID_1400711310011-59141">
-      <name>wine</name>
-      <kind>trocken</kind>
-      <region>Frankreich</region>
-      <winemaker>Bob%20der%20Baumeister</winemaker>
-      <type>Rotwein</type>
-      <price>30.0</price>
+    <wine id="ID_1400964456905-89481">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
     </wine>
-    <wine id="ID_1400736515774-26216">
-      <name>wine</name>
-      <kind>trocken</kind>
-      <region>Frankreich</region>
-      <winemaker>Bob%20der%20Baumeister</winemaker>
-      <type>Rotwein</type>
-      <price>30.0</price>
+    <wine id="ID_1400964473365-37711">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
     </wine>
-    <wine id="ID_1400736544090-88624">
-      <name>wine</name>
-      <kind>trocken</kind>
-      <region>Frankreich</region>
-      <winemaker>Bob%20der%20Baumeister</winemaker>
-      <type>Rotwein</type>
-      <price>30.0</price>
+    <wine id="ID_1401183271797-82337">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
+    </wine>
+    <wine id="ID_1401185613955-12009">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
+    </wine>
+    <wine id="ID_1401185855066-73701">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
+    </wine>
+    <wine id="ID_1401185860050-92924">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
+    </wine>
+    <wine id="ID_1401185924951-87843">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
+    </wine>
+    <wine id="ID_1401185936074-16265">
+      <name>wineNaasdasdasdasdasdasdsame</name>
+      <kind>wineKind</kind>
+      <region>wineregion</region>
+      <winemaker>winemaker</winemaker>
+      <type>wineType</type>
+      <price>323.12</price>
     </wine>
   </wineList>
   <wineSpecifics>
     <wineSpecific>
-      <name>Test</name>
-      <string>bob</string>
-      <string>asdtestd</string>
+      <name>Region</name>
+      <string>France</string>
+      <string>Italy</string>
+    </wineSpecific>
+    <wineSpecific>
+      <name>Name</name>
     </wineSpecific>
   </wineSpecifics>
 </wineIng>

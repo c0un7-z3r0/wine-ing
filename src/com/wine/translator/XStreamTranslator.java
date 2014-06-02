@@ -1,10 +1,8 @@
-package com.wine.xml;
+package com.wine.translator;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -71,7 +69,7 @@ public final class XStreamTranslator {
         xstream.toXML(objTobeXMLTranslated, writer);  
         writer.close();  
     }  
-    public void toXMLFile(Object objTobeXMLTranslated, String fileName, List omitFieldsRegXList) throws IOException {  
+    public void toXMLFile(Object objTobeXMLTranslated, String fileName, List<?> omitFieldsRegXList) throws IOException {  
         xstreamInitializeSettings(objTobeXMLTranslated, omitFieldsRegXList);  
         toXMLFile(objTobeXMLTranslated, fileName);      
     }      
@@ -80,9 +78,9 @@ public final class XStreamTranslator {
      * @  
      * @param objTobeXMLTranslated  
      */  
-    public void xstreamInitializeSettings(Object objTobeXMLTranslated, List omitFieldsRegXList) {  
+    public void xstreamInitializeSettings(Object objTobeXMLTranslated, List<?> omitFieldsRegXList) {  
         if(omitFieldsRegXList != null && omitFieldsRegXList.size() > 0){  
-            Iterator itr = omitFieldsRegXList.iterator();  
+            Iterator<?> itr = omitFieldsRegXList.iterator();  
             while(itr.hasNext()){  
                 String omitEx = (String) itr.next();  
                 xstream.omitField(objTobeXMLTranslated.getClass(), omitEx);  

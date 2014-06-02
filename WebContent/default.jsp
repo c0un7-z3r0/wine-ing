@@ -5,8 +5,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script src="lib/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="js/helper.js"></script>
+
 <script type="text/javascript" src="js/action.js"></script>
 <script type="text/javascript" src="js/menu.js"></script>
+
 <script type="text/javascript" src="js/costumerOrder.js"></script>
 
 </head>

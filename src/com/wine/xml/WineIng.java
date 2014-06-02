@@ -1,13 +1,8 @@
 package com.wine.xml;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Map;
 
-import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
-import com.thoughtworks.xstream.io.xml.DomDriver;
 
 @XStreamAlias("wineIng")
 public class WineIng {
@@ -36,19 +31,6 @@ public class WineIng {
 		this.wineSpecifics = wineSpecifics;
 	}
 
-	public String wineListToJson(){
-		String json = "{\"wineList\": [";
-		for(int i = 0; i < wineList.size(); i++){
-			if(i == 0){
-				json += wineList.get(i).wineToJson();
-			}else{
-				json += "," + wineList.get(i).wineToJson();
-			}
-			
-		}
-		json += "]}";
-		return json;
-	}
 	
 	
 	

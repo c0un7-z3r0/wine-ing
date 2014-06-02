@@ -3,25 +3,22 @@ package com.wine.actions;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.wine.helper.WineHelpers;
+import com.wine.translator.JsonTranslator;
+import com.wine.translator.XStreamTranslator;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;
-import com.wine.xml.XStreamTranslator;
 
-public class AddWine implements Actions {
+public class AddWine implements Actions<String> {
 
 	@Override
-	public String execute(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public String execute(Object jsonIn) throws Exception {
 		
-		String jsonInput = "{\"name\":\"wine\",\"kind\":\"trocken\",\"region\":\"Frankreich\",\"winemaker\":\"Bob%20der%20Baumeister\",\"type\":\"Rotwein\",\"price\":\"30.0\"}";
-		
-		Wine wine = new Wine();
-		wine.jsonToWine(jsonInput);
+		Wine wine = (Wine) JsonTranslator.jsonToObject((Map<String, String[]>) jsonIn);
+		wine.setId(WineHelpers.generateId());
 		
 		XStreamTranslator xStreamTranslatorInst; 
 		xStreamTranslatorInst = XStreamTranslator.getInstance(); 
@@ -53,12 +50,16 @@ public class AddWine implements Actions {
 //		wineIng.setWineSpecifics(spec);
 		xStreamTranslatorInst.toXMLFile(wineIng, "/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
 		
-
+//		JsonTranslator jConv = new JsonTranslator();
+		
+//		jConv.listToJson(wineIng);
 		
 		
 		
 		
-		return "done";
+		return "added wine to xml";
 	}
+
+
 
 }
