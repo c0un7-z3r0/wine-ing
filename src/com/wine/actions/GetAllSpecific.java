@@ -9,7 +9,7 @@ import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;
 
-public class GetSpecifics implements Actions<ArrayList<WineSpecific>> {
+public class GetAllSpecific implements Actions<ArrayList<WineSpecific>> {
 
 	@Override
 	public ArrayList<WineSpecific> execute(Object param) throws Exception {

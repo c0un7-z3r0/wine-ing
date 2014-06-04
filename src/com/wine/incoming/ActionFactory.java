@@ -7,7 +7,7 @@ import com.wine.actions.Actions;
 import com.wine.actions.AddWine;
 import com.wine.actions.DeleteWine;
 import com.wine.actions.EditWine;
-import com.wine.actions.GetSpecifics;
+import com.wine.actions.GetAllSpecific;
 import com.wine.actions.GetWine;
 import com.wine.actions.SearchWine;
 
@@ -22,7 +22,7 @@ public class ActionFactory {
 		controllers.put("POST/edit", new EditWine());
 		controllers.put("GET/getAll", new GetWine());		
 		controllers.put("GET/search", new SearchWine());
-		controllers.put("GET/specific", new GetSpecifics());
+		controllers.put("GET/getAllSpecific", new GetAllSpecific());
 		controllers.put("GET/add", new AddWine());
 
 	}

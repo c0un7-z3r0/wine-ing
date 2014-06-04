@@ -82,5 +82,8 @@
     <wineSpecific>
       <name>Name</name>
     </wineSpecific>
+    <wineSpecific>
+      <name>Maker</name>
+    </wineSpecific>
   </wineSpecifics>
 </wineIng>

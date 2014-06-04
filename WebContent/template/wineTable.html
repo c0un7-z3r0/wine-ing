@@ -1,3 +1,4 @@
+<div class="table">
 <table class="wineTable">
 	<thead class="tableHead">
 		<tr>
@@ -6,17 +7,20 @@
 			<th onclick="sortIt(this,\'string\')">Region</th>
 			<th onclick="sortIt(this,\'string\')">Winemaker</th>
 			<th onclick="sortIt(this,\'string\')">Type</th>
-			<th onclick="sortIt(this,\'number\')">Price</th>
+			<th onclick="sortIt(this,\'string\')">Price</th>
 		</tr>
 	</thead>
 	<tbody class="tableBody">
-		<tr>
+		<tr class="tableRow">
 			<td>%%NAME%%</td>
 			<td>%%KIND%%</td>
 			<td>%%REGION%%</td>
-			<td>%%WINEMAKER%%</td>
+			<td>%%MAKER%%</td>
 			<td>%%TYPE%%</td>
 			<td>%%PRICE%%</td>
+			<td><input type="button" value="edit wine" name="edit" onclick="editWine('%%ID%%')" /></td>
+			<td><input type="button" value="delete wine" name="delete" onclick="deleteWine('%%ID%%')" /></td>
 		</tr>
 	</tbody>
 </table>
+</div>
