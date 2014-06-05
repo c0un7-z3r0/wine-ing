@@ -88,12 +88,13 @@ public class WineDao {
 	 * @param wineName
 	 * @param wineType
 	 * @return if true everything worked
-	 * @throws XPathExpressionException 
+	 * @throws XPathExpressionException
 	 * @throws UnsupportedEncodingException
 	 * @throws DOMException
 	 */
 
-	public String updateWine(Map<String, String[]> resultMap, String wineId) throws XPathExpressionException {
+	public String updateWine(Map<String, String[]> resultMap, String wineId)
+			throws XPathExpressionException {
 		String returnMsg = "Adding Wine to XML" + "</br>";
 
 		Document doc = parseXml();
@@ -108,7 +109,6 @@ public class WineDao {
 		String winemaker = "";
 		String winetype = "";
 		String price = "";
-
 
 		XPath xPath = XPathFactory.newInstance().newXPath();
 		NodeList elemList;
@@ -140,25 +140,24 @@ public class WineDao {
 		for (int i = 0; i < elemList.getLength(); i++) {
 			String nodeVal = elemList.item(i).getFirstChild().getNodeValue();
 
-				NodeList children = elemList.item(i)
-						.getChildNodes();
-				for (int j = 0; j < children.getLength(); j++) {
-					Node child = children.item(j);
+			NodeList children = elemList.item(i).getChildNodes();
+			for (int j = 0; j < children.getLength(); j++) {
+				Node child = children.item(j);
 
-					if (child.getNodeName().equals("name"))
-						child.getFirstChild().setNodeValue(name);
-					else if (child.getNodeName().equals("kind"))
-						child.getFirstChild().setNodeValue(kind);
-					else if (child.getNodeName().equals("region"))
-						child.getFirstChild().setNodeValue(region);
-					else if (child.getNodeName().equals("winemaker"))
-						child.getFirstChild().setNodeValue(winemaker);
-					else if (child.getNodeName().equals("winetype"))
-						child.getFirstChild().setNodeValue(winetype);
-					else if (child.getNodeName().equals("price"))
-						child.getFirstChild().setNodeValue(price);
+				if (child.getNodeName().equals("name"))
+					child.getFirstChild().setNodeValue(name);
+				else if (child.getNodeName().equals("kind"))
+					child.getFirstChild().setNodeValue(kind);
+				else if (child.getNodeName().equals("region"))
+					child.getFirstChild().setNodeValue(region);
+				else if (child.getNodeName().equals("winemaker"))
+					child.getFirstChild().setNodeValue(winemaker);
+				else if (child.getNodeName().equals("winetype"))
+					child.getFirstChild().setNodeValue(winetype);
+				else if (child.getNodeName().equals("price"))
+					child.getFirstChild().setNodeValue(price);
 
-				}
+			}
 
 		}
 		writeInXml(doc);

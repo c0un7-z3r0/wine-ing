@@ -31,9 +31,10 @@ public class Routing extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		WineDao wd = new WineDao(request);
-		
-		if(request.getParameter("deleteWine") != null){
-			String returnMessage = wd.deleteWine(request.getParameter("wineId"));
+
+		if (request.getParameter("deleteWine") != null) {
+			String returnMessage = wd
+					.deleteWine(request.getParameter("wineId"));
 			List<String> returnMessagesList = new ArrayList<String>();
 			returnMessagesList.add(returnMessage);
 			try {
@@ -43,11 +44,12 @@ public class Routing extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		if(request.getParameter("updateWineInXML") != null){
+
+		if (request.getParameter("updateWineInXML") != null) {
 			String returnString = "";
 			try {
-				returnString = wd.updateWine(request.getParameterMap(),request.getParameter("wineId") );
+				returnString = wd.updateWine(request.getParameterMap(),
+						request.getParameter("wineId"));
 			} catch (XPathExpressionException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -61,7 +63,7 @@ public class Routing extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
+
 		if (request.getParameter("addWineToXML") != null) {
 			String returnString = "";
 			returnString = wd.addWine(request.getParameterMap());
@@ -78,17 +80,17 @@ public class Routing extends HttpServlet {
 			List<Wine> result;
 			try {
 				result = wd.searchWine(request.getParameter("search"));
-				
-				if(result.isEmpty()){
-					String returnMessage = "Could not find "+request.getParameter("search")+" in XML!";
+
+				if (result.isEmpty()) {
+					String returnMessage = "Could not find "
+							+ request.getParameter("search") + " in XML!";
 					List<String> returnMessagesList = new ArrayList<String>();
 					returnMessagesList.add(returnMessage);
 					returnJson(response, returnMessagesList);
 
-				}else{
+				} else {
 					returnJson(response, result);
 				}
-				
 
 			} catch (JSONException jse) {
 				jse.getStackTrace();
@@ -100,29 +102,29 @@ public class Routing extends HttpServlet {
 		if (request.getParameter("addWineForm") != null) {
 			List<List<String>> formElements = new ArrayList<List<String>>();
 
-			List<String> kind = wd
-					.getWineSpecificList("kind","/wine-ing/wineSpecifics/wineKind/kind");
-//			request.getSession().setAttribute("kind", kind);
+			List<String> kind = wd.getWineSpecificList("kind",
+					"/wine-ing/wineSpecifics/wineKind/kind");
+			// request.getSession().setAttribute("kind", kind);
 
-			List<String> region = wd
-					.getWineSpecificList("region","/wine-ing/wineSpecifics/wineRegion/region");
-//			request.getSession().setAttribute("region", region);
+			List<String> region = wd.getWineSpecificList("region",
+					"/wine-ing/wineSpecifics/wineRegion/region");
+			// request.getSession().setAttribute("region", region);
 
-			List<String> wineMaker = wd
-					.getWineSpecificList("winemaker","/wine-ing/wineSpecifics/wineMaker/maker");
-//			request.getSession().setAttribute("wineMaker", wineMaker);
+			List<String> wineMaker = wd.getWineSpecificList("winemaker",
+					"/wine-ing/wineSpecifics/wineMaker/maker");
+			// request.getSession().setAttribute("wineMaker", wineMaker);
 
-			List<String> wineType = wd
-					.getWineSpecificList("winetype","/wine-ing/wineSpecifics/wineType/type");
-//			request.getSession().setAttribute("wineType", wineType);
+			List<String> wineType = wd.getWineSpecificList("winetype",
+					"/wine-ing/wineSpecifics/wineType/type");
+			// request.getSession().setAttribute("wineType", wineType);
 
-//			request.getRequestDispatcher("/addWine.jsp").forward(request,
-//					response);
+			// request.getRequestDispatcher("/addWine.jsp").forward(request,
+			// response);
 			formElements.add(kind);
 			formElements.add(region);
 			formElements.add(wineMaker);
 			formElements.add(wineType);
-			
+
 			try {
 				returnJson(response, formElements);
 			} catch (JSONException e) {
@@ -130,18 +132,17 @@ public class Routing extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
-		
+
 		if (request.getParameter("getAllWine") != null) {
 			List<Wine> result = wd.getAllWine();
 			try {
-				if(result.isEmpty()){
+				if (result.isEmpty()) {
 					String returnMessage = "Empty Wine List!";
 					List<String> returnMessagesList = new ArrayList<String>();
 					returnMessagesList.add(returnMessage);
 					returnJson(response, returnMessagesList);
 
-				}else{
+				} else {
 					returnJson(response, result);
 				}
 			} catch (JSONException jse) {
@@ -149,8 +150,6 @@ public class Routing extends HttpServlet {
 			}
 		}
 	}
-
-
 
 	/**
 	 * @param response
@@ -169,15 +168,16 @@ public class Routing extends HttpServlet {
 		for (Object object : result) {
 			int id = 0;
 			jsonObj = new JSONObject();
-			if(object instanceof String){
+			if (object instanceof String) {
 				jsonName = "messages";
 				jsonObj.put("message", object.toString());
 			}
-			if(object instanceof List<?>){
-				jsonName="formElements";
-				for (Object obj : (List<?>)object){
-					if(obj instanceof String){
-						jsonObj.put( Integer.toString(id), obj.toString().replaceAll("[\r\n]", "") );
+			if (object instanceof List<?>) {
+				jsonName = "formElements";
+				for (Object obj : (List<?>) object) {
+					if (obj instanceof String) {
+						jsonObj.put(Integer.toString(id), obj.toString()
+								.replaceAll("[\r\n]", ""));
 						id++;
 					}
 				}

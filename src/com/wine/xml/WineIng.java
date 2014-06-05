@@ -8,7 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 public class WineIng {
 
 	private ArrayList<Wine> wineList = new ArrayList<Wine>();
-	
+
 	private ArrayList<WineSpecific> wineSpecifics;
 
 	public ArrayList<Wine> getWineList() {
@@ -18,8 +18,8 @@ public class WineIng {
 	public void setWineList(ArrayList<Wine> wineList) {
 		this.wineList = wineList;
 	}
-	
-	public void addToWineList(Wine wine){
+
+	public void addToWineList(Wine wine) {
 		this.wineList.add(wine);
 	}
 
@@ -31,7 +31,4 @@ public class WineIng {
 		this.wineSpecifics = wineSpecifics;
 	}
 
-	
-	
-	
 }

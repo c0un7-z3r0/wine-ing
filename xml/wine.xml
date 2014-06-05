@@ -1,89 +1,105 @@
 <wineIng>
   <wineList>
-    <wine id="ID_1400964439892-15518">
-      <name>asd</name>
-      <kind>wineKind</kind>
-      <region>Italy</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
+    <wine id="ID_1402001781629-77970">
+      <name>tews</name>
+      <art>trocken</art>
+      <region>Argentinien</region>
+      <winzer>bob</winzer>
+      <typ>WeiÃ&#x9f;wein</typ>
+      <preis>123</preis>
     </wine>
-    <wine id="ID_1400964456905-89481">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
+    <wine id="ID_1402001942586-42282">
+      <name>groÃ&#x9f;</name>
+      <art>trocken</art>
+      <region>Kanada</region>
+      <winzer>we</winzer>
+      <typ>WeiÃ&#x9f;wein</typ>
+      <preis>34</preis>
     </wine>
-    <wine id="ID_1400964473365-37711">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
+    <wine id="ID_1402002039500-57582">
+      <name>groÃ&#x83;Å¸</name>
+      <art>trocken</art>
+      <region>Kanada</region>
+      <winzer>we</winzer>
+      <typ>Edelsüßer Wein</typ>
+      <preis>34</preis>
     </wine>
-    <wine id="ID_1401183271797-82337">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
+    <wine id="ID_1402002156320-25727">
+      <name>groÃ&#x83;Æ&#x92;Ã&#x85;Â¸</name>
+      <art>trocken</art>
+      <region>Ã&#x96;sterreich</region>
+      <winzer>we</winzer>
+      <typ>EdelsÃ¼Ã&#x9f;er Wein</typ>
+      <preis>34</preis>
     </wine>
-    <wine id="ID_1401185613955-12009">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
-    </wine>
-    <wine id="ID_1401185855066-73701">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
-    </wine>
-    <wine id="ID_1401185860050-92924">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
-    </wine>
-    <wine id="ID_1401185924951-87843">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
-    </wine>
-    <wine id="ID_1401185936074-16265">
-      <name>wineNaasdasdasdasdasdasdsame</name>
-      <kind>wineKind</kind>
-      <region>wineregion</region>
-      <winemaker>winemaker</winemaker>
-      <type>wineType</type>
-      <price>323.12</price>
+    <wine id="ID_1402002704169-53891">
+      <name>bob</name>
+      <art>trocken</art>
+      <region>Argentinien</region>
+      <winzer>des</winzer>
+      <typ>WeiÃ&#x9f;wein</typ>
+      <preis>2345</preis>
     </wine>
   </wineList>
   <wineSpecifics>
     <wineSpecific>
-      <name>Region</name>
-      <string>France</string>
-      <string>Italy</string>
-    </wineSpecific>
-    <wineSpecific>
       <name>Name</name>
     </wineSpecific>
     <wineSpecific>
-      <name>Maker</name>
+      <name>Art</name>
+      <string>trocken</string>
+      <string>halbtrocken</string>
+      <string>süß</string>
+    </wineSpecific>
+    <wineSpecific>
+      <name>Region</name>
+      <string>Argentinien</string>
+      <string>Australien</string>
+      <string>Brasilien</string>
+      <string>Bulgarien</string>
+      <string>Chile</string>
+      <string>China</string>
+      <string>Deutschland</string>
+      <string>England</string>
+      <string>Frankreich</string>
+      <string>Georgien</string>
+      <string>Griechenland</string>
+      <string>Indien</string>
+      <string>Israel</string>
+      <string>Italien</string>
+      <string>Kanada</string>
+      <string>Kroatien</string>
+      <string>Luxemburg</string>
+      <string>Mazedonien</string>
+      <string>Neuseeland</string>
+      <string>Österreich</string>
+      <string>Portugal</string>
+      <string>Rumänien</string>
+      <string>Schweiz</string>
+      <string>Slowakei</string>
+      <string>Slowenien</string>
+      <string>Spanien</string>
+      <string>Mexiko</string>
+      <string>Südafrika</string>
+      <string>Türkei</string>
+      <string>Ungarn</string>
+      <string>USA</string>
+    </wineSpecific>
+    <wineSpecific>
+      <name>Winzer</name>
+    </wineSpecific>
+    <wineSpecific>
+      <name>Typ</name>
+      <string>Weißwein</string>
+      <string>Rotwein</string>
+      <string>Rosewein</string>
+      <string>Perlwein</string>
+      <string>Schaumwein</string>
+      <string>Edelsüßer Wein</string>
+      <string>Likörwein</string>
+    </wineSpecific>
+    <wineSpecific>
+      <name>Preis</name>
     </wineSpecific>
   </wineSpecifics>
 </wineIng>

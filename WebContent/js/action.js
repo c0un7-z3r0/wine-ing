@@ -50,49 +50,31 @@ function updateWine(wineId) {
 }
 
 function addWine() {
+	var name = $('.input.Name').val();
+	var art = $('.input.Art').val();
+	var region = $('.input.Region').val();
+	var winzer = $('.input.Winzer').val();
+	var typ = $('.input.Typ').val();
+	var preis = $('.input.Preis').val();
 
-	// var name = encodeURIComponent($('.name').val());
-	//
-	// var kind = encodeURIComponent($('.kind').val());
-	// var region = encodeURIComponent($('.region').val());
-	// var wineMaker = encodeURIComponent($('.winemaker').val());
-	// var wineType = encodeURIComponent($('.winetype').val());
-	// var price = encodeURIComponent($('.price').val());
-	//
-	// if (name === "") {
-	// $('.content').html("Name is empty!");
-	// return;
-	// }
-	// if (price === "") {
-	// price = 0;
-	// }
-	// // var name = escape($('.name').val());
-	// // var kind = escape($('.kind').val());
-	// // var region = escape($('.region').val());
-	// // var wineMaker = escape($('.winemaker').val());
-	// // var wineType = escape($('.winetype').val());
-	// // var price = escape($('.price').val());
-	// var jsonObj = {
-	// 'action' : "add",
-	// 'name' : name,
-	// 'kind' : kind,
-	// 'region' : region,
-	// 'winemaker' : wineMaker,
-	// 'type' : wineType,
-	// 'price' : price
-	//
-	// };
+	if (name === "") {
+		$('.content').html("Name ist Leer!");
+		return;
+	}
+	if (preis === "") {
+		preis = 0;
+	}
 
-	var params = [];
-
+	
 	$.getJSON('WineController', {
-		action : 'add',
-		name : 'wineNaasdasdasdasdasdasdsame',
-		kind : 'wineKind',
-		region : 'wineregion',
-		winemaker : 'winemaker',
-		type : 'wineType',
-		price : '323.12'
+		'action' : 'add',
+		'name' : name,
+		'art' : art,
+		'region' : region,
+		'winzer' : winzer,
+		'typ' : typ,
+		'preis' : preis
+
 	}).done(function(json) {
 		$.each(json.messages, function(index, item) {
 			$('.content').html(item['message']);
@@ -109,10 +91,6 @@ function includePage(pageName) {
 	$('.content').load(pageName);
 }
 
-function editWine(wineId) {
-	searchWineInternal(wineId.toString());
-
-}
 function searchWineInternal(searchTerm) {
 	$.getJSON('routing', {
 		searchWineForm : true,
@@ -159,7 +137,8 @@ function searchWine() {
 
 	$.getJSON('routing', {
 		action : 'search',
-		search : searchTerm
+		search : searchTerm,
+		searchType : 'wine'
 	}).done(function(json) {
 
 		$('.content').html(showWineTable(json));
@@ -170,6 +149,25 @@ function searchWine() {
 	});
 }
 
+function editSpecific(specificsName) {
+	var searchTerm = specificsName;
+	if (searchTerm == "") {
+		return;
+	}
+	$.getJSON('routing', {
+		action : 'search',
+		search : searchTerm,
+		searchType : 'specific'
+	}).done(function(jsonContent) {
+		$('.content').html(showSpecificsForm(jsonContent, 'specific'));
+
+	}).fail(function(jqxhr, textStatus, error) {
+		var err = textStatus + ", " + error;
+		console.log("Request Failed: " + err);
+	});
+
+}
+
 function editWine(wineId) {
 	var searchTerm = wineId;
 	if (searchTerm == "") {
@@ -178,7 +176,8 @@ function editWine(wineId) {
 
 	$.getJSON('routing', {
 		action : 'search',
-		search : searchTerm
+		search : searchTerm,
+		searchType : 'wine'
 	}).done(function(jsonContent) {
 
 		$.getJSON('routing', {
@@ -194,7 +193,9 @@ function editWine(wineId) {
 		console.log("Request Failed: " + err);
 	});
 }
-
+function saveEditWine(id){
+	
+}
 function wineForm() {
 	$.getJSON('routing', {
 		action : 'getAllSpecific'
@@ -207,7 +208,7 @@ function wineForm() {
 
 }
 
-function getAllSpecific(){
+function getAllSpecific() {
 	$.getJSON('WineController', {
 		action : "getAllSpecific"
 	}).done(function(json) {
@@ -217,4 +218,31 @@ function getAllSpecific(){
 		var err = textStatus + ", " + error;
 		console.log("Request Failed: " + err);
 	});
+}
+function saveSpecific() {
+	var categories = $('.category.input');
+	var name = $('.inputname');
+	var jsonName = '"name":"' + name.val() + '"';
+
+	if (categories !== '') {
+		var jsonCat = '"categories": [';
+
+		var pos = 0;
+		$.each(categories, function(key, value) {
+			if (pos !== 0) {
+				jsonCat += ',';
+			}
+			jsonCat += '"' + $(value).val() + '"';
+			pos++;
+		});
+		jsonCat += ']';
+
+		var json = '{' + jsonName + ',' + jsonCat + '}';
+	} else {
+		var json = '{' + jsonName + '}';
+
+	}
+
+	console.log(json);
+
 }

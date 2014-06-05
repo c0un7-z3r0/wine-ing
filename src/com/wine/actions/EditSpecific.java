@@ -5,16 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.wine.translator.JsonTranslator;
 import com.wine.translator.XStreamTranslator;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;
 
-public class DeleteWine implements Actions<String> {
+public class EditSpecific implements Actions<String> {
 
 	@Override
 	public String execute(Object paramIn) throws Exception {
-		Map<String, String[]> jsonIn = (Map<String, String[]>) paramIn;
+		WineSpecific wineSpecific = (WineSpecific) JsonTranslator
+				.jsonToObject((Map<String, String[]>) paramIn);
 
 		List<Class<?>> classesToUse = new ArrayList<Class<?>>();
 		classesToUse.add(Wine.class);
@@ -29,21 +31,22 @@ public class DeleteWine implements Actions<String> {
 		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(xml,
 				classesToUse);
 
-		ArrayList<Wine> wineList = wineIng.getWineList();
-		ArrayList<Wine> wineResult = new ArrayList<Wine>();
+		ArrayList<WineSpecific> wineSpecificList = wineIng.getWineSpecifics();
 
-		for (Wine wineInList : wineList) {
+		for (WineSpecific wineSpecificInList : wineSpecificList) {
 
-			if (!wineInList.getId().equals(jsonIn.get("id")[0])) {
-				wineResult.add(wineInList);
+			if (wineSpecificInList.getName().equals(wineSpecific.getName())) {
+				wineSpecificInList = wineSpecific;
 			}
 
 		}
-		wineIng.setWineList(wineResult);
+
+		wineIng.setWineSpecifics(wineSpecificList);
+
 		xStreamTranslatorInst.toXMLFile(wineIng,
 				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
+		return "WineSpecific has been updated";
 
-		return "Wine has been deleted";
 	}
 
 }

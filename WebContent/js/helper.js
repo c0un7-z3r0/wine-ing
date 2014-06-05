@@ -1,21 +1,23 @@
-var oderOfElemInForm = [ 'Name', 'Region', 'Maker' ];
+var oderOfElemInForm = [ 'Name', 'Art', 'Region', 'Winzer', 'Typ', 'Preis' ];
 
 /**
  * "Compiles" a template
+ * 
  * @param templateName
  * @param obj
- * @param divToReplace (standart is .content)
+ * @param divToReplace
+ *            (standart is .content)
  * @returns will add the template to the div
  */
 function generateFromTemplate(templateName, obj, divToReplace, otherObj) {
-	if((typeof divToReplace === 'undefined') ||divToReplace === ''){
+	if ((typeof divToReplace === 'undefined') || divToReplace === '') {
 		divToReplace = '.content';
 	}
 
 	$.get("template/" + templateName + ".html", function(respons) {
-		//get the template
+		// get the template
 		var $template = $(respons);
-		
+
 		/**
 		 * Generate a wine table from Template
 		 */
@@ -25,121 +27,154 @@ function generateFromTemplate(templateName, obj, divToReplace, otherObj) {
 			var tableRowHtml = $tableRow.html();
 			$tableRow.remove();
 			var $tableBody = $template.find('.tableBody');
-			
-			//replace each placeholder
+
+			// replace each placeholder
 			$.each(obj, function(key, wine) {
 				var newTr = tableRowHtml.replace(/%%NAME%%/g, wine.name);
-				newTr = newTr.replace(/%%KIND%%/g, wine.kind);
+				newTr = newTr.replace(/%%KIND%%/g, wine.art);
 				newTr = newTr.replace(/%%REGION%%/g, wine.region);
-				newTr = newTr.replace(/%%MAKER%%/g, wine.maker);
-				newTr = newTr.replace(/%%TYPE%%/g, wine.type);
-				newTr = newTr.replace(/%%PRICE%%/g, wine.price + '€');
+				newTr = newTr.replace(/%%MAKER%%/g, wine.winzer);
+				newTr = newTr.replace(/%%TYPE%%/g, wine.typ);
+				newTr = newTr.replace(/%%PRICE%%/g, wine.preis + '€');
 				newTr = newTr.replace(/%%ID%%/g, wine.id);
 
-				//add the new table row to the table body
+				// add the new table row to the table body
 				$tableBody.append("<tr>" + newTr + "</tr>");
 			});
-			
+
 		}
 		/**
 		 * Generate the wine specifics table from Template
 		 */
-		else if(templateName === 'specificTable'){
+		else if (templateName === 'specificTable') {
 
 			var $tableRow = $template.find('.tableRow');
 			var tableRowHtml = $tableRow.html();
 			$tableRow.remove();
 			var $tableBody = $template.find('.tableBody');
-			
-			//replace each placeholder
-			$.each(obj, function(key, specific){
+
+			// replace each placeholder
+			$.each(obj, function(key, specific) {
 				var categories = 'none';
 				console.log(specific);
-				var newTr = tableRowHtml.replace(/%%NAME%%/g, specific.name);	
-				//if it has categeories then add them to a string and 
-				//add them to the table otherwise it shows "none"
-				if(typeof specific.categories !== 'undefined'){
-					$.each(specific.categories, function(key, value){
-						if(categories === 'none'){
+				var newTr = tableRowHtml.replace(/%%NAME%%/g, specific.name);
+				// if it has categeories then add them to a string and
+				// add them to the table otherwise it shows "none"
+				if (typeof specific.categories !== 'undefined') {
+					$.each(specific.categories, function(key, value) {
+						if (categories === 'none') {
 							categories = value;
-						}else{
+						} else {
 							categories += ',' + value;
 						}
 					});
 				}
-				//add the categories to the table otherwise it shows "none"
-				newTr = newTr.replace(/%%CATEGORIES%%/g, categories);	
-				//add the new table row to the table body
+				// add the categories to the table otherwise it shows "none"
+				newTr = newTr.replace(/%%CATEGORIES%%/g, categories);
+				// add the new table row to the table body
 				$tableBody.append("<tr>" + newTr + "</tr>");
 
 			});
 		}
 		/**
-		 * Generate the wine form which is used to add a new wine
-		 * or change a wine or change specifics
+		 * Generate the wine form which is used to add a new wine or change a
+		 * wine or change specifics
 		 */
-		else if(templateName === 'wineForm'){
+		else if (templateName === 'wineForm') {
 			var $inputForm = $template.find('.inputForm');
 			var $textbox = $template.find('.textboxWrapper');
-            var textboxTemplate = $textbox.html();
-            $textbox.remove();
+			var textboxTemplate = $textbox.html();
+			$textbox.remove();
 			var $dropdown = $template.find('.dropdownWrapper');
 			var $newDropdown = $dropdown;
 			$dropdown.remove();
-            var dropdownTemplate = $dropdown.html();
-        	var sortedObj = [];
+			var dropdownTemplate = $dropdown.html();
+			
+			
+			
+			var sortedObj = [];
 
-        	//sort the elements in the form according to the array
-        	//set in the beginning of the document
-        	$.each(oderOfElemInForm,function(k,v){
-        		 $.each(obj, function(index, value){
-        			 if(v === value.name){
-        				 sortedObj.push(value);
-        			 }
-                 });
-        	});
-        	
-           
-        	//replace the placeholder
-			$.each(sortedObj, function(index, item){
-				//if the obj doesnt have categories assume it is a input field text
-				if(typeof item.categories === 'undefined'){
-					var text = findInArray(otherObj, item.name.toLowerCase()) ;
-					var newTextBox = textboxTemplate.replace(/%%NAME%%/g,item.name);
-                                        newTextBox = newTextBox.replace(/%%VALUE%%/g,text);
-                                        $inputForm.append(newTextBox);
+			// sort the elements in the form according to the array
+			// set in the beginning of the document
+			$.each(oderOfElemInForm, function(k, v) {
+				$.each(obj, function(index, value) {
+					if (v === value.name) {
+						sortedObj.push(value);
+					}
+				});
+			});
+
+			// replace the placeholder
+			$.each(sortedObj, function(index, item) {
+				// if the obj doesnt have categories assume it is a input field
+				// text
+				if (typeof item.categories === 'undefined') {
+					var text = '';
+					if (typeof otherObj !== 'undefined') {
+						text = findInArray(otherObj, item.name.toLowerCase());
+					}
+					var newTextBox = textboxTemplate.replace(/%%NAME%%/g,
+							item.name);
+					newTextBox = newTextBox.replace(/%%VALUE%%/g, text);
+					$inputForm.append(newTextBox);
 				}
 				// otherwise it is a dropdown
-				else{
-					var $newDropdown = $(dropdownTemplate.replace(/%%NAME%%/g,item.name));
-					var selected = findInArray(otherObj, item.name.toLowerCase()) ;
+				else {
+					var $newDropdown = $(dropdownTemplate.replace(/%%NAME%%/g,
+							item.name));
 
-					$.each(item.categories, function(k, v) {   
-						$newDropdown.find('.actualDropdown')
-					          .append($('<option>', { value : v })
-					          .text(v)); 
+					$.each(item.categories, function(k, v) {
+						$newDropdown.find('.actualDropdown').append(
+								$('<option>', {
+									value : v
+								}).text(v));
 					});
-					$newDropdown.find('.actualDropdown').find('option').each(function( i, opt ) {
-					    if( opt.value === selected ) 
-					        $(opt).attr('selected', 'selected');
-					});
+					if (typeof otherObj !== 'undefined') {
+						var selected = findInArray(otherObj, item.name
+								.toLowerCase());
+						$newDropdown.find('.actualDropdown').find('option')
+								.each(function(i, opt) {
+									if (opt.value === selected)
+										$(opt).attr('selected', 'selected');
+								});
+					}
+					if (typeof otherObj !== 'undefined') {
+						$.each(otherObj, function(i, opt){
+							$template.find('.button.save').attr('onclick','saveEditWine("'+opt.id+'")');
+						});
+					}else{
+						$template.find('.button.save').attr('onclick','addWine()');
+					}
+					
 					$inputForm.append($newDropdown);
 				}
-				
-				
+
 			});
-			
+
+		}else if(templateName === 'specificForm') {
+			$.each(obj, function(key, value){
+				$template.find('.textbox.inputname').val(value.name);
+				var categories = $template.find('.textboxes.category');
+				if(typeof value.categories !== 'undefined'){
+					$.each(value.categories, function(k,item){
+						var categoryDiv = addInputField(true, item);
+						categories.append(categoryDiv);
+						
+					});
+				}
+			});
 		}
-		//add "compiled" template to website
-		$('.content').html($template.html());
+		// add "compiled" template to website
+		$('.content').html($template.html(obj.name));
+	
 
 	});
 
 }
-function findInArray(haystack, needle){
+function findInArray(haystack, needle) {
 	var returnValue = '';
-	$.each(haystack, function(key, value){
-		if(typeof value[needle] !== 'undefined'){
+	$.each(haystack, function(key, value) {
+		if (typeof value[needle] !== 'undefined') {
 			returnValue = value[needle];
 		}
 	});
@@ -154,42 +189,54 @@ function showWineTable(json) {
 
 }
 
-function showSpecificTable(json){
+function showSpecificTable(json) {
 	var list = jsonToSpecific(json);
-	
+
 	generateFromTemplate('specificTable', list);
-	
+
+}
+function showSpecificsForm(json, type, content) {
+	if (json === '') {
+		generateFromTemplate('specificForm', '', '');
+	}else{
+		var list = jsonToSpecific(json);
+		generateFromTemplate('specificForm', list);
+	}
+
 }
 
 function showWineForm(json, type, content) {
 	var list = jsonToSpecific(json);
-	
-	if(type === 'wine'){
+
+	if (type === 'wine') {
 		var wineList = jsonToWine(content);
 		generateFromTemplate('wineForm', list, '', wineList);
-	}else if(type === 'specifics'){
+	} else if (type === 'specifics') {
 		var specificsList = jsonToSpecific(content);
 		generateFromTemplate('wineForm', list, '', specificsList);
-	}else{
+	} else {
 		generateFromTemplate('wineForm', list);
 	}
 }
+
+
 /**
- * generates a array of specifics objects 
+ * generates a array of specifics objects
+ * 
  * @param json
  * @returns {Array}
  */
-function jsonToSpecific(json){
+function jsonToSpecific(json) {
 	var specifics = [];
-	
-	$.each(json.ArrayList, function(index, item){
+
+	$.each(json.ArrayList, function(index, item) {
 		var specific = {};
 		var categories = [];
 		console.log(item.name);
 		specific.name = item.name;
-		
-		if(typeof item.categories !== 'undefined'){
-			$.each(item.categories, function(key, value){
+
+		if (typeof item.categories !== 'undefined') {
+			$.each(item.categories, function(key, value) {
 				categories.push(value);
 			});
 			specific.categories = categories;
@@ -202,6 +249,7 @@ function jsonToSpecific(json){
 
 /**
  * generates a array of wine objects
+ * 
  * @param json
  * @returns {array}
  */
@@ -211,57 +259,17 @@ function jsonToWine(json) {
 		var wine = {};
 		wine.id = decodeURIComponent(item['id']);
 		wine.name = decodeURIComponent(item['name']);
-		wine.kind = decodeURIComponent(item['kind']);
+		wine.art = decodeURIComponent(item['art']);
 		wine.region = decodeURIComponent(item['region']);
-		wine.maker = decodeURIComponent(item['winemaker']);
-		wine.type = decodeURIComponent(item['type']);
-		wine.price = decodeURIComponent(item['price']);
+		wine.winzer = decodeURIComponent(item['winzer']);
+		wine.typ = decodeURIComponent(item['typ']);
+		wine.preis = decodeURIComponent(item['preis']);
 		wineList.push(wine);
 	});
 	return wineList;
 }
 
-function generateWineTables(json) {
 
-	var table = '<table class="wineTable">';
-	var headRow = '<thead><tr>'
-			+ '<th onclick="sortIt(this,\'string\')" >Name</th>'
-			+ '<th onclick="sortIt(this,\'string\')" >Kind</th>'
-			+ '<th onclick="sortIt(this,\'string\')" >Region</th>'
-			+ '<th onclick="sortIt(this,\'string\')" >Winemaker</th>'
-			+ '<th onclick="sortIt(this,\'string\')">Type</th>'
-			+ '<th onclick="sortIt(this,\'number\')">Price</th>' + '</tr>'
-			+ '</thead>' + '<tbody>';
-	table += headRow;
-	$
-			.each(
-					json.ArrayList,
-					function(index, item) {
-						var row = '<tr>';
-						// row += '<td>' + item['id'] + '</td>';
-						row += '<td>' + decodeURIComponent(item['name'])
-								+ '</td>';
-						row += '<td>' + decodeURIComponent(item['kind'])
-								+ '</td>';
-						row += '<td>' + decodeURIComponent(item['region'])
-								+ '</td>';
-						row += '<td>' + decodeURIComponent(item['winemaker'])
-								+ '</td>';
-						row += '<td>' + decodeURIComponent(item['type'])
-								+ '</td>';
-						row += '<td>' + decodeURIComponent(item['price'])
-								+ '&euro;' + '</td>';
-						row += '<td><input type="button" value="edit wine" name="edit" onclick="editWine(\''
-								+ item['id'] + '\')" /></td> ';
-						row += '<td><input type="button" value="delete wine" name="delete" onclick="deleteWine(\''
-								+ item['id'] + '\')" /></td> ';
-						row += '</tr>';
-
-						table += row;
-					});
-	table += '</tbody></table>';
-	return table;
-}
 
 function tableSort(sorter) {
 	$('tbody tr').sort(sorter).appendTo('tbody');
@@ -423,6 +431,53 @@ function createInputField(lableText, inputName, inputValue) {
 
 	return $inputTr;
 }
+
+
+function addInputField(returnIt, content){
+	
+	var textboxesDiv = $('.textboxes');
+
+	var $div = $(document.createElement('div'));
+	$div.attr('class', 'textbox');
+
+	var $nameInput = $(document.createElement('input'));
+	$nameInput.attr('type', 'text');
+	$nameInput.attr('class', 'category input');
+	
+	if(typeof content !== 'undefined'){
+		$nameInput.val(content);
+	}
+	
+	
+	var $icon = $(document.createElement('i'));
+	$icon.attr('class','fa fa-minus-circle fa-1x');
+	$icon.attr('onclick', 'removeInputField(this)')
+	$icon.attr('title', 'delete category');
+	
+	$div.append($icon);
+	$div.append($nameInput);
+	if(typeof returnIt === 'undefined' || !returnIt ){
+		textboxesDiv.append($div);
+	}else{
+		return $div;
+	}
+	
+}
+
+function removeInputField(elem){
+	elem.parentElement.remove();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 // function generateWineForm(json, content) {
 // var formElem = [];

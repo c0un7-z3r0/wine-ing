@@ -20,12 +20,11 @@ import com.wine.translator.JsonTranslator;
 @WebServlet("/WineController")
 public class WineController extends HttpServlet {
 
-	private static final Logger logger = Logger.getLogger(WineController.class.getName());
+	private static final Logger logger = Logger.getLogger(WineController.class
+			.getName());
 
-	
-
-
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			processRequest(request, response);
 		} catch (Exception e) {
@@ -34,8 +33,8 @@ public class WineController extends HttpServlet {
 		}
 	}
 
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			processRequest(request, response);
 		} catch (Exception e) {
@@ -43,33 +42,29 @@ public class WineController extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 
 	private void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		ActionFactory.init();
-		
+
 		Map<String, String[]> data = request.getParameterMap();
 		String methode = request.getMethod();
-		
-		
-		Actions<?> action = ActionFactory.getAction(methode, data.get("action")[0]);
-        Object result = action.execute(data);
-		
-        String jsonReturn = JsonTranslator.listToJson(result);
-        logger.info(jsonReturn);
-//		return JsonConverter.toJson(result);
-		
-//		Annotations
-//		Generic classes 
-//		Dependency Injection
-		
-		        
-        response.setContentType("application/json");
+
+		Actions<?> action = ActionFactory.getAction(methode,
+				data.get("action")[0]);
+		Object result = action.execute(data);
+
+		String jsonReturn = JsonTranslator.listToJson(result);
+		logger.info(jsonReturn);
+		// return JsonConverter.toJson(result);
+
+		// Annotations
+		// Generic classes
+		// Dependency Injection
+
+		response.setContentType("application/json");
 		response.getWriter().write(jsonReturn);
-		
+
 	}
-	
-	
 
 }

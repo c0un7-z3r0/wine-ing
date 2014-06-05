@@ -176,7 +176,7 @@ public class JsonTranslator {
 										json += ",";
 									}
 									json += "\"" + (String) inArrayList + "\"";
-									
+
 								}
 
 							}
@@ -186,7 +186,7 @@ public class JsonTranslator {
 							json += ",";
 						}
 					} else {
-						json = json.substring(0, json.length()-1);
+						json = json.substring(0, json.length() - 1);
 						logger.info(json);
 					}
 				} catch (IllegalArgumentException e) {

@@ -1,34 +1,31 @@
 package com.wine.xml;
 
-
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 
 @XStreamAlias("wine")
-public class Wine  {
+public class Wine {
 
 	@XStreamAlias("name")
 	private String name;
-	@XStreamAlias("kind")
-	private String kind;
+	@XStreamAlias("art")
+	private String art;
 	@XStreamAlias("region")
 	private String region;
-	@XStreamAlias("winemaker")
-	private String winemaker;
-	@XStreamAlias("type")
-	private String type;
-	@XStreamAlias("price")
-	private String price;
+	@XStreamAlias("winzer")
+	private String winzer;
+	@XStreamAlias("typ")
+	private String typ;
+	@XStreamAlias("preis")
+	private String preis;
 	@XStreamAlias("id")
-   	@XStreamAsAttribute
+	@XStreamAsAttribute
 	private String id;
-	
-	
-	public Wine(){
+
+	public Wine() {
 
 	}
 
-	
 	public String getName() {
 		return name;
 	}
@@ -37,61 +34,89 @@ public class Wine  {
 		this.name = name;
 	}
 
-	public String getType() {
-		return type;
+	/**
+	 * @return the art
+	 */
+	public String getArt() {
+		return art;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	/**
+	 * @param art the art to set
+	 */
+	public void setArt(String art) {
+		this.art = art;
 	}
 
-	public String getKind() {
-		return kind;
-	}
-
-	public void setKind(String kind) {
-		this.kind = kind;
-	}
-
+	/**
+	 * @return the region
+	 */
 	public String getRegion() {
 		return region;
 	}
 
+	/**
+	 * @param region the region to set
+	 */
 	public void setRegion(String region) {
 		this.region = region;
 	}
 
-	public String getWinemaker() {
-		return winemaker;
+	/**
+	 * @return the winzer
+	 */
+	public String getWinzer() {
+		return winzer;
 	}
 
-	public void setWinemaker(String winemaker) {
-		this.winemaker = winemaker;
+	/**
+	 * @param winzer the winzer to set
+	 */
+	public void setWinzer(String winzer) {
+		this.winzer = winzer;
 	}
 
-	public String getPrice() {
-		return price;
+	/**
+	 * @return the typ
+	 */
+	public String getTyp() {
+		return typ;
 	}
 
-	public void setPrice(String price) {
-		this.price = price;
+	/**
+	 * @param typ the typ to set
+	 */
+	public void setTyp(String typ) {
+		this.typ = typ;
 	}
 
+	/**
+	 * @return the preis
+	 */
+	public String getPreis() {
+		return preis;
+	}
+
+	/**
+	 * @param preis the preis to set
+	 */
+	public void setPreis(String preis) {
+		this.preis = preis;
+	}
+
+	/**
+	 * @return the id
+	 */
 	public String getId() {
 		return id;
 	}
 
-	
+	/**
+	 * @param id the id to set
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
 
-		
-		
-		
-	
-	
-	
+
 }

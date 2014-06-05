@@ -12,6 +12,5 @@ public class WineHelpers {
 		long randomLong = Math.round(Math.random() * 89999) + 10000;
 		return ("ID_" + now + "-" + randomLong);
 	}
-	
-	
+
 }
