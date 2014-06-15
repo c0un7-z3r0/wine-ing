@@ -113,6 +113,23 @@ Actions.prototype.getAllWine = function (view, callback) {
 
 
 }
+
+//Actions.prototype.imageToBase64 = function(image, callback){
+//	var files = [];
+//
+//	$.each(image[0].files, function(index, file) {
+//		var reader = new FileReader();
+//		reader.onload = function(event) {
+//			object = {};
+//			object.filename = file.name;
+//			object.data = event.target.result;
+//			files.push(object);
+//			callback(files);
+//		};
+//		reader.readAsDataURL(file);
+//	});
+//};
+
 Actions.prototype.addWine = function () {
 	var name = $('.input.Name').val();
 	var art = $('.input.Art').val();
@@ -121,7 +138,7 @@ Actions.prototype.addWine = function () {
 	var typ = $('.input.Typ').val();
 	var preis = $('.input.Preis').val();
 	preis = preis.replace(/[^\d.-]/g, '');
-
+//	var image = $('.imageUpload')
 	if (name === "") {
 		$('.content').html("Name ist Leer!");
 		return;
@@ -129,23 +146,28 @@ Actions.prototype.addWine = function () {
 	if (preis === "") {
 		preis = 0;
 	}
+//	this.imageToBase64(image, function(files){
+		var data = {
+			'name': name,
+			'art': art,
+			'region': region,
+			'winzer': winzer,
+			'typ': typ,
+			'preis': preis
+		};
 
-	var data = {
-		'name': name,
-		'art': art,
-		'region': region,
-		'winzer': winzer,
-		'typ': typ,
-		'preis': preis
-	};
+		WineIng.request.create('add', '', data, false, function (json) {
+			WineIng.action.getAllWine('admin');
+			console.log('done : ' + JSON.stringify(json));
 
-	WineIng.request.create('add', '', data, false, function (json) {
-		WineIng.action.getAllWine('admin');
-		console.log('done : ' + JSON.stringify(json));
+		});
 
-	});
 
-}
+
+
+//	});
+
+};
 
 Actions.prototype.deleteWine = function (wineId) {
 	var data = {
@@ -161,7 +183,7 @@ Actions.prototype.deleteWine = function (wineId) {
 
 };
 
-Actions.prototype.filterList = function filterList() {
+Actions.prototype.filterList = function filterList(wineList) {
 	var filters = WineIng.cache.c.filtersActive;
 
 
@@ -179,9 +201,16 @@ Actions.prototype.filterList = function filterList() {
 			searchResult.push(wine);
 		} else {
 			var check = [];
+			$.each(filters, function (k, filter) {
+				if(typeof filter.min !== 'undefined'){
+					if(wine.price > filter.min && wine.price < filter.max){
+						check.push(wine)
+					}
+				}
 
+			});
 			$.each(wine, function (m, wineValue) {
-
+				var insert = false;
 				$.each(filters, function (k, filter) {
 					if (filter === wineValue) {
 						check.push(wine)
@@ -198,10 +227,8 @@ Actions.prototype.filterList = function filterList() {
 
 	var data = {};
 	data.ArrayList = searchResult;
-	new Templater('wineTableCostumer', data, '', function (content) {
-		$('.content').html(content);
-
-	});
+	return data;
+	
 
 };
 

@@ -72,7 +72,10 @@ WineForm.prototype.compileIt = function () {
 		}
 
 	});
-
+//	var imageUpload = $(document.createElement('input'));
+//	imageUpload.addClass('imageUpload');
+//	imageUpload.attr('type','file');
+//	$inputForm.append(imageUpload);
 	var newTemplate = this.$template;
 	newTemplate.find('.inputForm').html($inputForm.html());
 	newTemplate.find('.dummy').each(function () {

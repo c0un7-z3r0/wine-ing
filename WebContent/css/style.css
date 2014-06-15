@@ -1,41 +1,148 @@
-div.filter {
-	width: 160px;
-	float: left;
+body {
+	background-image: url(../img/tileable_wood_texture.png);
 }
-div.filters {
-	height: 111px;
-	min-width: 650px;
-	width: 100%;
+
+div.navbar-inner {
+	background-color: initial;
+	background-image: linear-gradient(to bottom, #fff, rgba(242, 242, 242, 0.44));
+}
+
+ul.nav.navbar-nav.navbar-right {
+	float: right;
+}
+
+div.content {
 	position: relative;
-	/* margin-bottom: 31px; */
-	overflow: scroll;
+	top: 15px;
+}
+
+div.cart {
+	position: fixed;
+	top: 45px;
+	right: 1px;
+	font-variant: small-caps;
+	width: 80px;
+}
+i.fa.fa-times-circle {
+	padding-right: 7px;
+}
+span.badge {
+	position: fixed;
+	top: 60px;
+	right: 34px;
+}
+
+div.activeFilter {
+	/* position: relative; */
+	/* width: 83px; */
+	float: left;
+	border: 1px solid;
+	padding-left: 8px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	padding-right: 8px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	width: 100px;
+	overflow: hidden;
+	white-space: nowrap;
 }
 div.activeFilters {
 	width: 100%;
-	position: relative;
-	height: 20px;
-	padding: 4px;
+	height: 31px;
 }
-div.activeFilter {
-	border: 1px solid;
-	float: left;
-	position: relative;
-	margin: 1px;
-	padding: 3px;
+div.table.table-hover {
+	min-width: 650px;
 }
+div.span7 {
+	padding-left: 20px;
+	min-width: 650px;
+}
+div.span2 {
+	border-right: 1px solid;
+}
+thead.tableHead{
+	font-variant: small-caps;
 
-thead.tableHead {
-	background-color: lightgrey;
-	border-collapse: collapse;
 }
-table.wineTable {
-	width: 100%;
-	min-width: 650px;
-	border-collapse: collapse;
+.filter lable {
+	font-size: 1.3em;
+	font-variant: small-caps;
+	color: rgba(0, 0, 0, 0.8);
+	text-shadow: 1px 4px 6px #FFF, 0 0 0 #000, 1px 4px 6px #def;
+	font-weight: 500;
 }
-tr {
-	text-align: center;
+i.fa.fa-shopping-cart.fa-4x {
+	text-shadow: 3px 3px 7px black;
 }
-hr {
-	min-width: 650px;
+div.row.title {
+	margin-top: 70px;
+	margin-left: 31px;
+	font-variant: small-caps;
+	font-family: fantasy;
 }
+.title h1 {
+    font-weight: 900; 
+    font-size: 7em;
+}
+/*div.filter {*/
+/*width: 160px;*/
+/*float: left;*/
+/*}*/
+/*div.filters {*/
+/*min-width: 650px;*/
+/*width: 100%;*/
+/*position: relative;*/
+/* margin-bottom: 31px; */
+/*overflow: scroll;*/
+/*}*/
+/*div.activeFilters {*/
+/*width: 100%;*/
+/*position: relative;*/
+/*height: 20px;*/
+/*padding: 4px;*/
+/*}*/
+/*div.activeFilter {*/
+/*border: 1px solid;*/
+/*float: left;*/
+/*position: relative;*/
+/*margin: 1px;*/
+/*padding-left: 14px;*/
+/*padding-right: 14px;*/
+/*padding-bottom: 2px;*/
+/*padding-top: 2px;*/
+/*background-color: rgba(255,255,255,0.5);*/
+/*border-radius: 5px;*/
+/*box-shadow: 2px 2px 2px 1px black;*/
+/*}*/
+
+/*thead.tableHead {*/
+/*background-color: lightgrey;*/
+/*border-collapse: collapse;*/
+/*}*/
+/*table.wineTable {*/
+/*width: 100%;*/
+/*min-width: 650px;*/
+/*border-collapse: collapse;*/
+/*}*/
+/*tr {*/
+/*text-align: center;*/
+/*}*/
+/*hr {*/
+/*min-width: 650px;*/
+/*}*/
+/*div.singleFilter {*/
+/*border: 1px solid lightgray;*/
+/*margin: 2px;*/
+/*box-shadow: 1px 1px 3px 1px black;*/
+/*background-color: rgba(220,220,220,0.5);*/
+/*border-radius: 5px;*/
+/*padding: 2px;*/
+/*}*/
+
+/*div#myModal {*/
+/*min-width: 650px;*/
+/*padding: 11px;*/
+/*}*/

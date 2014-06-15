@@ -1,35 +1,55 @@
-<div class="filters">
+
+<div class="row">
+	<div class="span2">
+		<div class="filters"></div>
+
+
+	</div>
+	<div class="span7">
+		<div class="row">
+			<div class="activeFilters"></div>
+		</div>
+		<div class="row">
+			<div class="table table-hover">
+				<table class="wineTable">
+					<thead class="tableHead">
+					<tr>
+						<th onclick="sortIt(this,'string')">Name</th>
+						<th onclick="sortIt(this,'string')">Art</th>
+						<th onclick="sortIt(this,'string')">Region</th>
+						<th onclick="sortIt(this,'string')">Winzer</th>
+						<th onclick="sortIt(this,'string')">Typ</th>
+						<th onclick="sortIt(this,'number')">Preis</th>
+					</tr>
+					</thead>
+					<tbody class="tableBody">
+					<tr class="tableRow dummy">
+						<td>%%NAME%%</td>
+						<td>%%KIND%%</td>
+						<td>%%REGION%%</td>
+						<td>%%MAKER%%</td>
+						<td>%%TYPE%%</td>
+						<td>%%PRICE%%</td>
+						<td>
+							<button class="btn btn-small" onclick="WineIng.cart.addToCart('%%ID%%')"><i
+									class="icon-shopping-cart"></i> In den Einkaufswagen
+							</button>
+
+						</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
 
 
 </div>
-<hr>
-<div class="activeFilters"></div>
 
-<hr>
-<div class="table">
-	<table class="wineTable">
-		<thead class="tableHead">
-		<tr>
-			<th onclick="sortIt(this,'string')">Name</th>
-			<th onclick="sortIt(this,'string')">Art</th>
-			<th onclick="sortIt(this,'string')">Region</th>
-			<th onclick="sortIt(this,'string')">Winzer</th>
-			<th onclick="sortIt(this,'string')">Typ</th>
-			<th onclick="sortIt(this,'number')">Preis</th>
-			<th>Total</th>
-		</tr>
-		</thead>
-		<tbody class="tableBody">
-		<tr class="tableRow dummy">
-			<td>%%NAME%%</td>
-			<td>%%KIND%%</td>
-			<td>%%REGION%%</td>
-			<td>%%MAKER%%</td>
-			<td>%%TYPE%%</td>
-			<td>%%PRICE%%</td>
-			<td><input type="button" value="Warenkorb hinzufügen" name="basketDrop"
-					   onclick="WineIng.cart.addToCart('%%ID%%')"/></td>
-		</tr>
-		</tbody>
-	</table>
+<div class="cart" data-toggle="modal" data-target="#myModal" onclick="WineIng.cart.getCart()">
+	<i class="fa fa-shopping-cart fa-4x"></i>
+	<span class="badge cartBadge">0</span>
+	Warenkorb
 </div>
+

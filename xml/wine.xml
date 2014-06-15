@@ -40,21 +40,29 @@
       <typ>WeiÃ&#x9f;wein</typ>
       <preis>222</preis>
     </wine>
-    <wine id="ID_1402783521420-10320">
+    <wine id="ID_1402861100978-12099">
       <name>test</name>
       <art>trocken</art>
       <region>Argentinien</region>
-      <winzer>frt</winzer>
-      <typ>Schaumwein</typ>
+      <winzer>er</winzer>
+      <typ>WeiÃ&#x9f;wein</typ>
       <preis>12</preis>
     </wine>
-    <wine id="ID_1402783814522-58870">
-      <name>teast</name>
+    <wine id="ID_1402861239264-75956">
+      <name>vsd</name>
       <art>trocken</art>
-      <region>Brasilien</region>
-      <winzer>wer</winzer>
-      <typ>Perlwein</typ>
-      <preis>234</preis>
+      <region>Argentinien</region>
+      <winzer>dfw</winzer>
+      <typ>WeiÃ&#x9f;wein</typ>
+      <preis>12</preis>
+    </wine>
+    <wine id="ID_1402863457112-87924">
+      <name>asdas</name>
+      <art>trocken</art>
+      <region>Argentinien</region>
+      <winzer>ds</winzer>
+      <typ>WeiÃ&#x9f;wein</typ>
+      <preis>34</preis>
     </wine>
   </wineList>
   <wineSpecifics>

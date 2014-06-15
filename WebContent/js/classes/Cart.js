@@ -7,13 +7,30 @@ var Cart = function Cart() {
 };
 Cart.prototype.getCartList = function () {
 	this.cartList = JSON.parse(sessionStorage.getItem('wineCart')) || [];
+	return this.cartList;
 
 };
+Cart.prototype.getTotal = function () {
+	this.getCartList();
+
+	var total = 0;
+	$.each(this.cartList, function(key, value){
+		total += +value.amount;
+	});
+	return total;
+
+};
+
+
 Cart.prototype.addToCart = function (wineId, refresh) {
 
 
 	this.getCartList();
-
+	var badge = $('.cartBadge');
+	if(badge){
+		var count = this.getTotal() + 1;
+		badge.text(count);
+	}
 	var wineObj = {};
 	wineObj.wineId = wineId;
 	wineObj.amount = 1;
@@ -41,6 +58,13 @@ Cart.prototype.addToCart = function (wineId, refresh) {
 
 Cart.prototype.removeFromCart = function (wineId) {
 	this.getCartList();
+
+	var badge = $('.cartBadge');
+	if(badge){
+		var count = this.getTotal() - 1;
+		badge.text(count);
+	}
+
 	var that = this;
 	var newCartList = [];
 	if (this.cartList.length > 0) {
@@ -86,12 +110,12 @@ Cart.prototype.getCart = function () {
 		});
 
 		if (results.length === 0) {
-			$('.content').html('Ihr Warenkorb ist leer!');
+			$('.modal-content-window').html('Ihr Warenkorb ist leer!');
 
 		} else {
 
 			new Templater('cartTable', results, '', function (content) {
-				$('.content').html(content);
+				$('.modal-content-window').html(content);
 
 			});
 		}

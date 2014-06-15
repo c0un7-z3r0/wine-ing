@@ -2,13 +2,17 @@
 
 
 <%
-long ts = (new Date()).getTime();
+//long ts = (new Date()).getTime();
+long ts = 1;
 %>
 
 	<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Insert title here</title>
 
 
@@ -16,17 +20,14 @@ long ts = (new Date()).getTime();
 
 
 <script src="lib/jquery-2.1.1.js"></script>
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="lib/font-awesome-4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="css/style.css" type="text/css" rel="stylesheet">
+<script src="lib/bootstrap/js/bootstrap.min.js"></script>
 
-<!-- <script type="text/javascript" src="js/localCache.js"></script>
-<script type="text/javascript" src="js/filter.js"></script>
 
-<script type="text/javascript" src="js/helper.js"></script>
-<script type="text/javascript" src="js/ajaxRequests.js"></script>
-
-<script type="text/javascript" src="js/action.js"></script> -->
 <script type="text/javascript" src="js/menu.js?<%=ts %>"></script>
 
-<!-- <script type="text/javascript" src="js/costumerOrder.js"></script> -->
 
 
 
@@ -45,18 +46,38 @@ long ts = (new Date()).getTime();
 <script type="text/javascript" src="js/classes/template/templater.js?<%=ts %>"></script>
 <script type="text/javascript" src="js/classes/app.js?<%=ts %>"></script>
 
-<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="css/style.css" type="text/css" rel="stylesheet">
+
 
 </head>
-<body>
-<div class="mainMenu">
-<input type="button" name="add" value="Admin" onclick="showMenu('admin')" />
-<input type="button" name="add" value="Kunde" onclick="getAllWine('costumer')" />
-<input type="button" name="add" value="Warenkorb" onclick="getBasket()" />
-</div>
-<div class="subMenu"></div>
-<div class="content"></div>
-</body>
+	<body>
+		<div class="mainMenu"></div>
+	<div class="row title">
+		<h1>Wine-Ing</h1>
+	</div>
+		<div class="content well"></div>
+
+
+<%--<div class="sideImage"></div>--%>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Warenkorb</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-content-window"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Bestellen</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	</body>
 
 </html>

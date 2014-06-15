@@ -1,3 +1,14 @@
-<input type="button" name="add" value="Admin" onclick="showMenu('admin')" />
-<input type="button" name="add" value="Kunde" onclick="WineIng.action.getAllWine('costumer')" />
-<input type="button" name="add" value="Warenkorb" onclick="WineIng.cart.getCart()" />
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <a class="brand" href="#">Wine-Ing</a>
+    <ul class="nav navbar-nav navbar-left">
+		<li><a href="#" onclick="WineIng.action.getAllWine('costumer')" >Kunde</a></li>
+		<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b></a>
+			<ul class="dropdown-menu">
+				<li><a href="#" onclick="WineIng.action.getWineForm()" >Wein Hinzufügen</a></li>
+				<li><a href="#" onclick="WineIng.action.getAllWine('admin')" >Weinliste</a></li>
+			</ul>
+		</li>
+    </ul>
+  </div>
+</div>

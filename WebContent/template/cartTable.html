@@ -3,10 +3,10 @@
 		<thead class="tableHead">
 		<tr>
 			<th onclick="sortIt(this,'string')">Name</th>
-			<th onclick="sortIt(this,'string')">Art</th>
-			<th onclick="sortIt(this,'string')">Region</th>
-			<th onclick="sortIt(this,'string')">Winzer</th>
-			<th onclick="sortIt(this,'string')">Typ</th>
+			<!--<th onclick="sortIt(this,'string')">Art</th>-->
+			<!--<th onclick="sortIt(this,'string')">Region</th>-->
+			<!--<th onclick="sortIt(this,'string')">Winzer</th>-->
+			<!--<th onclick="sortIt(this,'string')">Typ</th>-->
 			<th onclick="sortIt(this,'number')">Einzelpreis</th>
 			<th></th>
 			<th onclick="sortIt(this,'number')">Anzahl</th>
@@ -16,16 +16,20 @@
 		<tbody class="tableBody">
 		<tr class="tableRow dummy">
 			<td>%%NAME%%</td>
-			<td>%%KIND%%</td>
-			<td>%%REGION%%</td>
-			<td>%%MAKER%%</td>
-			<td>%%TYPE%%</td>
+			<!--<td>%%KIND%%</td>-->
+			<!--<td>%%REGION%%</td>-->
+			<!--<td>%%MAKER%%</td>-->
+			<!--<td>%%TYPE%%</td>-->
 			<td>%%PRICE%%</td>
 			<td></td>
 			<td>%%AMOUNT%%</td>
 			<td>%%TOTALPRICE%%</td>
-			<td><input type="button" value="+" name="edit" onclick="WineIng.cart.addToCart('%%ID%%', true)" /></td>
-			<td><input type="button" value="-" name="delete" onclick="WineIng.cart.removeFromCart('%%ID%%')" /></td>
+			<td>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default addOne" onclick="WineIng.cart.addToCart('%%ID%%', true)" >+</button>
+					<button type="button" class="btn btn-default removeOne" onclick="WineIng.cart.removeFromCart('%%ID%%')" >-</button>
+				</div>
+			</td>
 		</tr>
 		</tbody>
 	</table>

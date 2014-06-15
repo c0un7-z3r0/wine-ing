@@ -1,5 +1,5 @@
 <div class="table" cellspacing="0" cellpadding="0">
-<table class="wineTable">
+<table class="wineTable table table-hover">
 	<thead class="tableHead">
 		<tr>
 			<th onclick="sortIt(this,'string')">Name</th>
@@ -18,8 +18,12 @@
 			<td>%%MAKER%%</td>
 			<td>%%TYPE%%</td>
 			<td>%%PRICE%%</td>
-			<td><input type="button" value="edit wine" name="edit" onclick="WineIng.action.editWine('%%ID%%')" /></td>
-			<td><input type="button" value="delete wine" name="delete" onclick="WineIng.action.deleteWine('%%ID%%')" /></td>
+			<td>
+				<div class="btn-group">
+					<button type="button" class="btn btn-default addWine" onclick="WineIng.action.editWine('%%ID%%')">Bearbeiten</button>
+					<button type="button" class="btn btn-default deleteWine" onclick="WineIng.action.deleteWine('%%ID%%')">Löschen</button>
+				</div>
+			</td>
 		</tr>
 	</tbody>
 </table>
