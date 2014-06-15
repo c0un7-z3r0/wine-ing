@@ -11,9 +11,6 @@ function showMenu(menuType){
 	if(menuType === 'admin'){
 		subMenuTemplate += 'subMenuAdmin.html';
 	}
-	if(menuType === 'costumer'){
-		subMenuTemplate += 'subMenuCostumer.html';
-	}
 	
 	$('.content').html('');
 	
@@ -21,3 +18,5 @@ function showMenu(menuType){
 	    $subMenu.html(data);
 	});
 }
+
+//TODO: Work out how to not display admin menu when costumer.

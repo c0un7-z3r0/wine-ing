@@ -1,6 +1,14 @@
-<div class="table" cellspacing="0" cellpadding="0">
-<table class="wineTable">
-	<thead class="tableHead">
+<div class="filters">
+
+
+</div>
+<hr>
+<div class="activeFilters"></div>
+
+<hr>
+<div class="table">
+	<table class="wineTable">
+		<thead class="tableHead">
 		<tr>
 			<th onclick="sortIt(this,'string')">Name</th>
 			<th onclick="sortIt(this,'string')">Art</th>
@@ -8,9 +16,10 @@
 			<th onclick="sortIt(this,'string')">Winzer</th>
 			<th onclick="sortIt(this,'string')">Typ</th>
 			<th onclick="sortIt(this,'number')">Preis</th>
+			<th>Total</th>
 		</tr>
-	</thead>
-	<tbody class="tableBody">
+		</thead>
+		<tbody class="tableBody">
 		<tr class="tableRow dummy">
 			<td>%%NAME%%</td>
 			<td>%%KIND%%</td>
@@ -18,9 +27,9 @@
 			<td>%%MAKER%%</td>
 			<td>%%TYPE%%</td>
 			<td>%%PRICE%%</td>
-			<td><input type="button" value="edit wine" name="edit" onclick="WineIng.action.editWine('%%ID%%')" /></td>
-			<td><input type="button" value="delete wine" name="delete" onclick="WineIng.action.deleteWine('%%ID%%')" /></td>
+			<td><input type="button" value="Warenkorb hinzufügen" name="basketDrop"
+					   onclick="WineIng.cart.addToCart('%%ID%%')"/></td>
 		</tr>
-	</tbody>
-</table>
+		</tbody>
+	</table>
 </div>

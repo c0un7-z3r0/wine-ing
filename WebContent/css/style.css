@@ -1,0 +1,41 @@
+div.filter {
+	width: 160px;
+	float: left;
+}
+div.filters {
+	height: 111px;
+	min-width: 650px;
+	width: 100%;
+	position: relative;
+	/* margin-bottom: 31px; */
+	overflow: scroll;
+}
+div.activeFilters {
+	width: 100%;
+	position: relative;
+	height: 20px;
+	padding: 4px;
+}
+div.activeFilter {
+	border: 1px solid;
+	float: left;
+	position: relative;
+	margin: 1px;
+	padding: 3px;
+}
+
+thead.tableHead {
+	background-color: lightgrey;
+	border-collapse: collapse;
+}
+table.wineTable {
+	width: 100%;
+	min-width: 650px;
+	border-collapse: collapse;
+}
+tr {
+	text-align: center;
+}
+hr {
+	min-width: 650px;
+}

@@ -1,44 +1,60 @@
 <wineIng>
   <wineList>
-    <wine id="ID_1402001781629-77970">
-      <name>tews</name>
+    <wine id="ID_1402045626057-67725">
+      <name>Roters</name>
+      <art>halbtrocken</art>
+      <region>Argentinien</region>
+      <winzer>Wert</winzer>
+      <typ>Rotwein</typ>
+      <preis>22.50</preis>
+    </wine>
+    <wine id="ID_1402045633835-79950">
+      <name>RoterBlaiu</name>
+      <art>halbtrocken</art>
+      <region>Chile</region>
+      <winzer>Wert</winzer>
+      <typ>Rotwein</typ>
+      <preis>22.12</preis>
+    </wine>
+    <wine id="ID_1402045634563-58103">
+      <name>RoterBlaiu</name>
+      <art>halbtrocken</art>
+      <region>Chile</region>
+      <winzer>Wert</winzer>
+      <typ>Rotwein</typ>
+      <preis>22</preis>
+    </wine>
+    <wine id="ID_1402045635268-85215">
+      <name>RoterBlaiu</name>
+      <art>halbtrocken</art>
+      <region>Chile</region>
+      <winzer>Wert</winzer>
+      <typ>Rotwein</typ>
+      <preis>22</preis>
+    </wine>
+    <wine id="ID_1402045685850-57362">
+      <name>fret</name>
       <art>trocken</art>
       <region>Argentinien</region>
       <winzer>bob</winzer>
       <typ>WeiÃ&#x9f;wein</typ>
-      <preis>123</preis>
+      <preis>222</preis>
     </wine>
-    <wine id="ID_1402001942586-42282">
-      <name>groÃ&#x9f;</name>
-      <art>trocken</art>
-      <region>Kanada</region>
-      <winzer>we</winzer>
-      <typ>WeiÃ&#x9f;wein</typ>
-      <preis>34</preis>
-    </wine>
-    <wine id="ID_1402002039500-57582">
-      <name>groÃ&#x83;Å¸</name>
-      <art>trocken</art>
-      <region>Kanada</region>
-      <winzer>we</winzer>
-      <typ>Edelsüßer Wein</typ>
-      <preis>34</preis>
-    </wine>
-    <wine id="ID_1402002156320-25727">
-      <name>groÃ&#x83;Æ&#x92;Ã&#x85;Â¸</name>
-      <art>trocken</art>
-      <region>Ã&#x96;sterreich</region>
-      <winzer>we</winzer>
-      <typ>EdelsÃ¼Ã&#x9f;er Wein</typ>
-      <preis>34</preis>
-    </wine>
-    <wine id="ID_1402002704169-53891">
-      <name>bob</name>
+    <wine id="ID_1402783521420-10320">
+      <name>test</name>
       <art>trocken</art>
       <region>Argentinien</region>
-      <winzer>des</winzer>
-      <typ>WeiÃ&#x9f;wein</typ>
-      <preis>2345</preis>
+      <winzer>frt</winzer>
+      <typ>Schaumwein</typ>
+      <preis>12</preis>
+    </wine>
+    <wine id="ID_1402783814522-58870">
+      <name>teast</name>
+      <art>trocken</art>
+      <region>Brasilien</region>
+      <winzer>wer</winzer>
+      <typ>Perlwein</typ>
+      <preis>234</preis>
     </wine>
   </wineList>
   <wineSpecifics>

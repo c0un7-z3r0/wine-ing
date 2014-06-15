@@ -1,13 +1,13 @@
 <form>
 	<div class="inputForm">
-		<div class="textboxWrapper">
-			<div class="textbox %%NAME%%">
+		<div class="textboxWrapper ">
+			<div class="textbox %%NAME%% dummy">
 				<label for="%%NAME%%">%%NAME%%</label> <input type="text"
 					class="textbox input %%NAME%%" id="%%NAME%%" value="%%VALUE%%">
 			</div>
 		</div>
-		<div class="dropdownWrapper">
-			<div class="dropdown %%NAME%%">
+		<div class="dropdownWrapper ">
+			<div class="dropdown %%NAME%% ">
 
 				<label for="%%NAME%%">%%NAME%%</label> <select
 					class="actualDropdown input %%NAME%%" id="%%NAME%%">
@@ -18,6 +18,7 @@
 	</div>
 	<div class="buttonRow">
 			<input type="reset" value="Cancel">
-			<input type="button" class="button save" value="Save" >			
+			<input type="button" class="button save" value="Save" onclick="WineIng.action.addWine()">
 		</div>
+		
 </form>

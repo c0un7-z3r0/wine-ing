@@ -20,7 +20,7 @@ public class ActionFactory {
 	public static void init() {
 
 		controllers.put("GET/delete", new DeleteWine());
-		controllers.put("GET/edit", new EditWine());
+		controllers.put("GET/editWine", new EditWine());
 		controllers.put("GET/editSpecific", new EditSpecific());
 
 		controllers.put("GET/getAll", new GetWine());

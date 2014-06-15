@@ -33,16 +33,17 @@ public class EditWine implements Actions<String> {
 				classesToUse);
 
 		ArrayList<Wine> wineList = wineIng.getWineList();
-
+		ArrayList<Wine> newWineList = new ArrayList<Wine>();
 		for (Wine wineInList : wineList) {
 
 			if (wineInList.getId().equals(wine.getId())) {
 				wineInList = wine;
 			}
+			newWineList.add(wineInList);
 
 		}
 
-		wineIng.setWineList(wineList);
+		wineIng.setWineList(newWineList);
 		xStreamTranslatorInst.toXMLFile(wineIng,
 				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
 		return "Wine has been updated";
