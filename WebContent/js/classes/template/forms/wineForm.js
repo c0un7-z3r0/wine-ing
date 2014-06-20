@@ -98,5 +98,5 @@ WineForm.prototype.findInArray = function findInArray(haystack, needle) {
 			returnValue = value[needle];
 		}
 	});
-	return returnValue;
+	return decodeURIComponent(returnValue);
 }

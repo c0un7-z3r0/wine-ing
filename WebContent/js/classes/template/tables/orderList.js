@@ -51,7 +51,7 @@ OrderList.prototype.compileIt = function() {
 		container = container.replace('%%EMAIL%%', adress.email);
 
 		var div = $(document.createElement('div'));
-		div.addClass('well');
+		div.addClass('well orderListWell');
 		div.append(container);
 		div.append('');
 		wrapper.append(div);

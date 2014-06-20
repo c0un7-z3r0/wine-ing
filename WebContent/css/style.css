@@ -1,35 +1,103 @@
 body {
-	background-image: url(../img/tileable_wood_texture.png);
+	/* 	background-image: url(../img/tileable_wood_texture.png); */
+	background-image: url(../img/dark_wood.png);
 }
 
 div.navbar-inner {
-	background-color: initial;
-	background-image: linear-gradient(to bottom, #fff, rgba(242, 242, 242, 0.44));
+	/* 	background-color: initial; */
+	/* 	background-image: linear-gradient(to bottom, #fff, rgba(242, 242, 242, 0.44)); */
+	
 }
 
 ul.nav.navbar-nav.navbar-right {
 	float: right;
 }
 
+div#myModal {
+	box-shadow: 0px 0px 30px black;
+}
+
 div.content {
 	position: relative;
 	top: 15px;
+	width: 900px;
+	margin: auto;
+}
+
+.plz {
+	width: 71px !important;
+}
+
+div.grandTotal {
+	position: relative;
+	width: 100%;
+	text-align: center;
+}
+
+form.well.wineForm {
+	width: 230px;
+	margin: auto;
+	height: 380px;
+}
+
+button.btn.btn-large.btn-warning.emptyCartBtn {
+	position: absolute;
+	left: 20px;
+	bottom: -20px;
+}
+
+div.adress {
+	position: relative;
+	float: left;
+	margin: auto;
+}
+
+button.btn.btn-large.btn-success.orderBtn {
+	position: absolute;
+	bottom: -20px;
+	width: 150px;
+	right: 20px;
+}
+
+div.well.wineTable.table {
+	width: 700px;
+	margin: auto;
+}
+
+table.wineTable.table.table-hover {
+	background-color: transparent;
+	max-width: 700px;
+}
+
+div.well.orderListWell {
+	border: 1px solid;
+	width: 370px;
+	margin: auto;
+	margin-bottom: 40px;
 }
 
 div.cart {
 	position: fixed;
-	top: 45px;
-	right: 1px;
+	top: 105px;
 	font-variant: small-caps;
-	width: 80px;
+	width: 900px;
+	color: wheat;
+	text-align: right;
+	margin-left: 140px;
 }
+
+span.cart.title {
+	visibility: hidden;
+}
+
 i.fa.fa-times-circle {
 	padding-right: 7px;
 }
+
 span.badge {
-	position: fixed;
-	top: 60px;
-	right: 34px;
+	position: absolute;
+	top: 14px;
+	right: 76px;
 }
 
 div.activeFilter {
@@ -49,24 +117,29 @@ div.activeFilter {
 	overflow: hidden;
 	white-space: nowrap;
 }
+
 div.activeFilters {
 	width: 100%;
 	height: 31px;
 }
+
 div.table.table-hover {
 	min-width: 650px;
 }
+
 div.span7 {
 	padding-left: 20px;
 	min-width: 650px;
 }
+
 div.span2 {
 	border-right: 1px solid;
 }
-thead.tableHead{
-	font-variant: small-caps;
 
+thead.tableHead {
+	font-variant: small-caps;
 }
+
 .filter lable {
 	font-size: 1.3em;
 	font-variant: small-caps;
@@ -74,18 +147,25 @@ thead.tableHead{
 	text-shadow: 1px 4px 6px #FFF, 0 0 0 #000, 1px 4px 6px #def;
 	font-weight: 500;
 }
+
 i.fa.fa-shopping-cart.fa-4x {
-	text-shadow: 3px 3px 7px black;
+	text-shadow: 0px 0px 66px white;
+	color: wheat;
 }
+
 div.row.title {
-	margin-top: 70px;
-	margin-left: 31px;
 	font-variant: small-caps;
 	font-family: fantasy;
+	color: wheat;
+	text-shadow: 0px 0px 66px white;
+	width: 100%;
+	padding-top: 100px;
+	text-align: center;
 }
+
 .title h1 {
-    font-weight: 900; 
-    font-size: 7em;
+	font-weight: 900;
+	font-size: 7em;
 }
 /*div.filter {*/
 /*width: 160px;*/

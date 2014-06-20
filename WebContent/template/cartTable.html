@@ -1,73 +1,86 @@
 
-<div class="table">
-	<table class="wineTable">
-		<thead class="tableHead">
-			<tr>
-				<th onclick="sortIt(this,'string')">Name</th>
-				<!--<th onclick="sortIt(this,'string')">Art</th>-->
-				<!--<th onclick="sortIt(this,'string')">Region</th>-->
-				<!--<th onclick="sortIt(this,'string')">Winzer</th>-->
-				<!--<th onclick="sortIt(this,'string')">Typ</th>-->
-				<th onclick="sortIt(this,'number')">Einzelpreis</th>
-				<th></th>
-				<th onclick="sortIt(this,'number')">Anzahl</th>
-				<th onclick="sortIt(this,'number')">Gesammtpreis</th>
-			</tr>
-		</thead>
-		<tbody class="tableBody">
-			<tr class="tableRow dummy">
-				<td>%%NAME%%</td>
-				<!--<td>%%KIND%%</td>-->
-				<!--<td>%%REGION%%</td>-->
-				<!--<td>%%MAKER%%</td>-->
-				<!--<td>%%TYPE%%</td>-->
-				<td>%%PRICE%%</td>
-				<td></td>
-				<td>%%AMOUNT%%</td>
-				<td>%%TOTALPRICE%%</td>
-				<td>
-					<div class="btn-group">
-						<button type="button" class="btn btn-default addOne"
-							onclick="WineIng.cart.addToCart('%%ID%%', true)">+</button>
-						<button type="button" class="btn btn-default removeOne"
-							onclick="WineIng.cart.removeFromCart('%%ID%%')">-</button>
-					</div>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	<div class="grandTotal">
-		<h4>Gesamtsumme: %%GRANDTOTAL%%</h4>
-		
-		<div class="adress">
-			<div class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="inputName">Name</label>
-					<div class="controls">
-						<input class="span4 username" type="text" id="inputName" placeholder="Name" required>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="inputStreet">Strasse</label>
-					<div class="controls">
-						<input class="span4 street" type="text" id="inputStreet" placeholder="Strasse" required>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="inputPLZCITY">PLZ/Stadt</label>
-					<div class="controls">
-						<input class="span1 plz" pattern="[0-9]{5}" name="pattern" value="12454" id="inputPLZCITY" placeholder="PLZ" required>
-						<input class="span3 city" type="text" id="inputPLZCITY" placeholder="Stadt" required>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="inputEmail">Email</label>
-					<div class="controls">
-						<input class="span4 email" type="text" id="inputEmail" placeholder="Email" required>
-					</div>
-				</div>
+<div class="modal-body">
 
-			</div>
-		</div>
+	<div class="table">
+		<table class="wineTable">
+			<thead class="tableHead">
+				<tr>
+					<th onclick="sortIt(this,'string')">Name</th>
+					<!--<th onclick="sortIt(this,'string')">Art</th>-->
+					<!--<th onclick="sortIt(this,'string')">Region</th>-->
+					<!--<th onclick="sortIt(this,'string')">Winzer</th>-->
+					<!--<th onclick="sortIt(this,'string')">Typ</th>-->
+					<th onclick="sortIt(this,'number')">Einzelpreis</th>
+					<th></th>
+					<th onclick="sortIt(this,'number')">Anzahl</th>
+					<th onclick="sortIt(this,'number')">Gesammtpreis</th>
+				</tr>
+			</thead>
+			<tbody class="tableBody">
+				<tr class="tableRow dummy">
+					<td>%%NAME%%</td>
+					<!--<td>%%KIND%%</td>-->
+					<!--<td>%%REGION%%</td>-->
+					<!--<td>%%MAKER%%</td>-->
+					<!--<td>%%TYPE%%</td>-->
+					<td>%%PRICE%%</td>
+					<td></td>
+					<td>%%AMOUNT%%</td>
+					<td>%%TOTALPRICE%%</td>
+					<td>
+						<div class="btn-group">
+							<button type="button" class="btn btn-default addOne"
+								onclick="WineIng.cart.addToCart('%%ID%%', true)">+</button>
+							<button type="button" class="btn btn-default removeOne"
+								onclick="WineIng.cart.removeFromCart('%%ID%%')">-</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
 	</div>
+</div>
+<div class="modal-footer">
+		<div class="grandTotal">
+			<h4>Gesamtsumme: %%GRANDTOTAL%%</h4>
+		</div>
+<div class="adress">
+				<div class="form-horizontal">
+					<div class="control-group">
+						<label class="control-label" for="inputName">Name</label>
+						<div class="controls">
+							<input class="span4 username" type="text" id="inputName"
+								placeholder="Name" required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputStreet">Strasse</label>
+						<div class="controls">
+							<input class="span4 street" type="text" id="inputStreet"
+								placeholder="Strasse" required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputPLZCITY">PLZ/Stadt</label>
+						<div class="controls">
+							<input class="span1 plz" pattern="[0-9]{5}" 
+								id="inputPLZCITY" placeholder="PLZ" required> <input
+								class="span3 city" type="text" id="inputPLZCITY"
+								placeholder="Stadt" required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputEmail">Email</label>
+						<div class="controls">
+							<input class="span4 email" type="text" id="inputEmail"
+								placeholder="Email" required>
+						</div>
+					</div>
+
+				</div>
+			</div>
+					<button type="button" onclick="WineIng.cart.clearCart()" class="btn btn-large btn-warning emptyCartBtn"><i class="fa fa-trash-o"></i>   Warenkorb ausleeren</button>
+					<button type="submit" class="btn btn-large btn-success orderBtn"><i class="fa fa-paper-plane"></i>   Bestellen</button>
+					</div>
 </div>
