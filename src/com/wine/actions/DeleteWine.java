@@ -2,46 +2,35 @@ package com.wine.actions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.wine.translator.XStreamTranslator;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
-import com.wine.xml.WineSpecific;
 
 public class DeleteWine implements Actions<String> {
-
+	@SuppressWarnings("unchecked")
 	@Override
-	public String execute(Object paramIn) throws Exception {
+	public String execute(File file, Object paramIn) throws Exception {
 		Map<String, String[]> jsonIn = (Map<String, String[]>) paramIn;
-
-		List<Class<?>> classesToUse = new ArrayList<Class<?>>();
-		classesToUse.add(Wine.class);
-		classesToUse.add(WineSpecific.class);
-		classesToUse.add(WineIng.class);
 
 		XStreamTranslator xStreamTranslatorInst = XStreamTranslator
 				.getInstance();
 
-		File xml = new File(
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
-		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(xml,
-				classesToUse);
+		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(file);
 
 		ArrayList<Wine> wineList = wineIng.getWineList();
 		ArrayList<Wine> wineResult = new ArrayList<Wine>();
 
+		// dont add the wine to the new list
 		for (Wine wineInList : wineList) {
-
 			if (!wineInList.getId().equals(jsonIn.get("id")[0])) {
 				wineResult.add(wineInList);
 			}
-
 		}
+		// set the new list as wineList
 		wineIng.setWineList(wineResult);
-		xStreamTranslatorInst.toXMLFile(wineIng,
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
+		xStreamTranslatorInst.toXMLFile(wineIng, file.getAbsolutePath());
 
 		return "Wine has been deleted";
 	}

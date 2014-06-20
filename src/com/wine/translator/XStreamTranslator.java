@@ -3,18 +3,28 @@ package com.wine.translator;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import com.wine.xml.Wine;
+import com.wine.xml.WineIng;
+import com.wine.xml.WineOrder;
+import com.wine.xml.WineSpecific;
 
 public final class XStreamTranslator {
 
 	private XStream xstream = null;
+	private List<Class<?>> classesToUse = new ArrayList<Class<?>>();
 
 	private XStreamTranslator() {
 		xstream = new XStream(new DomDriver());
+		classesToUse.add(Wine.class);
+		classesToUse.add(WineSpecific.class);
+		classesToUse.add(WineIng.class);
+		classesToUse.add(WineOrder.class);
 		// xstream.ignoreUnknownElements();
 		// xstream.autodetectAnnotations(true);
 	}
@@ -36,7 +46,7 @@ public final class XStreamTranslator {
 	 * @return
 	 */
 	public Object toObject(String xml) {
-		return (Object) xstream.fromXML(xml);
+		return xstream.fromXML(xml);
 	}
 
 	/**
@@ -55,8 +65,7 @@ public final class XStreamTranslator {
 	 * @return
 	 * @throws IOException
 	 */
-	public Object toObject(File xmlFile, List<Class<?>> classesToUse)
-			throws IOException {
+	public Object toObject(File xmlFile) throws IOException {
 		for (Class<?> clazz : classesToUse) {
 			xstream.processAnnotations(clazz);
 		}
@@ -74,6 +83,7 @@ public final class XStreamTranslator {
 	public void toXMLFile(Object objTobeXMLTranslated, String fileName)
 			throws IOException {
 		FileWriter writer = new FileWriter(fileName);
+		System.out.println("filename: " + fileName);
 		xstream.toXML(objTobeXMLTranslated, writer);
 		writer.close();
 	}
@@ -85,7 +95,7 @@ public final class XStreamTranslator {
 	}
 
 	/**
-	 * @
+	 * @ *
 	 * 
 	 * @param objTobeXMLTranslated
 	 */

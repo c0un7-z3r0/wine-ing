@@ -116,6 +116,9 @@ Actions.prototype.getAllWine = function (view, callback) {
 	}
 	else if (view === 'costumer') {
 		WineIng.request.create('getAll', 'wineList', '', true, function (json) {
+			if(typeof WineIng.cache.c.filters !== 'undefined'){
+				WineIng.cache.c.filters = [];
+			}
 			var templater = new Templater('wineTableCostumer', json, '', function (content) {
 				$('.content').html(content);
 
@@ -248,26 +251,45 @@ Actions.prototype.getOrders = function(){
 };
 Actions.prototype.generateOrderList = function(){
 	var cartList = WineIng.cart.getCartList();
-	var adress = {
-			username: $('.username').val(),
-			street: $('.street').val(),
-			plz: $('.plz').val(),
-			city: $('.city').val(),
-			email: $('.email').val()
-	};
-	
-	cartList.push(adress);
-	
-	console.log(JSON.stringify(cartList));
-	var orderJson = {
-			orderJson: encodeURIComponent(JSON.stringify(cartList))
-	};
-	WineIng.request.create('addOrder', '', orderJson, false, function (json) {
-		console.info('[Actions] addOrder: ' + JSON.stringify(json));
-		$('.modal-content-window').html('Bestellung wurde aufgegeben.');
-		WineIng.cart.clearCart();
- 
+	var requestData = [];
+	var wineList = [];
+	WineIng.action.getAllWine('', function (json) {
+		wineList = json.ArrayList;
+		
+		$.each(cartList, function(key, object){
+			var tempWine = WineIng.cart.getWineFromId(object.wineId, wineList);
+			var tempObj = {
+				name: tempWine.name,
+				price: tempWine.preis,
+				wineId: object.wineId,
+				amount: object.amount
+			};
+			requestData.push(tempObj);
+		});
+
+		
+		var adress = {
+				username: $('.username').val(),
+				street: $('.street').val(),
+				plz: $('.plz').val(),
+				city: $('.city').val(),
+				email: $('.email').val()
+		};
+		
+		requestData.push(adress);
+		
+		console.log(JSON.stringify(requestData));
+		var orderJson = {
+				orderJson: encodeURIComponent(JSON.stringify(requestData))
+		};
+		WineIng.request.create('addOrder', '', orderJson, false, function (json) {
+			console.info('[Actions] addOrder: ' + JSON.stringify(json));
+			$('.modal-content-window').html('Bestellung wurde aufgegeben.');
+			WineIng.cart.clearCart();
+	 
+		});
 	});
+	
 };
 
 Actions.prototype.deleteOrder = function (orderId) {

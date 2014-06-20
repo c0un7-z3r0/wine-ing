@@ -42,7 +42,8 @@ public class Wine {
 	}
 
 	/**
-	 * @param art the art to set
+	 * @param art
+	 *            the art to set
 	 */
 	public void setArt(String art) {
 		this.art = art;
@@ -56,7 +57,8 @@ public class Wine {
 	}
 
 	/**
-	 * @param region the region to set
+	 * @param region
+	 *            the region to set
 	 */
 	public void setRegion(String region) {
 		this.region = region;
@@ -70,7 +72,8 @@ public class Wine {
 	}
 
 	/**
-	 * @param winzer the winzer to set
+	 * @param winzer
+	 *            the winzer to set
 	 */
 	public void setWinzer(String winzer) {
 		this.winzer = winzer;
@@ -84,7 +87,8 @@ public class Wine {
 	}
 
 	/**
-	 * @param typ the typ to set
+	 * @param typ
+	 *            the typ to set
 	 */
 	public void setTyp(String typ) {
 		this.typ = typ;
@@ -98,7 +102,8 @@ public class Wine {
 	}
 
 	/**
-	 * @param preis the preis to set
+	 * @param preis
+	 *            the preis to set
 	 */
 	public void setPreis(String preis) {
 		this.preis = preis;
@@ -112,11 +117,11 @@ public class Wine {
 	}
 
 	/**
-	 * @param id the id to set
+	 * @param id
+	 *            the id to set
 	 */
 	public void setId(String id) {
 		this.id = id;
 	}
-
 
 }

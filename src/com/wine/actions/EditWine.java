@@ -2,35 +2,25 @@ package com.wine.actions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import com.wine.helper.WineHelpers;
 import com.wine.translator.JsonTranslator;
 import com.wine.translator.XStreamTranslator;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
-import com.wine.xml.WineSpecific;
 
 public class EditWine implements Actions<String> {
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public String execute(Object paramIn) throws Exception {
+	public String execute(File file, Object paramIn) throws Exception {
 		Wine wine = (Wine) JsonTranslator
-				.jsonToObject((Map<String, String[]>) paramIn);
-
-		List<Class<?>> classesToUse = new ArrayList<Class<?>>();
-		classesToUse.add(Wine.class);
-		classesToUse.add(WineSpecific.class);
-		classesToUse.add(WineIng.class);
+				.jsonToObject(((Map<String, String[]>) paramIn));
 
 		XStreamTranslator xStreamTranslatorInst = XStreamTranslator
 				.getInstance();
 
-		File xml = new File(
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
-		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(xml,
-				classesToUse);
+		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(file);
 
 		ArrayList<Wine> wineList = wineIng.getWineList();
 		ArrayList<Wine> newWineList = new ArrayList<Wine>();
@@ -44,8 +34,7 @@ public class EditWine implements Actions<String> {
 		}
 
 		wineIng.setWineList(newWineList);
-		xStreamTranslatorInst.toXMLFile(wineIng,
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
+		xStreamTranslatorInst.toXMLFile(wineIng, file.getAbsolutePath());
 		return "Wine has been updated";
 	}
 

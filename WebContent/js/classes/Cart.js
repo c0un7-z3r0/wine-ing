@@ -19,6 +19,8 @@ var Cart = function Cart() {
  */
 Cart.prototype.getCartList = function () {
 	this.cartList = JSON.parse(sessionStorage.getItem('wineCart')) || [];
+	
+	
 	return this.cartList;
 
 };
@@ -152,5 +154,13 @@ Cart.prototype.getCart = function () {
 	});
 
 };
-
+Cart.prototype.getWineFromId = function(wineId, data) {
+	var returnWine = {};
+	$.each(data, function(key, wine) {
+		if (wine.id === wineId) {
+			returnWine = wine
+		}
+	});
+	return returnWine;
+};
 

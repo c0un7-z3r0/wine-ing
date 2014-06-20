@@ -60,7 +60,7 @@ button.btn.btn-large.btn-success.orderBtn {
 }
 
 div.well.wineTable.table {
-	width: 700px;
+	width: 850px;
 	margin: auto;
 }
 
@@ -71,7 +71,7 @@ table.wineTable.table.table-hover {
 
 div.well.orderListWell {
 	border: 1px solid;
-	width: 370px;
+	width: 650px;
 	margin: auto;
 	margin-bottom: 40px;
 }

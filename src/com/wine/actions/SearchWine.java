@@ -1,5 +1,6 @@
 package com.wine.actions;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Map;
@@ -9,8 +10,9 @@ import com.wine.xml.WineSpecific;
 
 public class SearchWine implements Actions<ArrayList<?>> {
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList execute(Object paramIn) throws Exception {
+	public ArrayList<?> execute(File file, Object paramIn) throws Exception {
 		String searchTerm = ((Map<String, String[]>) paramIn).get("search")[0];
 		String searchType = ((Map<String, String[]>) paramIn).get("searchType")[0];
 		ArrayList<?> result = new ArrayList<Object>();
@@ -18,12 +20,12 @@ public class SearchWine implements Actions<ArrayList<?>> {
 		System.out.println(searchType);
 
 		if (searchType.equals("specific")) {
-			
+
 			System.out.println("sepcifics");
-			
+
 			GetAllSpecific getAllSpecifics = new GetAllSpecific();
-			ArrayList<WineSpecific> specificList = getAllSpecifics
-					.execute(paramIn);
+			ArrayList<WineSpecific> specificList = getAllSpecifics.execute(
+					file, paramIn);
 			ArrayList<WineSpecific> specificResult = new ArrayList<WineSpecific>();
 			System.out.println(specificList.size());
 			for (WineSpecific wineSpecific : specificList) {
@@ -44,7 +46,7 @@ public class SearchWine implements Actions<ArrayList<?>> {
 			result = specificResult;
 		} else {
 			GetWine getWine = new GetWine();
-			ArrayList<Wine> wineList = getWine.execute(paramIn);
+			ArrayList<Wine> wineList = getWine.execute(file, paramIn);
 			ArrayList<Wine> wineResult = new ArrayList<Wine>();
 			for (Wine wine : wineList) {
 				Field[] fields = wine.getClass().getDeclaredFields();

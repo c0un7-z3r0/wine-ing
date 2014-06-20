@@ -2,49 +2,38 @@ package com.wine.actions;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import com.wine.translator.XStreamTranslator;
-import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineOrder;
-import com.wine.xml.WineSpecific;
 
 public class DeleteOrder implements Actions<String> {
-
+	@SuppressWarnings("unchecked")
 	@Override
-	public String execute(Object param) throws Exception {
+	public String execute(File file, Object param) throws Exception {
 		Map<String, String[]> jsonIn = (Map<String, String[]>) param;
-
-		List<Class<?>> classesToUse = new ArrayList<Class<?>>();
-		classesToUse.add(Wine.class);
-		classesToUse.add(WineSpecific.class);
-		classesToUse.add(WineIng.class);
-		classesToUse.add(WineOrder.class);
-
 
 		XStreamTranslator xStreamTranslatorInst = XStreamTranslator
 				.getInstance();
 
-		File xml = new File(
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
-		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(xml,
-				classesToUse);
+		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(file);
 
 		ArrayList<WineOrder> orderList = wineIng.getWineOrder();
 		ArrayList<WineOrder> orderResult = new ArrayList<WineOrder>();
 
+		// dont add the wineOrder which is meant to be deleted
 		for (WineOrder orderInList : orderList) {
 
-			if (!orderInList.getOrderNumber().equals(jsonIn.get("orderNumber")[0])) {
+			if (!orderInList.getOrderNumber().equals(
+					jsonIn.get("orderNumber")[0])) {
 				orderResult.add(orderInList);
 			}
 
 		}
+		// add the new wineOrder
 		wineIng.setWineOrder(orderResult);
-		xStreamTranslatorInst.toXMLFile(wineIng,
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
+		xStreamTranslatorInst.toXMLFile(wineIng, file.getAbsolutePath());
 
 		return "Order has been deleted";
 	}

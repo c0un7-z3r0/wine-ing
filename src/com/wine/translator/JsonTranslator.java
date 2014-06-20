@@ -6,41 +6,42 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.logging.Logger;
-
-import com.wine.xml.Wine;
-import com.wine.xml.WineIng;
-import com.wine.xml.WineSpecific;
-import com.wine.xml.WineOrder;
-
 
 /**
  * Can convert Json to Object and vice versa
  */
 public class JsonTranslator {
 
-	private static final Logger logger = Logger.getLogger(JsonTranslator.class
-			.getName());
-
+	/**
+	 * Json to Object
+	 * 
+	 * @param jsonMap
+	 * @return
+	 * @throws Exception
+	 */
 	public static Object jsonToObject(Map<String, String[]> jsonMap)
 			throws Exception {
 
+		// list of Objects
 		List<String> classes = new ArrayList<String>();
 		classes.add("com.wine.xml.Wine");
 		classes.add("com.wine.xml.WineIng");
 		classes.add("com.wine.xml.WineSpecific");
 		classes.add("com.wine.xml.WineOrder");
 
-
+		// json keys
 		Set<String> keySet = jsonMap.keySet();
 		keySet.remove("action");
 
+		// the class which will be used for translation
 		Class<?> useThisClass = null;
 
+		// find the class to use
 		for (String checkClass : classes) {
 
 			Class<?> myClass = Class.forName(checkClass);
 			Object object = myClass.newInstance();
+			// get the fields in that class
 			Field[] declaredFields = object.getClass().getDeclaredFields();
 
 			Set<String> fieldNames = new HashSet<String>();
@@ -49,43 +50,44 @@ public class JsonTranslator {
 			}
 			int same = 0;
 			int length = keySet.size();
-
+			// if name of field is in keyset increase same
 			for (String value : keySet) {
-				logger.info("Value: " + value + " | " + fieldNames);
 				if (fieldNames.contains(value)) {
 					same++;
 				}
-				logger.info("Same: " + same);
-
 			}
-			logger.info(same + " - " + length);
 
+			// if same is the same as the length of the jsons keys it is the
+			// class we want
+			// to use
 			if (same == length) {
 				useThisClass = myClass;
 			}
 
 		}
+		// if class is null then throw exception
 		if (useThisClass == null) {
-			throw new Exception("JSONTranslator: found no matching exception!");
+			throw new Exception("JSONTranslator: found no matching class!");
 		}
+		// create a new instance of the class
 		Object useThisObj = useThisClass.newInstance();
 
 		Field[] declaredFieldsUse = useThisObj.getClass().getDeclaredFields();
 
+		// fill the fields of class with json values
 		for (String key : keySet) {
 
 			for (Field field : declaredFieldsUse) {
 
 				if (field.getName().equals(key)) {
 					field.setAccessible(true);
-					logger.info(jsonMap.get(key)[0]);
 					field.set(useThisObj, jsonMap.get(key)[0]);
 				}
 
 			}
 
 		}
-
+		// return the filled class
 		return useThisObj;
 	}
 
@@ -100,9 +102,11 @@ public class JsonTranslator {
 
 		String returnVal = "";
 
+		// get object name
 		String objName = obj.getClass().getSimpleName();
 		Class<? extends Object> objClass = obj.getClass();
 
+		// if object is ...
 		if (objClass.getName() == "java.lang.String") {
 			returnVal = "{" + handleStringToJson("message", (String) obj) + "}";
 
@@ -173,7 +177,7 @@ public class JsonTranslator {
 							// iterate through each object in list
 							for (Object inArrayList : (ArrayList<?>) varObjnewObj) {
 								// create a temp list to iterate through
-								ArrayList tempList = (ArrayList) varObjnewObj;
+								ArrayList<?> tempList = (ArrayList<?>) varObjnewObj;
 								// if object is string attach it to json
 								if (inArrayList.getClass().getName() == "java.lang.String") {
 									if (tempList.indexOf(inArrayList) != 0) {
@@ -184,25 +188,27 @@ public class JsonTranslator {
 								}
 
 							}
+							// close the json array
 							json += "]";
 						}
+						// if it is not the last at a comma to json
 						if (position != objFields.length - 1) {
 							json += ",";
 						}
 					} else {
+						// remove last char in json
 						json = json.substring(0, json.length() - 1);
-						logger.info(json);
 					}
 				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				}
-
 				position++;
-
 			}
+			// close the whole json
 			json += "}";
+			// add a comma if it is not last object
 			if (list.indexOf(varObj) != (list.size() - 1)) {
 				json += ",";
 			}

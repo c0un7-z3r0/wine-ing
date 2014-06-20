@@ -1,30 +1,38 @@
 <div class="well wineTable table" cellspacing="0" cellpadding="0">
-<table class="wineTable table table-hover">
-	<thead class="tableHead">
-		<tr>
-			<th onclick="sortIt(this,'string')">Name</th>
-			<th onclick="sortIt(this,'string')">Art</th>
-			<th onclick="sortIt(this,'string')">Region</th>
-			<th onclick="sortIt(this,'string')">Winzer</th>
-			<th onclick="sortIt(this,'string')">Typ</th>
-			<th onclick="sortIt(this,'number')">Preis</th>
-		</tr>
-	</thead>
-	<tbody class="tableBody">
-		<tr class="tableRow dummy">
-			<td>%%NAME%%</td>
-			<td>%%KIND%%</td>
-			<td>%%REGION%%</td>
-			<td>%%MAKER%%</td>
-			<td>%%TYPE%%</td>
-			<td>%%PRICE%%</td>
-			<td>
-				<div class="btn-group">
-					<button type="button" class="btn btn-info addWine" onclick="WineIng.action.editWine('%%ID%%')"><i class="fa fa-pencil-square-o"></i> Bearbeiten</button>
-					<button type="button" class="btn btn-danger deleteWine" onclick="WineIng.action.deleteWine('%%ID%%')"><i class="fa fa-trash-o"></i>  Löschen</button>
-				</div>
-			</td>
-		</tr>
-	</tbody>
-</table>
+	<table class="wineTable table table-hover">
+		<thead class="tableHead">
+			<tr>
+				<th onclick="sortIt(this,'string')">Id</th>
+				<th onclick="sortIt(this,'string')">Name</th>
+				<th onclick="sortIt(this,'string')">Art</th>
+				<th onclick="sortIt(this,'string')">Region</th>
+				<th onclick="sortIt(this,'string')">Winzer</th>
+				<th onclick="sortIt(this,'string')">Typ</th>
+				<th onclick="sortIt(this,'number')">Preis</th>
+			</tr>
+		</thead>
+		<tbody class="tableBody">
+			<tr class="tableRow dummy">
+				<td>%%ID%%</td>
+				<td>%%NAME%%</td>
+				<td>%%KIND%%</td>
+				<td>%%REGION%%</td>
+				<td>%%MAKER%%</td>
+				<td>%%TYPE%%</td>
+				<td>%%PRICE%%</td>
+				<td>
+					<div class="btn-group">
+						<button type="button" class="btn btn-info addWine"
+							onclick="WineIng.action.editWine('%%ID%%')">
+							<i class="fa fa-pencil-square-o"></i> Bearbeiten
+						</button>
+						<button type="button" class="btn btn-danger deleteWine"
+							onclick="WineIng.action.deleteWine('%%ID%%')">
+							<i class="fa fa-trash-o"></i> Löschen
+						</button>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>

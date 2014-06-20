@@ -5,12 +5,13 @@ var WineTableCostumer = function (opts) {
 	if (typeof WineIng.cache.c.filtersActive === 'undefined') {
 		WineIng.cache.c.filtersActive = [];
 	}
+	
 
 };
 WineTableCostumer.prototype.compileIt = function () {
 
-	//if filters already exist use them
-	if (typeof WineIng.cache.c.filters === 'undefined') {
+	//if filters already exist use them otherwise generate them again
+	if (typeof WineIng.cache.c.filters === 'undefined' || WineIng.cache.c.filters.length === 0) {
 		var filters = this.generateFilters(this.data);
 		WineIng.cache.c.filters = filters;
 	}
@@ -113,7 +114,7 @@ WineTableCostumer.prototype.compileIt = function () {
  * @returns {Array}
  */
 WineTableCostumer.prototype.generateFilters = function (objList) {
-
+	console.debug('generating filters');
 	var filters = [];
 	var $inputField = $(document.createElement('input'));
 

@@ -21,16 +21,16 @@ OrderList.prototype.compileIt = function() {
 			if(typeof v.username === 'undefined'){
 			var tempClone = that.$template.find('.tableBody').clone().html();
 
-			var wine = that.getWineFromId(v.wineId);
 			// tempClone = tempClone.replace('%%ORDERNUMBER%%', 'tests');
-			tempClone = tempClone.replace('%%NAME%%', decodeURIComponent(wine.name));
-			tempClone = tempClone.replace('%%PRICE%%', wine.preis + '€');
+			tempClone = tempClone.replace('%%WINEID%%', v.wineId);
+			tempClone = tempClone.replace('%%NAME%%', decodeURIComponent(v.name));
+			tempClone = tempClone.replace('%%PRICE%%', v.price + '€');
 			tempClone = tempClone.replace('%%AMOUNT%%', v.amount);
-			tempClone = tempClone.replace('%%TOTALPRICE%%', (wine.preis
+			tempClone = tempClone.replace('%%TOTALPRICE%%', (v.price
 					* v.amount) + '€');
 			tempClone = tempClone.replace('%%ORDERNUMBER%%', obj.orderNumber);
 
-			grandTotal = (Math.round((+grandTotal + (+wine.preis* v.amount)) * 100)/100).toFixed(2);
+			grandTotal = (Math.round((+grandTotal + (+v.price* v.amount)) * 100)/100).toFixed(2);
 
 			tempClone = $(tempClone).removeClass('dummy');
 
@@ -62,13 +62,4 @@ OrderList.prototype.compileIt = function() {
 	
 	return wrapper;
 
-};
-OrderList.prototype.getWineFromId = function(wineId) {
-	var returnWine = {};
-	$.each(this.otherData, function(key, wine) {
-		if (wine.id === wineId) {
-			returnWine = wine
-		}
-	});
-	return returnWine;
 };
