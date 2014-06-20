@@ -10,11 +10,11 @@ import com.wine.xml.WineIng;
 import com.wine.xml.WineOrder;
 import com.wine.xml.WineSpecific;
 
-public class GetWine implements Actions<ArrayList<Wine>> {
+
+public class GetOrderList implements Actions<ArrayList<WineOrder>> {
 
 	@Override
-	public ArrayList<Wine> execute(Object paramIn) throws Exception {
-
+	public ArrayList<WineOrder> execute(Object param) throws Exception {
 		XStreamTranslator xStreamTranslatorInst;
 		xStreamTranslatorInst = XStreamTranslator.getInstance();
 		File xml = new File(
@@ -26,10 +26,11 @@ public class GetWine implements Actions<ArrayList<Wine>> {
 		classesToUse.add(WineIng.class);
 		classesToUse.add(WineOrder.class);
 
+
 		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(xml,
 				classesToUse);
 
-		return wineIng.getWineList();
+		return wineIng.getWineOrder();
 	}
 
 }

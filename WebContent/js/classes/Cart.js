@@ -2,35 +2,54 @@ var Cart = function Cart() {
 	this.cartList = [];
 	this.writeInSession = function () {
 		var jsonString = JSON.stringify(this.cartList);
+		
+		var badge = $('.cartBadge');
+		if(badge){
+			var count = this.getTotal(this.cartList);
+			badge.text(count);
+		}
+		
 		sessionStorage.setItem('wineCart', jsonString);
-	}
+	};
 };
+
+/**
+ * parses the sessionstorage wineCart to this.cartList
+ * @returns {Array} CartList
+ */
 Cart.prototype.getCartList = function () {
 	this.cartList = JSON.parse(sessionStorage.getItem('wineCart')) || [];
 	return this.cartList;
 
 };
-Cart.prototype.getTotal = function () {
-	this.getCartList();
 
+/**
+ * counts the total of wines in the cart
+ * @param cartList
+ * @returns {Number}
+ */
+Cart.prototype.getTotal = function (cartList) {
+	if(typeof cartList === 'undefined'){
+		cartList = this.getCartList();
+	}
 	var total = 0;
-	$.each(this.cartList, function(key, value){
+	$.each(cartList, function(key, value){
 		total += +value.amount;
 	});
 	return total;
 
 };
 
-
+/**
+ * adds the wineId to the cart
+ * @param wineId
+ * @param refresh
+ */
 Cart.prototype.addToCart = function (wineId, refresh) {
 
 
 	this.getCartList();
-	var badge = $('.cartBadge');
-	if(badge){
-		var count = this.getTotal() + 1;
-		badge.text(count);
-	}
+
 	var wineObj = {};
 	wineObj.wineId = wineId;
 	wineObj.amount = 1;
@@ -56,14 +75,13 @@ Cart.prototype.addToCart = function (wineId, refresh) {
 	}
 };
 
+/**
+ * removes wine with wineId from cart
+ * one at the time
+ * @param wineId
+ */
 Cart.prototype.removeFromCart = function (wineId) {
 	this.getCartList();
-
-	var badge = $('.cartBadge');
-	if(badge){
-		var count = this.getTotal() - 1;
-		badge.text(count);
-	}
 
 	var that = this;
 	var newCartList = [];
@@ -87,7 +105,17 @@ Cart.prototype.removeFromCart = function (wineId) {
 
 
 };
-
+/**
+ * empties out the whole cart
+ */
+Cart.prototype.clearCart = function(){
+	this.cartList = [];
+	this.writeInSession();
+	this.getCart();
+};
+/**
+ * gets the cart and fills the modal window
+ */
 Cart.prototype.getCart = function () {
 	this.getCartList();
 	var wineList = null;
@@ -111,12 +139,14 @@ Cart.prototype.getCart = function () {
 
 		if (results.length === 0) {
 			$('.modal-content-window').html('Ihr Warenkorb ist leer!');
-
+			$('.emptyCartBtn').attr('disabled', 'true');
+			$('.orderBtn').attr('disabled', 'true');
 		} else {
 
 			new Templater('cartTable', results, '', function (content) {
 				$('.modal-content-window').html(content);
-
+				$('.emptyCartBtn').removeAttr('disabled');
+				$('.orderBtn').removeAttr('disabled');
 			});
 		}
 	});

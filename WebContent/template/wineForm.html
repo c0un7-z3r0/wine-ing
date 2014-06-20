@@ -3,7 +3,7 @@
 		<div class="textboxWrapper ">
 			<div class="textbox %%NAME%% dummy">
 				<label for="%%NAME%%">%%NAME%%</label> <input type="text"
-					class="textbox input %%NAME%%" id="%%NAME%%" value="%%VALUE%%">
+					class="textbox input %%NAME%%" value="%%VALUE%%">
 			</div>
 		</div>
 		<div class="dropdownWrapper ">
@@ -16,9 +16,9 @@
 		</div>
 
 	</div>
-	<div class="buttonRow">
-			<input type="reset" value="Cancel">
-			<input type="button" class="button save" value="Save" onclick="WineIng.action.addWine()">
+	<div class="btn-group">
+			<button class="btn btn-info" type="reset" ><i class="fa fa-times-circle"></i> Abbrechen</button>
+			<button class="btn btn-success"  class="button save"  onclick="WineIng.action.addWine()"><i class="fa fa-floppy-o"></i>  Speichern</button>
 		</div>
 		
 </form>

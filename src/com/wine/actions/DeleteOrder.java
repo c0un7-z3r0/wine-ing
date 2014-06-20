@@ -5,27 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.wine.helper.WineHelpers;
-import com.wine.translator.JsonTranslator;
 import com.wine.translator.XStreamTranslator;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineOrder;
 import com.wine.xml.WineSpecific;
 
-public class AddWine implements Actions<String> {
+public class DeleteOrder implements Actions<String> {
 
 	@Override
-	public String execute(Object jsonIn) throws Exception {
-
-		Wine wine = (Wine) JsonTranslator
-				.jsonToObject((Map<String, String[]>) jsonIn);
-		wine.setId(WineHelpers.generateId("ID_"));
-
-		XStreamTranslator xStreamTranslatorInst;
-		xStreamTranslatorInst = XStreamTranslator.getInstance();
-		File xml = new File(
-				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
+	public String execute(Object param) throws Exception {
+		Map<String, String[]> jsonIn = (Map<String, String[]>) param;
 
 		List<Class<?>> classesToUse = new ArrayList<Class<?>>();
 		classesToUse.add(Wine.class);
@@ -33,17 +23,30 @@ public class AddWine implements Actions<String> {
 		classesToUse.add(WineIng.class);
 		classesToUse.add(WineOrder.class);
 
+
+		XStreamTranslator xStreamTranslatorInst = XStreamTranslator
+				.getInstance();
+
+		File xml = new File(
+				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
 		WineIng wineIng = (WineIng) xStreamTranslatorInst.toObject(xml,
 				classesToUse);
 
-		
+		ArrayList<WineOrder> orderList = wineIng.getWineOrder();
+		ArrayList<WineOrder> orderResult = new ArrayList<WineOrder>();
 
-		
+		for (WineOrder orderInList : orderList) {
+
+			if (!orderInList.getOrderNumber().equals(jsonIn.get("orderNumber")[0])) {
+				orderResult.add(orderInList);
+			}
+
+		}
+		wineIng.setWineOrder(orderResult);
 		xStreamTranslatorInst.toXMLFile(wineIng,
 				"/Users/david/Projects/berufsschule/wine-ing/xml/wine.xml");
 
-
-		return "added wine to xml";
+		return "Order has been deleted";
 	}
 
 }

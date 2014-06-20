@@ -7,10 +7,10 @@ public class WineHelpers {
 	 * 
 	 * @return String
 	 */
-	public static String generateId() {
+	public static String generateId(String prefix) {
 		long now = System.currentTimeMillis();
 		long randomLong = Math.round(Math.random() * 89999) + 10000;
-		return ("ID_" + now + "-" + randomLong);
+		return (prefix + now + "-" + randomLong);
 	}
 
 }

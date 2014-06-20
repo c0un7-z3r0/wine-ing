@@ -1,0 +1,41 @@
+<div class="orderListWrapper">
+	<div class="dummyWell">
+		<div class="orderNumber">Bestellung: %%ORDERNUMBER%%</div>
+		<table class="table">
+			<thead class="tableHead">
+				<tr>
+					<th>Name</th>
+					<th>Einzelpreis</th>
+					<th></th>
+					<th>Anzahl</th>
+					<th>Summe</th>
+				</tr>
+			</thead>
+			<tbody class="tableBody">
+				<tr class="tableRow dummy">
+					<td>%%NAME%%</td>
+					<td>%%PRICE%%</td>
+					<td></td>
+					<td>%%AMOUNT%%</td>
+					<td>%%TOTALPRICE%%</td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+				<td colspan="3"></td>
+				<td colspan="1"><div class="pull-right">Gesamtsumme:</div></td>
+				<td><b> %%GRANDTOTAL%% €</b></td>
+				</tr>
+			</tfoot>
+		</table>
+		
+		<div>%%USERNAME%%</div>
+		<div>%%STREET%%</div>
+		<div>%%PLZ%% %%CITY%%</div>
+		<div>%%EMAIL%%</div>
+		<button type="button" class="btn btn-danger pull-right deleteOrder" onclick="WineIng.action.deleteOrder('%%ORDERNUMBER%%')"><i class="fa fa-trash-o"></i>  Löschen</button>
+	
+	</div>
+	<hr>
+
+</div>

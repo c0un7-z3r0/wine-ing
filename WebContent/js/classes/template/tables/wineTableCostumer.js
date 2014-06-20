@@ -9,7 +9,7 @@ var WineTableCostumer = function (opts) {
 };
 WineTableCostumer.prototype.compileIt = function () {
 
-
+	//if filters already exist use them
 	if (typeof WineIng.cache.c.filters === 'undefined') {
 		var filters = this.generateFilters(this.data);
 		WineIng.cache.c.filters = filters;
@@ -44,9 +44,9 @@ WineTableCostumer.prototype.compileIt = function () {
 
 	var newTemplate = this.$template;
 	newTemplate.find('.tableBody').html($tableBody.html());
+	
+	//add all the filters to template
 	$.each(WineIng.cache.c.filters, function (key, filter) {
-
-
 		$.each(filter.children().siblings('.singleFilter').find('.filterCheckBox'), function (k, filterVal) {
 			$.inArray(WineIng.cache.c.filtersActive, $(filterVal).val());
 		});
@@ -62,6 +62,8 @@ WineTableCostumer.prototype.compileIt = function () {
 	$.each(newTemplate, function (k, obj) {
 		temp += $(obj).html();
 	});
+	
+	//add the filters which are already active
 	$.each(WineIng.cache.c.filtersActive, function (key, value) {
 		var $div = $(document.createElement('div'));
 		$div.attr('class', 'activeFilter');
@@ -79,9 +81,9 @@ WineTableCostumer.prototype.compileIt = function () {
 		$link.addClass('filterLinkActive');
 		$link.text(value);
 
-
+		//on click remove it
 		$i.on('click', function () {
-			console.log('change : ' + $link);
+			console.debug('[wineTableCostumer] compileIt: clicked on filterNow to remove the Link');
 			that.filterNow($link);
 		});
 		$div.append($i);
@@ -105,6 +107,11 @@ WineTableCostumer.prototype.compileIt = function () {
 	return newTemplate;
 };
 
+/**
+ * generate from wineList the possible filters
+ * @param objList
+ * @returns {Array}
+ */
 WineTableCostumer.prototype.generateFilters = function (objList) {
 
 	var filters = [];
@@ -132,25 +139,21 @@ WineTableCostumer.prototype.generateFilters = function (objList) {
 	region = this.checkForDoubles(region);
 	winzer = this.checkForDoubles(winzer);
 	typ = this.checkForDoubles(typ);
-//	checkForDoubles(preis);
-
-//	filters.push(this.createCheckbox('Art', 'artDropdown', art, ''));
-//	filters.push(this.createCheckbox('Region', 'regionDropdown', region, ''));
-//	filters.push(this.createCheckbox('Winzer', 'winzerDropdown', winzer, ''));
-//	filters.push(this.createCheckbox('Typ', 'typDropdown', typ, ''));
-//	filters.push(createSelectField('Preis', 'preis', preis, ''));
 
 	filters.push(this.createLink('Art', art));
 	filters.push(this.createLink('Region', region));
 	filters.push(this.createLink('Winzer', winzer));
 	filters.push(this.createLink('Typ', typ));
-//	filters.push(this.createRange('Preis', preis));
-
 
 	return filters;
 
 };
 
+/**
+ * check if there are any double entries in the list
+ * @param list
+ * @returns {Array}
+ */
 WineTableCostumer.prototype.checkForDoubles = function (list) {
 	var newList = [];
 	$.each(list, function (key, value) {
@@ -161,59 +164,18 @@ WineTableCostumer.prototype.checkForDoubles = function (list) {
 	return newList;
 };
 
-//WineTableCostumer.prototype.createRange = function (name, values) {
-//
-//	var $parent = $(document.createElement('div'));
-//	var $labels = $(document.createElement('lable'));
-//	$labels.text(name);
-//	$parent.append($labels);
-//	var minPrice = 0;
-//	var maxPrice = 0;
-//	$.each(values, function (key, value) {
-//		if (maxPrice < value) {
-//			maxPrice = value;
-//		}
-//	});
-//
-//	var steps = [0, 100, 500, 1000, 2000, 5000, 8000, 10000];
-//
-//	var $div = $(document.createElement('div'));
-//	$div.addClass('rangeWrapper');
-//	var that = this;
-//	for (var i = 0; i < steps.length; i++) {
-//		if(typeof steps[i+1] !== 'undefined'){
-//			var $childDiv = $(document.createElement('div'));
-//			$childDiv.addClass('singleFilter');
-//			var $link = $(document.createElement('a'));
-//			$link.attr('href', '#');
-//			$link.on('click', function () {
-//				console.log('change');
-//				var filter = {
-//					min : steps[i],
-//					max : steps[i+1]
-//				};
-//				that.filterNow(filter);
-//			});
-//			$link.addClass('filterLink');
-//			var text = steps[i] + ' ... ' + steps[i + 1];
-//
-//			$link.text(text);
-//			$childDiv.append($link);
-//			$div.append($childDiv);
-//		}
-//	}
-//
-//
-//	$parent.append($div);
-//	return $parent;
-//
-//};
-
+/**
+ * create the link for the filters 
+ * @param name
+ * @param values
+ * @returns
+ */
 WineTableCostumer.prototype.createLink = function (name, values) {
 
 	var $parent = $(document.createElement('div'));
 	var $labels = $(document.createElement('lable'));
 	$labels.text(name);
+	$labels.prepend('<i class="fa fa-filter"></i>   ');
 	$parent.append($labels);
 
 	var that = this;
@@ -224,7 +186,7 @@ WineTableCostumer.prototype.createLink = function (name, values) {
 		var $link = $(document.createElement('a'));
 		$link.attr('href', '#');
 		$link.on('click', function () {
-			console.log('change');
+			console.debug('[WineTableCostumer] createLink: clicked filterNow');
 			that.filterNow(this);
 		});
 		$link.addClass('filterLink');
@@ -238,53 +200,24 @@ WineTableCostumer.prototype.createLink = function (name, values) {
 
 };
 
-WineTableCostumer.prototype.createCheckbox = function createCheckbox(lableText, selectName, values, selected) {
 
-	var parent = $(document.createElement('div'));
-	var $labels = $(document.createElement('lable'));
-	$labels.text(lableText);
-	parent.append($labels);
-	var that = this;
-	$.each(values, function (key, value) {
-		var div = $(document.createElement('div'));
-		div.addClass('singleFilter');
-
-		var $label = $(document.createElement('lable'));
-		$label.attr('for', selectName);
-		$label.text(value);
-
-		var $checkbox = $(document.createElement('input'));
-		$checkbox.attr('type', 'checkbox');
-		$checkbox.attr('name', selectName);
-		$checkbox.attr('class', 'filterCheckBox');
-		$checkbox.attr('value', value);
-		$checkbox.attr('id', key);
-		$checkbox.change(function () {
-			console.log('change');
-			that.filterNow(this);
-		});
-
-		div.append($checkbox);
-		div.append($label);
-		parent.append(div);
-	});
-	return parent;
-
-};
-
+/**
+ * function to filter the wineList
+ */
 WineTableCostumer.prototype.filterNow = function filterNow(filter) {
 
-
+	//if wine doesnt exists in active filters add it
 	if (WineIng.cache.c.filtersActive.indexOf($(filter).text()) == -1) {
 		WineIng.cache.c.filtersActive.push($(filter).text());
 
-	} else {
+	} else { //remove it now
 		var index = WineIng.cache.c.filtersActive.indexOf($(filter).text());
 		WineIng.cache.c.filtersActive.splice(index, 1);
 	}
 
-
+	//do the filtering
 	var data = WineIng.action.filterList();
+	//add it to the wineTableCostumer
 	new Templater('wineTableCostumer', data, '', function (content) {
 		$('.content').html(content);
 

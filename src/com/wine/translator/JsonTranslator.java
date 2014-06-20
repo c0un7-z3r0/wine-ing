@@ -11,6 +11,8 @@ import java.util.logging.Logger;
 import com.wine.xml.Wine;
 import com.wine.xml.WineIng;
 import com.wine.xml.WineSpecific;
+import com.wine.xml.WineOrder;
+
 
 /**
  * Can convert Json to Object and vice versa
@@ -27,6 +29,8 @@ public class JsonTranslator {
 		classes.add("com.wine.xml.Wine");
 		classes.add("com.wine.xml.WineIng");
 		classes.add("com.wine.xml.WineSpecific");
+		classes.add("com.wine.xml.WineOrder");
+
 
 		Set<String> keySet = jsonMap.keySet();
 		keySet.remove("action");

@@ -29,6 +29,7 @@ WineTable.prototype.compileIt = function () {
 	});
 	var newTemplate = $(this.template);
 	newTemplate.find('.tableBody').html($tableBody.html());
+	//remove the dummy div
 	newTemplate.find('.dummy').remove();
 	newTemplate.find('table').attr('cellspacing',0);
 	newTemplate.find('table').attr('cellpadding', 0);

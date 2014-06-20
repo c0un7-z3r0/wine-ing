@@ -11,6 +11,8 @@ public class WineIng {
 
 	private ArrayList<WineSpecific> wineSpecifics;
 
+	private ArrayList<WineOrder> wineOrders = new ArrayList<WineOrder>();
+	
 	public ArrayList<Wine> getWineList() {
 		return wineList;
 	}
@@ -30,5 +32,26 @@ public class WineIng {
 	public void setWineSpecifics(ArrayList<WineSpecific> wineSpecifics) {
 		this.wineSpecifics = wineSpecifics;
 	}
+
+	/**
+	 * @return the wineOrder
+	 */
+	public ArrayList<WineOrder> getWineOrder() {
+		return wineOrders;
+	}
+
+	/**
+	 * @param wineOrder the wineOrder to set
+	 */
+	public void setWineOrder(ArrayList<WineOrder> wineOrder) {
+		this.wineOrders = wineOrder;
+	}
+
+	public void addToWineOrder(WineOrder wineOrder) {
+		this.wineOrders.add(wineOrder);
+		
+	}
+
+	
 
 }

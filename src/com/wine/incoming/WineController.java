@@ -56,11 +56,6 @@ public class WineController extends HttpServlet {
 
 		String jsonReturn = JsonTranslator.listToJson(result);
 		logger.info(jsonReturn);
-		// return JsonConverter.toJson(result);
-
-		// Annotations
-		// Generic classes
-		// Dependency Injection
 
 		response.setContentType("application/json");
 		response.getWriter().write(jsonReturn);

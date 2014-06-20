@@ -37,7 +37,7 @@
       <art>trocken</art>
       <region>Argentinien</region>
       <winzer>bob</winzer>
-      <typ>WeiÃ&#x9f;wein</typ>
+      <typ>Weißwein</typ>
       <preis>222</preis>
     </wine>
     <wine id="ID_1402861100978-12099">
@@ -45,7 +45,7 @@
       <art>trocken</art>
       <region>Argentinien</region>
       <winzer>er</winzer>
-      <typ>WeiÃ&#x9f;wein</typ>
+      <typ>Weißwein</typ>
       <preis>12</preis>
     </wine>
     <wine id="ID_1402861239264-75956">
@@ -53,7 +53,7 @@
       <art>trocken</art>
       <region>Argentinien</region>
       <winzer>dfw</winzer>
-      <typ>WeiÃ&#x9f;wein</typ>
+      <typ>Weißwein</typ>
       <preis>12</preis>
     </wine>
     <wine id="ID_1402863457112-87924">
@@ -61,8 +61,40 @@
       <art>trocken</art>
       <region>Argentinien</region>
       <winzer>ds</winzer>
-      <typ>WeiÃ&#x9f;wein</typ>
+      <typ>Weißwein</typ>
       <preis>34</preis>
+    </wine>
+    <wine id="ID_1403170926387-82819">
+      <name>T%C3%A4%C3%9Ft</name>
+      <art>s%C3%BC%C3%9F</art>
+      <region>Rum%C3%A4nien</region>
+      <winzer>%C3%84%C3%96%C3%9C%C3%9F</winzer>
+      <typ>Edels%C3%BC%C3%9Fer%20Wein</typ>
+      <preis>12.54</preis>
+    </wine>
+    <wine id="ID_1403205503168-81687">
+      <name>test</name>
+      <art>trocken</art>
+      <region>Argentinien</region>
+      <winzer>test</winzer>
+      <typ>Wei%C3%9Fwein</typ>
+      <preis>67</preis>
+    </wine>
+    <wine id="ID_1403205613733-31431">
+      <name>asd</name>
+      <art>trocken</art>
+      <region>Argentinien</region>
+      <winzer>ds</winzer>
+      <typ>Wei%C3%9Fwein</typ>
+      <preis>3</preis>
+    </wine>
+    <wine id="ID_1403206279128-99042">
+      <name>asgd</name>
+      <art>trocken</art>
+      <region>Argentinien</region>
+      <winzer>asdg</winzer>
+      <typ>Wei%C3%9Fwein</typ>
+      <preis>23</preis>
     </wine>
   </wineList>
   <wineSpecifics>
@@ -126,4 +158,12 @@
       <name>Preis</name>
     </wineSpecific>
   </wineSpecifics>
+  <wineOrders>
+    <wineOrder orderNumber="1403225001468-16823">
+      <orderJson>%5B%7B%22wineId%22%3A%22ID_1402045626057-67725%22%2C%22amount%22%3A1%7D%2C%7B%22username%22%3A%22asd%22%2C%22street%22%3A%22asd%22%2C%22plz%22%3A%22ads%22%2C%22city%22%3A%22asd%22%2C%22email%22%3A%22asd%22%7D%5D</orderJson>
+    </wineOrder>
+    <wineOrder orderNumber="1403225073758-15036">
+      <orderJson>%5B%7B%22wineId%22%3A%22ID_1402045626057-67725%22%2C%22amount%22%3A5%7D%2C%7B%22username%22%3A%22asd%22%2C%22street%22%3A%22asd%22%2C%22plz%22%3A%22321412214124%22%2C%22city%22%3A%22asd%22%2C%22email%22%3A%22asd%40%C3%A5sd.de%22%7D%5D</orderJson>
+    </wineOrder>
+  </wineOrders>
 </wineIng>

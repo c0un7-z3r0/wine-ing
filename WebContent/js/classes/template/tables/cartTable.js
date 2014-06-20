@@ -34,7 +34,9 @@ CartTable.prototype.compileIt = function () {
 	});
 	var newTemplate = $(this.template);
 	newTemplate.find('.tableBody').html($tableBody.html());
+	//remove the dummy div
 	newTemplate.find('.dummy').remove();
+	//add the grandTotal to template
 	newTemplate.find('.grandTotal').html(newTemplate.find('.grandTotal').html().replace(/%%GRANDTOTAL%%/g, grandTotal + '€'));
 	return newTemplate;
 }
